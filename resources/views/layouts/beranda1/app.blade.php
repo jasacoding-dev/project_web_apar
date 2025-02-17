@@ -11,20 +11,20 @@
 
 <body class="min-h-screen flex flex-col">
   <div class="flex flex-grow min-h-screen">
-    @include('layouts.pengguna.sidebar')
+    @include('layouts.beranda1.sidebar')
 
     <!-- Main Content -->
     <main class="flex-1 flex flex-col">
-        @include('layouts.pengguna.header')
+        @include('layouts.beranda1.header')
 
         <!-- Konten Dinamis -->
-        <div class="md:ml-0">
-        @yield('content')
+        <section class="flex-1 p-6">
+            @yield('content')
         </section>
     </main>
   </div>
 
-  @include('layouts.pengguna.logout-modal')
+  @include('layouts.beranda1.logout-modal')
 
 </body>
 </html>

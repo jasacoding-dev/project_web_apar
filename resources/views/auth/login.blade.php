@@ -17,25 +17,18 @@
                 placeholder="Masukkan Email" required>
         </div>
 
-        <div class="mb-3 sm:mb-4 w-full sm:max-w-[80%] md:max-w-[380px]">
+        <div class="mb-3 sm:mb-4 w-full sm:max-w-[80%] md:max-w-[380px] relative">
             <label for="password" class="block text-gray-700 text-sm font-bold mb-2 text-left">Kata Sandi</label>
-            <div class="relative">
-                <input type="password" id="password"
-                    class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none"
-                    placeholder="Masukkan kata sandi" required>
-                <span class="absolute inset-y-0 right-3 flex items-center cursor-pointer text-gray-500"
-                    onclick="togglePassword()">
-                    <svg id="eye-icon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round">
-                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8zm9-2a2 2 0 114 0 2 2 0 01-4 0z">
-                        </path>
-                        <line id="slash-line" x1="4" y1="20" x2="20" y2="4" style="display: none;"></line>
+            <div class="relative w-full">
+                <input type="password" id="password" class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none pr-10" placeholder="Masukkan Kata Sandi" required>
+                <button type="button" id="togglePassword" class="absolute inset-y-0 right-2 flex items-center">
+                    <svg id="eyeIcon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z" />
+                        <circle cx="12" cy="12" r="3" />
                     </svg>
-                </span>
+                </button>
             </div>
         </div>
-
         <div class="w-full sm:max-w-[80%] md:max-w-[380px] flex justify-end mb-4">
             <a href="/forgot-password1" class="text-[#E6C900] text-sm font-medium hover:underline">Lupa Kata Sandi?</a>
         </div>
@@ -52,20 +45,16 @@
     </div>
 
     <script>
-        function togglePassword() {
-            const passwordInput = document.getElementById('password');
-            const eyeIcon = document.getElementById('eye-icon');
-            const slashLine = document.getElementById('slash-line');
-
+        document.getElementById('togglePassword').addEventListener('click', function () {
+            let passwordInput = document.getElementById('password');
+            let eyeIcon = document.getElementById('eyeIcon');
             if (passwordInput.type === 'password') {
                 passwordInput.type = 'text';
-                slashLine.style.display = 'block';
-                eyeIcon.classList.add('stroke-red-500');
+                eyeIcon.innerHTML = '<path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z" /><circle cx="12" cy="12" r="3" />';
             } else {
                 passwordInput.type = 'password';
-                slashLine.style.display = 'none';
-                eyeIcon.classList.remove('stroke-red-500');
+                eyeIcon.innerHTML = '<path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z" /><circle cx="12" cy="12" r="3" />';
             }
-        }
+        });
     </script>
 @endsection

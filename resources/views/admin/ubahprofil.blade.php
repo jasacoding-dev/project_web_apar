@@ -3,16 +3,20 @@
 @section('title', 'Profil')
 
 @section('content')
-    <!-- Table -->
-    <table class="table-auto w-full text-left border-collapse mt-2 rounded-lg overflow-hidden shadow-2xl drop-shadow-lg">
-        <div class="bg-[#0168AD] rounded-t-lg p-2 -mt-3">
-            <nav class="flex justify-center space-x-4">
-                <a href="#" class="text-white font-bold hover:underline">Detail Profil</a>
-                <a href="/admin/ubahkatasandi" class="text-white  hover:underline">Ubah Kata Sandi</a>
-            </nav>
-        </div>
+  
+<!-- Form Container -->
+<main class="p-6 mt-16 max-w-full mx-auto min-h-screen"> <!-- mt-4 untuk mendekatkan ke tombol back -->
+<div class="bg-white shadow-md rounded-lg w-full  md:min-h-0">
+        <table class=" w-full text-left border-collapse mt-2 rounded-lg overflow-hidden shadow-md">
+            <!-- Header -->
+            <div class="bg-[#0168AD] rounded-t-lg p-1 -mt-3">
+                <nav class="flex justify-center space-x-4">
+                    <a href="#" class="text-white font-semibold hover:underline">Detail Profil</a>
+                    <a href="/admin/ubahkatasandi" class="text-white font-normal hover:underline">Ubah Kata Sandi</a>
+                </nav>
+            </div>
         <!-- Responsive Container -->
-        <div class="bg-white shadow-md rounded-b-lg p-4 sm:h-auto md:h-auto lg:max-h-[430px] lg:overflow-y-auto">
+        <div class="bg-white  rounded-b-lg p-4 sm:h-auto md:h-auto lg:max-h-full">
             <h2 class="text-lg font-bold mb-2 -mt-2">Ubah Informasi Data Diri</h2>
             <form>
                 <!-- NIP -->
@@ -67,7 +71,7 @@
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
         </svg>
     </div>
-    <div id="options" class="absolute w-full mt-1 bg-white border border-gray-300 rounded-md shadow-md hidden">
+    <div id="options" class=" w-full mt-1 bg-white border border-gray-300 rounded-md shadow-md hidden">
         <div class="p-2 hover:bg-yellow-200 cursor-pointer text-sm" data-value="Laki - Laki">Laki - Laki</div>
         <div class="p-2 hover:bg-yellow-200 cursor-pointer text-sm" data-value="Perempuan">Perempuan</div>
     </div>
@@ -101,9 +105,6 @@
         });
     });
 </script>
-
-
-
                 <!-- Tempat Lahir -->
                 <div class="mb-3">
                     <label for="tempat-lahir" class="block text-sm font-medium text-gray-700">

@@ -18,8 +18,8 @@
         @include('layouts.sparepart.header')
 
         <!-- Konten Dinamis -->
-        <section class="flex-1 p-6">
-            @yield('content')
+        <div class="md:ml-0">
+        @yield('content')
         </section>
     </main>
   </div>

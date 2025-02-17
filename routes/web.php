@@ -161,3 +161,9 @@ Route::get('admin/cetakbarcode', function () {
     return view('admin.cetakbarcode'); // Ganti dengan view dashboard yang sesuai
 })->name('cetakbarcode');
 
+// Route ke halaman utama (Dashboard)
+Route::get('/dashboard1', function () {
+    return view('auth.dashboard1'); // Ganti dengan view dashboard yang sesuai
+})->name('dashboard1');
+
+

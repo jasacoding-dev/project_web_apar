@@ -3,18 +3,21 @@
 @section('title', 'Profil')
 
 @section('content')
-    <div class="w-full max-w-md md:max-w-full mx-auto">
-        <table class="table-auto w-full text-left border-collapse mt-2 rounded-lg overflow-hidden shadow-md">
+  
+<!-- Form Container -->
+<main class="p-6 mt-16 max-w-full mx-auto "> <!-- mt-4 untuk mendekatkan ke tombol back -->
+<div class="bg-white shadow-md rounded-lg w-full  md:min-h-0">
+        <table class=" w-full text-left border-collapse mt-2 rounded-lg overflow-hidden shadow-md">
             <!-- Header -->
-            <div class="bg-[#0168AD] rounded-t-lg p-2 -mt-3">
+            <div class="bg-[#0168AD] rounded-t-lg p-1 -mt-3">
                 <nav class="flex justify-center space-x-4">
-                    <a href="#" class="text-white hover:underline">Detail Profil</a>
-                    <a href="#" class="text-white font-bold hover:underline">Ubah Kata Sandi</a>
+                    <a href="/admin/ubahprofil" class="text-white font-normal hover:underline">Detail Profil</a>
+                    <a href="/admin/ubahkatasandi" class="text-white font-semibold hover:underline">Ubah Kata Sandi</a>
                 </nav>
             </div>
 
    <!-- Responsive Container -->
-   <div class="bg-white shadow-md rounded-b-lg p-4 w-full sm:w-[96%] md:w-full min-h-[80vh] md:min-h-0 flex flex-col justify-start overflow-auto">
+   <div class="bg-white rounded-b-lg p-4 w-full sm:w-[96%] md:w-full min-h-[80vh] md:min-h-0 flex flex-col justify-start overflow-auto">
    <h2 class="text-lg font-bold mb-2 sm:mb-3 text-left">Ubah Kata Sandi</h2>
 
     <form class="flex flex-col  justify-start gap-2 sm:gap-3"> 

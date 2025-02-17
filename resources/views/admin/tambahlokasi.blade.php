@@ -3,26 +3,26 @@
 @section('title', 'Lokasi')
 
 @section('content')
-    <!-- Back Button with Title -->
-    <div class="flex items-center mb-6">
-        <!-- Back SVG -->
-        <button onclick="history.back()" class="mr-4 focus:outline-none">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-gray-600 hover:text-black transition">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
-            </svg>
-        </button>
-        <!-- Page Title -->
-        <h1 class="text-lg font-bold text-gray-800">Tambah Lokasi</h1>
-    </div>
+    <!-- Tombol Back dengan Ikon -->
+<div class="flex items-center mt-20 mb-2 ml-4"> <!-- Tambahkan mb-2 untuk mengurangi jarak bawah -->
+    <a href="{{ url()->previous() }}" class="flex items-center text-gray-700 hover:text-gray-900">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+        </svg>
+        <span class="text-lg font-semibold">Tambah Lokasi</span>
+    </a>
+</div>
 
-    <div class="bg-white shadow-md rounded-lg p-6 w-full -mt-4 overflow-y-auto 
-    h-[770px] sm:h-[800px] md:h-[420px] ">
-        <div class="text-center mb-6">
-        <h2 class="text-xl font-bold">Tambah Lokasi</h2>
-        <p class="text-sm text-gray-600">Masukkan lokasi sesuai dengan penempatan APAR </p>
-    </div>
+<!-- Form Container -->
+<main class="p-6 -mt-4 max-w-full mx-auto"> <!-- mt-4 untuk mendekatkan ke tombol back -->
+    <div class="bg-white p-6 rounded-lg shadow-lg">
+        <!-- 🔹 Tulisan "Edit APAR" -->
+        <h2 class="text-center text-xl font-bold mb-2">Tambah Lokasi</h2>
+        <p class="text-center text-gray-500 mb-4">Masukkan lokasi sesuai dengan penempatan APAR</p>
 
-    <!-- Form -->
+
+                <form>
+                    <!-- Form -->
     <form class="space-y-4">
         <!--  Nama Gedung Input -->
         <div>

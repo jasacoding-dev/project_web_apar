@@ -3,7 +3,9 @@
 @section('title', 'Pengguna')
 
 @section('content')
-<div class="bg-white shadow-md rounded-b-lg p-4 w-full sm:w-[96%] md:w-full min-h-[96vh] md:min-h-0 flex flex-col justify-start overflow-auto">
+<!-- Form Container -->
+<main class="p-6 mt-16 max-w-full mx-auto"> <!-- mt-4 untuk mendekatkan ke tombol back -->
+<div class="bg-white shadow-md rounded-b-lg p-4 w-auto sm:w-[96%] md:w-full min-h-[96vh] md:min-h-0 flex flex-col justify-start overflow-auto">
       <!-- Header (Search Bar and Add Button) -->
 <div class="flex flex-row items-center justify-between w-full space-x-4 mb-4">
     <!-- Search Bar -->
@@ -25,7 +27,7 @@
 </div>
 
 
-<div class="w-[480px] min-h-screen md:w-full md:min-h-[300px] lg:w-full max-h-[360px] overflow-y-auto overflow-x-auto border border-gray-300 rounded-lg shadow-md">
+<div class="w-full min-h-screen md:w-full md:min-h-[300px] lg:w-full max-h-[360px] overflow-y-auto overflow-x-auto border border-gray-300 rounded-lg shadow-md">
     <table class="w-full border-collapse border border-gray-300">
         <thead>
             <tr class="bg-[#0168AD] text-white">
@@ -88,4 +90,5 @@
         </tbody>
     </table>
 </div>
+
 @endsection

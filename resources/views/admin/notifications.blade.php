@@ -3,9 +3,11 @@
 @section('title', 'Norifikasi')
 
 @section('content')
-    <div class="bg-white shadow-md rounded-lg p-6 h-auto w-full">
+<!-- Form Container -->
+<main class="p-6 mt-16 max-w-full mx-auto"> <!-- mt-4 untuk mendekatkan ke tombol back -->
+<div class="bg-white shadow-lg rounded-lg p-6 w-full min-h-screen md:min-h-0">
         <!-- Title -->
-        <h2 class="text-sm font-bold text-gray-700 mb-4">Notifikasi</h2>
+        <h2 class="text-lg font-bold text-gray-700 mb-4">Notifikasi</h2>
 
         <!-- Notifications -->
         <div class="space-y-3">
