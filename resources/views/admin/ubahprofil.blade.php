@@ -64,14 +64,14 @@
     <label for="gender" class="block text-sm font-medium text-gray-700">
         Jenis Kelamin<span class="text-red-500">*</span>
     </label>
-    <div id="dropdown" class="mt-1 px-2 flex justify-between items-center block w-full p-1 h-9 border border-gray-300 rounded-md text-sm bg-white cursor-pointer">
-        <span id="dropdownText">Pilih Jenis Kelamin</span>
+    <div id="dropdown1" class="mt-1 px-2 flex justify-between items-center block w-full p-1 h-9 border border-gray-300 rounded-md text-sm bg-white cursor-pointer">
+        <span id="dropdownText1">Pilih Jenis Kelamin</span>
         <!-- SVG panah -->
-        <svg id="dropdownIcon" class="w-4 h-4 transition-transform duration-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <svg id="dropdownIcon1" class="w-4 h-4 transition-transform duration-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
         </svg>
     </div>
-    <div id="options" class=" w-full mt-1 bg-white border border-gray-300 rounded-md shadow-md hidden">
+    <div id="options1" class=" w-full mt-1 bg-white border border-gray-300 rounded-md shadow-md hidden">
         <div class="p-2 hover:bg-yellow-200 cursor-pointer text-sm" data-value="Laki - Laki">Laki - Laki</div>
         <div class="p-2 hover:bg-yellow-200 cursor-pointer text-sm" data-value="Perempuan">Perempuan</div>
     </div>
@@ -79,10 +79,10 @@
 
 <script>
     document.addEventListener("DOMContentLoaded", function () {
-        const dropdown = document.getElementById("dropdown");
-        const options = document.getElementById("options");
-        const dropdownText = document.getElementById("dropdownText");
-        const dropdownIcon = document.getElementById("dropdownIcon");
+        const dropdown = document.getElementById("dropdown1");
+        const options = document.getElementById("options1");
+        const dropdownText = document.getElementById("dropdownText1");
+        const dropdownIcon = document.getElementById("dropdownIcon1");
 
         dropdown.addEventListener("click", function () {
             options.classList.toggle("hidden");
