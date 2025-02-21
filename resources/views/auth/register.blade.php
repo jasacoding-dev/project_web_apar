@@ -9,7 +9,7 @@
 </head>
 
 <body class="bg-gray-100 flex justify-center items-center ">
-    <div class="bg-white shadow-2xl rounded-xl py-6 px-8 container max-w-[96%] md:max-w-[96%] sm:max-w-[90%] h-auto md:h-[558px] mt-4">
+    <div class="bg-white shadow-2xl rounded-xl py-6 px-8 container max-w-[96%] md:max-w-[96%] sm:max-w-[90%] h-auto md:h-full mt-1">
         <a href="{{ route('home') }}">
             <h1 class="text-2xl font-bold text-gray-800 mb-8 text-left mt-2 flex items-center -ml-2 ">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6 mr-2 cursor-pointer">
@@ -60,7 +60,7 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                     </svg>
                 </button>
-                <ul id="dropdownMenu" class="absolute w-full bg-white border border-gray-300 rounded-lg mt-1 hidden">
+                <ul id="dropdownMenu" class="relative w-full bg-white border border-gray-300 rounded-lg mt-1 hidden">
                     <li class="px-4 py-2 cursor-pointer hover:bg-yellow-400" data-value="laki-laki">Laki-Laki</li>
                     <li class="px-4 py-2 cursor-pointer hover:bg-yellow-400" data-value="perempuan">Perempuan</li>
                 </ul>
