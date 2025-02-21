@@ -20,9 +20,31 @@
         }
 
         function toggleDropdown() {
-            document.getElementById("dropdownMenu").classList.toggle("hidden");
-            document.getElementById("dropdownIcon").classList.toggle("rotate-180");
+        const dropdownMenu = document.getElementById("dropdownMenu");
+        const dropdownIcon = document.getElementById("dropdownIcon");
+
+        dropdownMenu.classList.toggle("hidden");
+        dropdownIcon.classList.toggle("rotate-180");
+
+        // Simpan status dropdown di localStorage
+        if (dropdownMenu.classList.contains("hidden")) {
+            localStorage.setItem("dropdownOpen", "false");
+        } else {
+            localStorage.setItem("dropdownOpen", "true");
         }
+    }
+
+    function restoreDropdownState() {
+        const dropdownMenu = document.getElementById("dropdownMenu");
+        const dropdownIcon = document.getElementById("dropdownIcon");
+
+        if (localStorage.getItem("dropdownOpen") === "true") {
+            dropdownMenu.classList.remove("hidden");
+            dropdownIcon.classList.add("rotate-180");
+        }
+    }
+
+    document.addEventListener("DOMContentLoaded", restoreDropdownState);
 
         function openLogoutModal() {
             document.getElementById("logoutModal").classList.remove("hidden");
@@ -40,7 +62,7 @@
 
     <!-- Sidebar -->
     <div id="sidebar" class="fixed inset-y-0 left-0 w-64 bg-[#223E88] text-white transform -translate-x-full md:translate-x-0 transition-transform duration-300 ease-in-out z-50">
-        <div class="p-4 text-center border-b border-blue-700">
+        <div class="p-4 text-center ">
             <img src="{{ asset('storage/Dokumen.png') }}" alt="Logo" class="h-10 w-auto object-contain mx-auto">
         </div>
         <nav class="mt-1">
@@ -81,9 +103,7 @@
             <a href="/admin/daftarsparepart" class="block px-6 py-3 pl-10 rounded-lg text-white hover:bg-blue-700 hover:text-white">Sparepart</a>
         </div>
     </div>
-
-
-        
+    
     <a href="/admin/daftarlokasi" class="block px-6 py-3 mx-4 rounded-lg text-white hover:bg-blue-700 hover:text-white mb-2 flex items-center">
     <!-- Ikon Lokasi -->
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 mr-2">
@@ -103,7 +123,6 @@
     </svg>
     <span>Barcode</span>
 </a>
-
         </nav>
         <button onclick="openLogoutModal()" class="absolute bottom-4 left-4 right-4 bg-red-500 text-center py-2 rounded-lg hover:bg-red-600">
             Keluar

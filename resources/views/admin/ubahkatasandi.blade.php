@@ -76,7 +76,7 @@
         </div>
 
         <!-- Lupa Kata Sandi -->
-        <div class="mt-1 sm:mt-2 text-right">
+        <div class="mt-1 sm:mt-1 text-right">
             <a href="/admin/lupasandi" class="text-yellow-500 text-sm font-medium hover:underline">
                 Lupa Kata Sandi?
             </a>
@@ -90,7 +90,6 @@
 </div>
 
         </div>
-
     </form>
 </div>
 
