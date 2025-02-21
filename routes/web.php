@@ -1,14 +1,39 @@
 <?php
 
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
+})->name('home');
+
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
+
+// Route::middleware('auth')->group(function () {
+//     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+//     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+//     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+// });
+
+Route::middleware(['auth', 'role:admin'])->group(function () {
+    Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
 });
 
-Route::get('/login', function () {
-    return view('auth.login');
-})->name('login');
+Route::middleware(['auth', 'role:client'])->group(function () {});
+
+Route::middleware(['auth', 'role:staff'])->group(function () {});
+
+
+
+
+// Route ke halaman utama (Dashboard)
+// Route::get('admin/dashboard', function () {
+//     return view('admin.dashboard'); // Ganti dengan view dashboard yang sesuai
+// })->name('dashboard');
+
 
 Route::get('/forgotpassword1', function () {
     return view('auth.forgotpassword1');
@@ -21,15 +46,6 @@ Route::get('/forgotpassword2', function () {
 Route::get('/resetpassword', function () {
     return view('auth.resetpassword');
 })->name('resetpassword');
-
-Route::get('/createaccount', function () {
-    return view('auth.createaccount');
-})->name('createaccount');
-
-// Route ke halaman utama (Dashboard)
-Route::get('admin/dashboard', function () {
-    return view('admin.dashboard'); // Ganti dengan view dashboard yang sesuai
-})->name('dashboard');
 
 // Route ke halaman utama (Dashboard)
 Route::get('admin/pengguna', function () {
@@ -166,4 +182,5 @@ Route::get('/dashboard1', function () {
     return view('auth.dashboard1'); // Ganti dengan view dashboard yang sesuai
 })->name('dashboard1');
 
+require __DIR__ . '/auth.php';
 
