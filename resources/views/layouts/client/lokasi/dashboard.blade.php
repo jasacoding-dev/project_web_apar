@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lokasi</title>
+    <title>Edit Data APAR</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         function toggleSidebar() {
@@ -20,31 +20,9 @@
         }
 
         function toggleDropdown() {
-        const dropdownMenu = document.getElementById("dropdownMenu");
-        const dropdownIcon = document.getElementById("dropdownIcon");
-
-        dropdownMenu.classList.toggle("hidden");
-        dropdownIcon.classList.toggle("rotate-180");
-
-        // Simpan status dropdown di localStorage
-        if (dropdownMenu.classList.contains("hidden")) {
-            localStorage.setItem("dropdownOpen", "false");
-        } else {
-            localStorage.setItem("dropdownOpen", "true");
+            document.getElementById("dropdownMenu").classList.toggle("hidden");
+            document.getElementById("dropdownIcon").classList.toggle("rotate-180");
         }
-    }
-
-    function restoreDropdownState() {
-        const dropdownMenu = document.getElementById("dropdownMenu");
-        const dropdownIcon = document.getElementById("dropdownIcon");
-
-        if (localStorage.getItem("dropdownOpen") === "true") {
-            dropdownMenu.classList.remove("hidden");
-            dropdownIcon.classList.add("rotate-180");
-        }
-    }
-
-    document.addEventListener("DOMContentLoaded", restoreDropdownState);
 
         function openLogoutModal() {
             document.getElementById("logoutModal").classList.remove("hidden");
@@ -62,18 +40,18 @@
 
     <!-- Sidebar -->
     <div id="sidebar" class="fixed inset-y-0 left-0 w-64 bg-[#223E88] text-white transform -translate-x-full md:translate-x-0 transition-transform duration-300 ease-in-out z-50">
-        <div class="p-4 text-center">
+        <div class="p-4 text-center border-b border-blue-700">
             <img src="{{ asset('storage/Dokumen.png') }}" alt="Logo" class="h-10 w-auto object-contain mx-auto">
         </div>
         <nav class="mt-1">
-        <a href="/admin/dashboard" class="block px-6 py-3 mx-4 rounded-lg  text-white hover:bg-blue-700 mb-2 flex items-center">
+        <a href="#" class="block px-6 py-3 mx-4 rounded-lg text-white hover:bg-blue-700 hover:text-white mb-2 flex items-center">
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2">
         <path d="M4 21V9L12 3L20 9V21H14V14H10V21H4Z" fill="currentColor"/>
     </svg>
     Beranda
 </a>
 
-<a href="/admin/pengguna" class=" block px-6 py-3 mx-4 rounded-lg  text-white hover:bg-blue-700   mb-2 flex items-center">
+<a href="/admin/pengguna" class="block px-6 py-3 mx-4 rounded-lg text-white hover:bg-blue-700 hover:text-white mb-2 flex items-center">
     <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" class="mr-2">
         <path d="M1.66663 3.3275C1.66815 3.10865 1.75571 2.89918 1.91039 2.74435C2.06506 2.58951 2.27444 2.50175 2.49329 2.5H17.5066C17.9633 2.5 18.3333 2.87083 18.3333 3.3275V16.6725C18.3318 16.8914 18.2442 17.1008 18.0895 17.2557C17.9349 17.4105 17.7255 17.4983 17.5066 17.5H2.49329C2.27397 17.4998 2.06371 17.4125 1.9087 17.2573C1.75369 17.1022 1.66663 16.8918 1.66663 16.6725V3.3275ZM4.99996 12.5V14.1667H15V12.5H4.99996ZM4.99996 5.83333V10.8333H9.99996V5.83333H4.99996ZM11.6666 5.83333V7.5H15V5.83333H11.6666ZM11.6666 9.16667V10.8333H15V9.16667H11.6666ZM6.66663 7.5H8.33329V9.16667H6.66663V7.5Z" 
         fill="currentColor"/>
@@ -84,7 +62,7 @@
 
              <!-- Inventaris dengan Dropdown -->
     <div class="relative mx-6">
-    <button onclick="toggleDropdown()" class=" flex items-center justify-between w-full px-4 py-3 rounded-lg text-white mb-2 hover:bg-blue-700 hover:text-white">
+    <button onclick="toggleDropdown()" class="flex items-center justify-between w-full px-5 py-3 rounded-lg bg-white text-[#223E88] mb-2">
         <div class="flex items-center">
             <!-- Ikon Inventaris -->
             <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2">
@@ -99,8 +77,8 @@
         </svg>
     </button>
         <div id="dropdownMenu" class="hidden">
-            <a href="/admin/daftarapar" class="block px-6 py-3 pl-10 rounded-lg text-white hover:bg-blue-700 hover:text-white hover:font-bold">APAR</a>
-            <a href="/admin/daftarsparepart" class="block px-6 py-3 pl-10 rounded-lg text-white hover:bg-blue-700 hover:text-white hover:font-bold ">Sparepart</a>
+            <a href="/admin/daftarapar" class="block px-6 py-3 pl-10 rounded-lg text-white hover:bg-blue-700 hover:text-white">APAR</a>
+            <a href="/admin/daftarsparepart" class="block px-6 py-3 pl-10 rounded-lg text-white hover:bg-blue-700 hover:text-white">Sparepart</a>
         </div>
     </div>
 
@@ -115,9 +93,9 @@
 </a>
 
 
-<a href="/admin/daftarbarcode" class="bg-white block px-6 py-3 mx-4 rounded-lg text-[#223E88] mb-2 flex items-center">
+<a href="/admin/daftarbarcode" class="block px-6 py-3 mx-4 rounded-lg text-white hover:bg-blue-700 hover:text-white mb-2 flex items-center">
     <!-- Ikon Barcode -->
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="#223E88" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2">
         <path d="M14 3V7C14 7.26522 14.1054 7.51957 14.2929 7.70711C14.4804 7.89464 14.7348 8 15 8H19" fill="yellow"/>
         <path d="M14 3V7C14 7.26522 14.1054 7.51957 14.2929 7.70711C14.4804 7.89464 14.7348 8 15 8H19" stroke="#223E88" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
         <path d="M17 21H7C6.46957 21 5.96086 20.7893 5.58579 20.4142C5.21071 20.0391 5 19.5304 5 19V5C5 4.46957 5.21071 3.96086 5.58579 3.58579C5.96086 3.21071 6.46957 3 7 3H14L19 8V19C19 19.5304 18.7893 20.0391 18.4142 20.4142C18.0391 20.7893 17.5304 21 17 21Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -132,4 +110,85 @@
         </button>
     </div>
 
-    
+    <!-- Modal Logout -->
+    <div id="logoutModal" class="hidden fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+    <div class="bg-white rounded-lg p-6 md:p-4 text-center space-y-3 w-auto  h-[56%] md:max-h-[56%] max-h-80 relative flex flex-col">
+    <!-- Tombol X di Pojok Kanan Atas -->
+        <button onclick="toggleModal()" class="absolute top-3 right-3 text-gray-500 hover:text-gray-700">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+        </button>
+
+        <!-- Ikon dengan gambar kecil di tengah -->
+        <div class="relative w-32 md:w-48 h-32 md:h-48 mx-auto mb-2">
+            <!-- Gambar Utama -->
+            <img src="{{ asset('storage/tes1.png') }}" alt="Keluar Icon" class="w-full h-full">
+            <!-- Gambar Kecil di Tengah -->
+            <img src="{{ asset('storage/icon.png') }}" alt="Icon Tengah" class="absolute inset-0 w-16 md:w-32 h-16 md:h-32 m-auto">
+        </div>
+
+       <!-- Teks -->
+       <h2 class="text-lg font-semibold ">Yakin ingin keluar?</h2>
+
+<!-- Tombol -->
+<div class="flex flex-col-reverse md:flex-row justify-center md:space-x-4 mt-6 w-full">
+    <button onclick="toggleModal()" class="w-full md:w-32 px-4 py-2 border border-yellow-400 text-yellow-500 rounded mt-2 md:mt-0">
+        Kembali
+    </button>
+    <a href="/logout" class="w-full md:w-32 px-4 py-2 bg-yellow-400 text-white font-bold rounded mb-2 md:mb-0">
+        Ya
+    </a>
+</div>
+</div>
+</div>
+<script>
+    function toggleModal() {
+        const modal = document.getElementById('logoutModal');
+        modal.classList.toggle('hidden');
+    }
+</script>
+
+
+
+    <!-- Main Content -->
+    <div class="md:ml-64">
+      <!-- Top Bar -->
+<header class="fixed top-0 left-0 h-16 right-0 bg-[#223E88] shadow-md flex items-center px-6 z-40 justify-between">
+    <!-- Kiri: Tombol Menu dan Judul -->
+    <div class="flex items-center">
+        <button id="menuButton" class="md:hidden text-white text-2xl mr-4" onclick="toggleSidebar()">☰</button>
+        <h1 class="text-lg text-white font-bold ml-0 md:ml-64">Inventaris</h1>
+    </div>
+
+    <!-- Kanan: Ikon Notifikasi dan Profil -->
+    <div class="flex items-center space-x-4">
+        <!-- Ikon Notifikasi -->
+        <a href="/admin/notifications" class="text-white hover:text-gray-300">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                <path fill-rule="evenodd" d="M5.25 9a6.75 6.75 0 0 1 13.5 0v.75c0 2.123.8 4.057 2.118 5.52a.75.75 0 0 1-.297 1.206c-1.544.57-3.16.99-4.831 1.243a3.75 3.75 0 1 1-7.48 0 24.585 24.585 0 0 1-4.831-1.244.75.75 0 0 1-.298-1.205A8.217 8.217 0 0 0 5.25 9.75V9Zm4.502 8.9a2.25 2.25 0 1 0 4.496 0 25.057 25.057 0 0 1-4.496 0Z" clip-rule="evenodd" />
+            </svg>
+        </a>
+
+        <!-- Ikon Profil -->
+        <a href="/admin/profil" class="text-white hover:text-gray-300">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                <path fill-rule="evenodd" d="M18.685 19.097A9.723 9.723 0 0 0 21.75 12c0-5.385-4.365-9.75-9.75-9.75S2.25 6.615 2.25 12a9.723 9.723 0 0 0 3.065 7.097A9.716 9.716 0 0 0 12 21.75a9.716 9.716 0 0 0 6.685-2.653Zm-12.54-1.285A7.486 7.486 0 0 1 12 15a7.486 7.486 0 0 1 5.855 2.812A8.224 8.224 0 0 1 12 20.25a8.224 8.224 0 0 1-5.855-2.438ZM15.75 9a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" clip-rule="evenodd" />
+            </svg>
+        </a>
+    </div>
+</header>
+
+
+
+<!-- Form Container -->
+<main class="p-6 mt-16 max-w-full mx-auto"> <!-- mt-4 untuk mendekatkan ke tombol back -->
+<div class="bg-white shadow-md rounded-lg p-6 w-full min-h-screen md:min-h-0">
+        <h2 class="text-sm font-bold text-gray-700">Selamat Pagi</h2>
+        <p class="mt-2 text-sm text-gray-600">Pastikan sistem kebakaranmu siap pakai, ya!</p>
+        <div class="mt-4 space-y-4">
+            <div class="bg-white border border-black rounded-lg shadow p-4 flex justify-center items-center h-24">
+                <p class="text-gray-800 font-semibold">950/1000 APAR Terdata</p>
+            </div>
+        </div>
+    </div>

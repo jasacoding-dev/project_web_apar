@@ -11,20 +11,20 @@
 
 <body class="min-h-screen flex flex-col">
   <div class="flex flex-grow min-h-screen">
-    @include('layouts.detaillokasi.sidebar')
+    @include('layouts.client.lokasi.sidebar')
 
     <!-- Main Content -->
     <main class="flex-1 flex flex-col">
-        @include('layouts.detaillokasi.header')
+        @include('layouts.client.lokasi.header')
 
         <!-- Konten Dinamis -->
-        <section class="flex-1 p-6">
-            @yield('content')
+        <div class="md:ml-0">
+        @yield('content')
         </section>
     </main>
   </div>
 
-  @include('layouts.detaillokasi.logout-modal')
+  @include('layouts.client.lokasi.logout-modal')
 
 </body>
 </html>

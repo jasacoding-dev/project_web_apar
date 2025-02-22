@@ -20,9 +20,31 @@
         }
 
         function toggleDropdown() {
-            document.getElementById("dropdownMenu").classList.toggle("hidden");
-            document.getElementById("dropdownIcon").classList.toggle("rotate-180");
+        const dropdownMenu = document.getElementById("dropdownMenu");
+        const dropdownIcon = document.getElementById("dropdownIcon");
+
+        dropdownMenu.classList.toggle("hidden");
+        dropdownIcon.classList.toggle("rotate-180");
+
+        // Simpan status dropdown di localStorage
+        if (dropdownMenu.classList.contains("hidden")) {
+            localStorage.setItem("dropdownOpen", "false");
+        } else {
+            localStorage.setItem("dropdownOpen", "true");
         }
+    }
+
+    function restoreDropdownState() {
+        const dropdownMenu = document.getElementById("dropdownMenu");
+        const dropdownIcon = document.getElementById("dropdownIcon");
+
+        if (localStorage.getItem("dropdownOpen") === "true") {
+            dropdownMenu.classList.remove("hidden");
+            dropdownIcon.classList.add("rotate-180");
+        }
+    }
+
+    document.addEventListener("DOMContentLoaded", restoreDropdownState);
 
         function openLogoutModal() {
             document.getElementById("logoutModal").classList.remove("hidden");
