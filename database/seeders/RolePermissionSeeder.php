@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\User;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
 
@@ -14,25 +13,29 @@ class RolePermissionSeeder extends Seeder
      */
     public function run(): void
     {
-        $adminRole = Role::create([
-            'name' => 'admin'
-        ]);
+        // Membuat role
+        $adminRole = Role::create(['name' => 'admin']);
+        $clientRole = Role::create(['name' => 'client']);
+        $staffRole = Role::create(['name' => 'staff']);
 
-        $clientRole = Role::create([
-            'name' => 'client'
-        ]);
-        
-        $staffRole = Role::create([
-            'name' => 'staff'
-        ]);
-
+        // Membuat user default
         $user = User::create([
+            'nip' => null,
             'name' => 'Admin',
+            'phone' => null,
             'email' => 'admin@gmail.com',
-            'password' => bcrypt('password')
+            'address' => null,
+            'gender' => null,
+            'birthplace' => null,
+            'birthdate' => null,
+            'email_verified_at' => now(),
+            'password' => bcrypt('password'),
+            'remember_token' => null,
+            'created_at' => now(),
+            'updated_at' => now(),
         ]);
 
-
-        $user->assignRole($adminRole); 
+        // Memberikan role admin ke user
+        $user->assignRole($adminRole);
     }
 }

@@ -30,14 +30,26 @@ class RegisteredUserController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $request->validate([
+            'nip' => ['required', 'string', 'max:20', 'unique:users,nip'],
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
+            'phone' => ['required', 'string', 'max:15', 'unique:users,phone'],
+            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:users,email'],
+            'address' => ['required', 'string', 'max:255'],
+            'gender' => ['required', 'string', 'in:laki-laki,perempuan'],
+            'birthplace' => ['required', 'string', 'max:255'],
+            'birthdate' => ['required', 'date'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
         $user = User::create([
+            'nip' => $request->nip,
             'name' => $request->name,
+            'phone' => $request->phone,
             'email' => $request->email,
+            'address' => $request->address,
+            'gender' => $request->gender,
+            'birthplace' => $request->birthplace,
+            'birthdate' => $request->birthdate,
             'password' => Hash::make($request->password),
         ]);
 
@@ -48,6 +60,6 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
-        return redirect(route('client.dashboard', absolute: false));
+        return redirect()->route('client.dashboard');
     }
 }

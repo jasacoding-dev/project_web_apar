@@ -24,7 +24,7 @@
             <!-- NIP -->
             <div>
                 <label for="nip" class="block text-gray-700 font-medium text-sm mb-1">NIP<span class="text-red-500">*</span></label>
-                <input type="text" id="nip" class="w-full border border-gray-300 rounded-lg py-2 px-3 text-sm" placeholder="Masukkan NIP" required>
+                <input type="text" id="nip" name="nip" class="w-full border border-gray-300 rounded-lg py-2 px-3 text-sm" placeholder="Masukkan NIP" required>
             </div>
 
             <!-- Nama -->
@@ -36,7 +36,7 @@
             <!-- Nomor Telepon -->
             <div>
                 <label for="phone" class="block text-gray-700 font-medium text-sm mb-1">Nomor Telepon<span class="text-red-500">*</span></label>
-                <input type="tel" id="phone" class="w-full border border-gray-300 rounded-lg py-2 px-3 text-sm" placeholder="Masukkan nomor telepon" required>
+                <input type="tel" id="phone" name="phone" class="w-full border border-gray-300 rounded-lg py-2 px-3 text-sm" placeholder="Masukkan nomor telepon" required>
             </div>
 
             <!-- Email -->
@@ -48,7 +48,7 @@
             <!-- Alamat -->
             <div>
                 <label for="address" class="block text-gray-700 font-medium text-sm mb-1">Alamat<span class="text-red-500">*</span></label>
-                <input type="text" id="address" class="w-full border border-gray-300 rounded-lg py-2 px-3 text-sm" placeholder="Masukkan alamat" required>
+                <input type="text" id="address" name="address" class="w-full border border-gray-300 rounded-lg py-2 px-3 text-sm" placeholder="Masukkan alamat" required>
             </div>
             <div class="relative w-full">
                 <label for="gender" class="block text-gray-700 font-medium text-sm mb-1">
@@ -56,7 +56,7 @@
                 </label>
                 <button id="dropdownButton" class="w-full border border-gray-300 rounded-lg py-2 px-3 text-sm text-left bg-white flex items-center justify-between">
                     <span id="selectedText">Pilih Jenis Kelamin</span>
-                    <svg id="dropdownIcon" class="w-4 h-4 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <svg id="dropdownIcon" name="gender" class="w-4 h-4 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                     </svg>
                 </button>
@@ -100,13 +100,13 @@
             <!-- Tempat Lahir -->
             <div>
                 <label for="birthplace" class="block text-gray-700 font-medium text-sm mb-1">Tempat Lahir<span class="text-red-500">*</span></label>
-                <input type="text" id="birthplace" class="w-full border border-gray-300 rounded-lg py-2 px-3 text-sm" placeholder="Masukkan tempat lahir" required>
+                <input type="text" id="birthplace" name="birthplace" class="w-full border border-gray-300 rounded-lg py-2 px-3 text-sm" placeholder="Masukkan tempat lahir" required>
             </div>
 
             <!-- Tanggal Lahir -->
             <div>
                 <label for="birthdate" class="block text-gray-700 font-medium text-sm mb-1">Tanggal Lahir<span class="text-red-500">*</span></label>
-                <input type="date" id="birthdate" class="w-full border border-gray-300 rounded-lg py-2 px-3 text-sm" required>
+                <input type="date" id="birthdate" name="birthdate" class="w-full border border-gray-300 rounded-lg py-2 px-3 text-sm" required>
             </div>
 
             <!-- Password -->
