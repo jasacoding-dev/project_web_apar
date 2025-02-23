@@ -23,8 +23,5 @@
         </section>
     </main>
   </div>
-
-  @include('layouts.profil.logout-modal')
-
 </body>
 </html>

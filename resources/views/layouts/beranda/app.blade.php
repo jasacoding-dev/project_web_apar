@@ -23,8 +23,5 @@
         </section>
     </main>
   </div>
-
-  @include('layouts.apar.logout-modal')
-
 </body>
 </html>

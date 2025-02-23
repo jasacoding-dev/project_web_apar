@@ -23,8 +23,5 @@
         </section>
     </main>
   </div>
-
-  @include('layouts.pengguna.logout-modal')
-
 </body>
 </html>

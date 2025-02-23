@@ -23,8 +23,5 @@
         </section>
     </main>
   </div>
-
-  @include('layouts.notifikasi.logout-modal')
-
 </body>
 </html>

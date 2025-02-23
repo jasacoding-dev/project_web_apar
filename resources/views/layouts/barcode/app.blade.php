@@ -23,8 +23,5 @@
         </section>
     </main>
   </div>
-
-  @include('layouts.barcode.logout-modal')
-
 </body>
 </html>

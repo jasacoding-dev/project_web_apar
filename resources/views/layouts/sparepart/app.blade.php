@@ -23,8 +23,5 @@
         </section>
     </main>
   </div>
-
-  @include('layouts.sparepart.logout-modal')
-
 </body>
 </html>

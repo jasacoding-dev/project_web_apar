@@ -24,7 +24,6 @@
     </main>
   </div>
 
-  @include('layouts.lokasi.logout-modal')
 
 </body>
 </html>
