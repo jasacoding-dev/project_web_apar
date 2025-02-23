@@ -11,7 +11,7 @@
 
 <body class="min-h-screen flex flex-col">
   <div class="flex flex-grow min-h-screen">
-    @include('layouts.barcode.sidebar')
+    @include('layouts.sidebar')
 
     <!-- Main Content -->
     <main class="flex-1 flex flex-col">
@@ -23,8 +23,5 @@
         </section>
     </main>
   </div>
-
-  @include('layouts.barcode.logout-modal')
-
 </body>
 </html>

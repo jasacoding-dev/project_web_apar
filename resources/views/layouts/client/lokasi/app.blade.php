@@ -4,27 +4,27 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', 'Dashboard')</title>
+    <title>@yield('title', 'Lokasi')</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
 <body class="min-h-screen flex flex-col">
   <div class="flex flex-grow min-h-screen">
-    @include('layouts.beranda1.sidebar')
+    @include('layouts.client.lokasi.sidebar')
 
     <!-- Main Content -->
     <main class="flex-1 flex flex-col">
-        @include('layouts.beranda1.header')
+        @include('layouts.client.lokasi.header')
 
         <!-- Konten Dinamis -->
-        <section class="flex-1 p-6">
-            @yield('content')
+        <div class="md:ml-0">
+        @yield('content')
         </section>
     </main>
   </div>
 
-  @include('layouts.beranda1.logout-modal')
+  @include('layouts.client.lokasi.logout-modal')
 
 </body>
 </html>

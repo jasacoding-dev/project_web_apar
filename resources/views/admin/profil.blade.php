@@ -6,7 +6,7 @@
 
 <!-- Form Container -->
 <main class="p-6 mt-16 max-w-full mx-auto min-h-screen"> <!-- mt-4 untuk mendekatkan ke tombol back -->
-<div class="bg-white shadow-md rounded-lg w-full  md:min-h-0">
+<div class="bg-white  rounded-lg w-full  md:min-h-0">
         <table class=" w-full text-left border-collapse mt-2 rounded-lg overflow-hidden shadow-md">
             <!-- Header -->
             <div class="bg-[#0168AD] rounded-t-lg p-1 -mt-3">

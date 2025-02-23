@@ -171,4 +171,67 @@ Route::get('/dashboard1', function () {
     return view('auth.dashboard1'); // Ganti dengan view dashboard yang sesuai
 })->name('dashboard1');
 
+
+
+
+
+
+
+// Route Client
+
+Route::get('client/login', function () {
+    return view('authclient.login');
+})->name('login');
+
+Route::get('client/forgotpassword1', function () {
+    return view('authclient.forgotpassword1');
+})->name('password.request');
+
+Route::get('client/forgotpassword2', function () {
+    return view('authclient.forgotpassword2');
+})->name('password.request');
+
+Route::get('client/resetpassword', function () {
+    return view('authclient.resetpassword');
+})->name('resetpassword');
+
+Route::get('client/createaccount', function () {
+    return view('authclient.createaccount');
+})->name('createaccount');
+
+
+Route::get('client/dashboard', function () {
+    return view('client.dashboard'); // Ganti dengan view dashboard yang sesuai
+})->name('dashboard');
+
+
+Route::get('client/daftarlokasi', function () {
+    return view('client.daftarlokasi'); // Ganti dengan view dashboard yang sesuai
+})->name('daftarlokasi');
+
+// Route ke halaman utama (Dashboard)
+Route::get('client/tambahlokasi', function () {
+    return view('client.tambahlokasi'); // Ganti dengan view dashboard yang sesuai
+})->name('tambahlokasi');
+
+// Route ke halaman utama (Dashboard)
+Route::get('client/detaillokasi', function () {
+    return view('client.detaillokasi'); // Ganti dengan view dashboard yang sesuai
+})->name('detaillokasi');
+
+// Route ke halaman utama (Dashboard)
+Route::get('client/detailriwayat', function () {
+    return view('client.detailriwayat'); // Ganti dengan view dashboard yang sesuai
+})->name('detailriwayat');
+
+// Route ke halaman utama (Dashboard)
+Route::get('client/detailriwayat2', function () {
+    return view('client.detailriwayat2'); // Ganti dengan view dashboard yang sesuai
+})->name('detailriwayat2');
+
+// Route ke halaman utama (Dashboard)
+Route::get('client/editlokasi', function () {
+    return view('client.editlokasi'); // Ganti dengan view dashboard yang sesuai
+})->name('editlokasi');
+
 require __DIR__ . '/auth.php';
