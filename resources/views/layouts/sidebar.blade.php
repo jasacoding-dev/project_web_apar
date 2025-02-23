@@ -166,9 +166,14 @@
             </a>
 
         </nav>
-        <button onclick="openLogoutModal()" class="absolute bottom-4 left-4 right-4 bg-red-500 text-center py-2 rounded-lg hover:bg-red-600">
-            Keluar
-        </button>
+        <button onclick="openLogoutModal()" class="absolute bottom-4 left-4 right-4 bg-red-500 text-white text-center py-2 rounded-lg hover:bg-red-600 flex items-center justify-center gap-2">
+    <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M4.58366 3.25H10.5V4.08333H4.58333H4.08333V4.58333V17.4167V17.9167H4.58333H10.5V18.75H4.58333C4.2127 18.75 3.90817 18.624 3.64255 18.3584C3.37699 18.0928 3.25051 17.7878 3.25 17.4163V4.58333C3.25 4.21298 3.37612 3.90853 3.64225 3.64285C3.9088 3.37676 4.21371 3.25051 4.58366 3.25ZM15.7437 11.4167H8.75V10.5833H15.7437H16.9509L16.0973 9.72978L14.1041 7.73657L14.6762 7.13328L18.5429 11L14.6762 14.8667L14.1041 14.2634L16.0973 12.2702L16.9509 11.4167H15.7437Z"
+            fill="white" stroke="white" />
+    </svg>
+    Keluar
+</button>
+
     </div>
 
     <!-- Modal Logout -->

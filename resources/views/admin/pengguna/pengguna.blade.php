@@ -5,7 +5,7 @@
 @section('content')
 <!-- Form Container -->
 <main class="p-6 mt-16 max-w-full mx-auto"> <!-- mt-4 untuk mendekatkan ke tombol back -->
-    <div class="bg-white shadow-md rounded-b-lg p-4 w-auto sm:w-[96%] md:w-full min-h-[96vh] md:min-h-0 flex flex-col justify-start overflow-auto">
+    <div class="bg-white shadow-md rounded-b-lg p-4 w-auto sm:w-[96%] md:w-full min-h-[96vh] md:min-h-[80vh] flex flex-col justify-start overflow-auto">
         <!-- Header (Search Bar and Add Button) -->
         <div class="flex flex-row items-center justify-between w-full space-x-4 mb-4">
             <!-- Search Bar -->
@@ -26,8 +26,8 @@
         </div>
 
 
-        <div class="w-full min-h-screen md:w-full md:min-h-[300px] lg:w-full max-h-[360px] overflow-y-auto overflow-x-auto border border-gray-300 rounded-lg shadow-md">
-            <table class="w-full border-collapse border border-gray-300">
+        <div class="w-full min-h-screen md:w-full md:min-h-12 lg:w-full max-h-[360px] overflow-y-auto overflow-x-auto border border-gray-300 rounded-lg shadow-md">
+        <table class="w-full border-collapse border border-gray-300">
                 <thead>
                     <tr class="bg-[#0168AD] text-white">
                         <th class="border border-gray-300 px-4 py-2 text-left min-w-[200px]">Nama Pengguna</th>

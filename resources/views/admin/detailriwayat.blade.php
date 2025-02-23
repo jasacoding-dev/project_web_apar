@@ -53,14 +53,13 @@
         </button>
 
 
-      <!-- Icon -->
+        <!-- Icon -->
 <div class="mb-4 mt-4 flex justify-center">
     <div class="rounded-full border-4 border-[#FFDF00] bg-[#0168AD] p-4 flex items-center justify-center">
-        <img
-            src="{{ asset('storage/popup1.png') }}"
-            alt="Question Icon"
-            class="h-16 w-16"
-        />
+        <svg width="64" height="64" viewBox="0 0 187 187" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M83.7604 122.719H103.24V142.198H83.7604V122.719Z" fill="white"/>
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M93.5 62.3333C84.189 62.3333 77.9167 70.7951 77.9167 77.9167H62.3334C62.3334 63.8761 73.9897 46.75 93.5 46.75C112.948 46.75 124.667 63.4397 124.667 77.9167C124.667 90.2119 116.034 96.4453 110.688 100.302L109.785 100.957C103.902 105.258 101.292 107.704 101.292 112.979H85.7084C85.7084 99.2502 94.7545 92.6429 100.567 88.3965L100.59 88.3809C107.073 83.6358 109.083 81.8359 109.083 77.9167C109.083 70.5146 102.881 62.3333 93.5 62.3333Z" fill="white"/>
+        </svg>
     </div>
 </div>
 

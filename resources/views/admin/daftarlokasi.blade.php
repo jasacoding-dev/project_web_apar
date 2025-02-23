@@ -6,7 +6,7 @@
 
 <!-- Form Container -->
 <main class="p-6 mt-16 max-w-full mx-auto"> <!-- mt-4 untuk mendekatkan ke tombol back -->
-<div class="bg-white shadow-md rounded-b-lg p-4 w-auto sm:w-[96%] md:w-full min-h-[96vh] md:min-h-full flex flex-col justify-start overflow-auto">
+<div class="bg-white shadow-md rounded-b-lg p-4 w-auto sm:w-[96%] md:w-full min-h-[96vh] md:min-h-[80vh] flex flex-col justify-start overflow-auto">
       <!-- Header (Search Bar and Add Button) -->
 <div class="flex flex-row items-center justify-between w-full space-x-4 mb-4">
     <!-- Search Bar -->

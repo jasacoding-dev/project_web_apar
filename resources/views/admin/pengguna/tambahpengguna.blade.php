@@ -49,7 +49,7 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 7l7 7 7-7"></path>
                         </svg>
                     </button>
-                    <ul id="role-dropdown" class="absolute w-full mt-2 bg-white border border-gray-300 rounded-lg shadow-lg hidden">
+                    <ul id="role-dropdown" class="relative w-full mt-2 bg-white border border-gray-300 rounded-lg shadow-lg hidden">
                         @foreach ($roles as $role)
                         <li class="px-4 py-2 cursor-pointer hover:bg-yellow-400" data-role-id="{{ $role->id }}" data-role-name="{{ $role->name }}">
                             {{ $role->name }}
