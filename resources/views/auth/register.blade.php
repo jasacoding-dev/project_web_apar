@@ -7,7 +7,7 @@
     <title>Buat Akun</title>
 </head>
 <body class="flex items-center justify-center min-h-screen bg-gray-100 p-6">
-    <div class="bg-white p-3 rounded-2xl shadow-xl max-w-full w-full">
+    <div class="bg-white p-10 rounded-2xl shadow-xl max-w-full w-full">
     <a href="{{ route('home') }}">
             <h1 class="text-2xl font-bold text-gray-800 mb-8 text-left flex items-center -ml-2 ">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6 mr-2 cursor-pointer">
