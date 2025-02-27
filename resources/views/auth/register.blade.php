@@ -1,24 +1,22 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Buat Akun</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <title>Buat Akun</title>
 </head>
-
-<body class="bg-gray-100 flex justify-center items-center ">
-    <div class="bg-white shadow-2xl rounded-xl py-6 px-8 container max-w-[96%] md:max-w-[96%] sm:max-w-[90%] h-auto md:h-full mt-1">
-        <a href="{{ route('home') }}">
-            <h1 class="text-2xl font-bold text-gray-800 mb-8 text-left mt-2 flex items-center -ml-2 ">
+<body class="flex items-center justify-center min-h-screen bg-gray-100 p-6">
+    <div class="bg-white p-3 rounded-2xl shadow-xl max-w-full w-full">
+    <a href="{{ route('home') }}">
+            <h1 class="text-2xl font-bold text-gray-800 mb-8 text-left flex items-center -ml-2 ">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6 mr-2 cursor-pointer">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
                 </svg>
                 Buat Akun
             </h1>
         </a>
-        <form method="POST" action="{{ route('register') }}" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <form method="POST" action="{{ route('register') }}" class="grid grid-cols-1 md:grid-cols-2 gap-4 ml-6">
             @csrf
 
             <!-- NIP -->
