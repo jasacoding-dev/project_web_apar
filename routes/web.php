@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ClientController;
 use App\Http\Controllers\PenggunaController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -31,7 +32,10 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::delete('/admin/pengguna/{id}', [PenggunaController::class, 'destroy'])->name('pengguna.destroy');
 });
 
-Route::middleware(['auth', 'role:client'])->group(function () {});
+Route::middleware(['auth', 'role:client'])->group(function () {
+    Route::get('client/dashboard', [ClientController::class, 'dashboard'])->name('client.dashboard');
+
+});
 
 Route::middleware(['auth', 'role:staff'])->group(function () {});
 
@@ -200,9 +204,7 @@ Route::get('client/createaccount', function () {
 })->name('createaccount');
 
 
-Route::get('client/dashboard', function () {
-    return view('client.dashboard'); // Ganti dengan view dashboard yang sesuai
-})->name('dashboard');
+
 
 
 Route::get('client/daftarlokasi', function () {
