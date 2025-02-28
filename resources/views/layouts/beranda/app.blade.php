@@ -15,7 +15,7 @@
 
     <!-- Main Content -->
     <main class="flex-1 flex flex-col">
-        @include('layouts.apar.header')
+        @include('layouts.beranda.header')
 
         <!-- Konten Dinamis -->
         <div class="md:ml-0">
