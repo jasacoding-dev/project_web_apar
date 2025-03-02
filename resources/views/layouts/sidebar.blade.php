@@ -141,7 +141,7 @@
                     </svg>
                 </button>
                 <div id="dropdownMenu" class="hidden">
-                    <a href="/admin/daftarapar" onclick="setActiveMenu(event)" class="menu-item block px-6 py-3 pl-10 rounded-lg text-white hover:bg-blue-700 hover:text-white hover:font-bold">APAR</a>
+                    <a href="{{ route('apar.index') }}" onclick="setActiveMenu(event)" class="menu-item block px-6 py-3 pl-10 rounded-lg text-white hover:bg-blue-700 hover:text-white hover:font-bold">APAR</a>
                     <a href="/admin/daftarsparepart" onclick="setActiveMenu(event)" class="menu-item block px-6 py-3 pl-10 rounded-lg text-white hover:bg-blue-700 hover:text-white hover:font-bold ">Sparepart</a>
                 </div>
             </div>

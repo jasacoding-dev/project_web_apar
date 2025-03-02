@@ -1,16 +1,15 @@
-@extends('layouts.pengguna.app')
+@extends('layouts.apar.app')
 
-@section('title', 'Pengguna')
+@section('title', 'Inventaris')
 
 @section('content')
-
 <!-- Tombol Back dengan Ikon -->
 <div class="flex items-center mt-20 mb-2 ml-4"> <!-- Tambahkan mb-2 untuk mengurangi jarak bawah -->
-    <a href="{{ route('pengguna.index') }}" class="flex items-center text-gray-700 hover:text-gray-900">
+    <a href="{{ route('apar.index') }}" class="flex items-center text-gray-700 hover:text-gray-900">
         <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
         </svg>
-        <span class="text-lg font-semibold">Detail Pengguna</span>
+        <span class="text-lg font-semibold">Detail Apar</span>
     </a>
 </div>
 
@@ -19,10 +18,10 @@
     <div class="bg-white p-6 rounded-lg shadow-lg">
         <!-- Title with Icons -->
         <div class="flex justify-between items-center mb-4 -mt-3">
-            <h2 class="text-xl font-bold">Data Diri Pengguna</h2>
+            <h2 class="text-xl font-bold">Informasi Apar</h2>
             <div class="flex -space-x-2">
                 <!-- Edit Button -->
-                <a href="{{ route('pengguna.edit', ['id' => $user->id]) }}"
+                <a href="{{ route('apar.edit', ['id' => $apar->id]) }}"
                     class="text-white p-1 rounded-lg border-2 px-1 -py-2 bg-[#0168AD] transition mr-4">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-7 w-7">
                         <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
@@ -48,7 +47,6 @@
                             &times;
                         </button>
 
-
                         <!-- Icon -->
                         <div class="mb-4 mt-4 flex justify-center">
                             <div class="rounded-full border-4 border-[#FFDF00] bg-[#0168AD] p-4 flex items-center justify-center">
@@ -73,7 +71,7 @@
                                 Kembali
                             </button>
 
-                            <button class="bg-[#FFDF00] text-black font-semibold px-4 py-1 w-40 rounded-lg" onclick="handleDelete()">
+                            <button class="bg-[#FFDF00] text-black font-semibold px-4 py-1 w-40 rounded-lg" onclick="handleDelete('{{ $apar->id }}')">
                                 Ya
                             </button>
 
@@ -143,64 +141,94 @@
                     }
 
                     // Handle delete action and show success modal
-                    function handleDelete() {
-                        toggleDeleteModal(false); // Close the delete modal
-                        setTimeout(() => {
-                            toggleSuccessModal(true); // Show the success modal after deletion
-                        }, 500); // Simulate some delay for the delete action
+                    function handleDelete(id) {
+                        fetch(`/admin/apar/${id}`, {
+                                method: 'DELETE',
+                                headers: {
+                                    'X-CSRF-TOKEN': '{{ csrf_token() }}', // Tambahkan token CSRF
+                                    'Content-Type': 'application/json',
+                                },
+                            })
+                            .then(response => {
+                                if (response.ok) {
+                                    // Jika berhasil, tampilkan modal sukses
+                                    toggleDeleteModal(false); // Tutup modal delete
+                                    toggleSuccessModal(true); // Tampilkan modal sukses
+                                    // Redirect atau perbarui halaman setelah beberapa detik
+                                    setTimeout(() => {
+                                        window.location.href = "{{ route('apar.index') }}"; // Redirect ke halaman index
+                                    }, 2000);
+                                } else {
+                                    // Jika gagal, tampilkan pesan error
+                                    alert('Gagal menghapus data');
+                                }
+                            })
+                            .catch(error => {
+                                console.error('Error:', error);
+                                alert('Terjadi kesalahan saat menghapus data');
+                            });
                     }
                 </script>
-
 
             </div>
         </div>
 
-        <!-- Content -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <!-- Left Column -->
-            <div class="space-y-4">
-                <div>
-                    <span class="font-semibold">NIP</span>
-                    <p>{{ $user->nip ?? '-' }}</p>
+        <div class="flex flex-col md:flex-row gap-4">
+            <!-- Kolom Kiri -->
+            <div class="pr-8 md:pr-16 text-sm flex-1">
+                <div class="mb-4">
+                    <p class="font-bold">Nomor APAR</p>
+                    <p>{{ $apar->nomor_apar }}</p>
                 </div>
-                <div>
-                    <span class="font-semibold">Peran</span>
-                    <p>{{ $user->roles->pluck('name')->implode(', ') }}</p>
+                <div class="mb-4">
+                    <p class="font-bold">Merek</p>
+                    <p>{{ $apar->merek }}</p>
                 </div>
-                <div>
-                    <span class="font-semibold">Email</span>
-                    <p>{{ $user->email }}</p>
+                <div class="mb-4">
+                    <p class="font-bold">Jenis Media</p>
+                    <p>{{ $apar->jenisMedia->nama_media }}</p>
                 </div>
-                <div>
-                    <span class="font-semibold">Jenis Kelamin</span>
-                    <p>{{ ucfirst($user->gender ?? '-')}}</p>
+                <div class="mb-4">
+                    <p class="font-bold">Model Tabung</p>
+                    <p>{{ $apar->modelTabung->model_tabung }}</p>
                 </div>
-                <div>
-                    <span class="font-semibold">Tanggal Lahir</span>
-                    <p>{{ $user->birthdate ? date('d-m-Y', strtotime($user->birthdate)) : '-' }}</p>
+                <div class="mb-4">
+                    <p class="font-bold">Lokasi</p>
+                    <p>-</p>
+                </div>
+                <div class="mb-4">
+                    <p class="font-bold">Keterangan</p>
+                    <p>{{ $apar->keterangan ?? '-'}}</p>
                 </div>
             </div>
 
-            <!-- Right Column -->
-            <div class="space-y-4">
-                <div>
-                    <span class="font-semibold">Nama Pengguna</span>
-                    <p>{{ $user->name ?? '-' }}</p>
+            <!-- Kolom Kanan -->
+            <div class="pl-0 md:pl-10 text-sm mr-48 flex-1">
+                <div class="mb-4">
+                    <p class="font-bold">Pemilik</p>
+                    <p>{{ $apar->pemilik }}</p>
                 </div>
-                <div>
-                    <span class="font-semibold">No. Telepon</span>
-                    <p>{{ $user->phone ?? '-' }}</p>
+                <div class="mb-4">
+                    <p class="font-bold">Sistem Kerja Alat</p>
+                    <p>{{ $apar->sistem_kerja }}</p>
                 </div>
-                <div>
-                    <span class="font-semibold">Alamat</span>
-                    <p>{{ $user->address ?? '-' }}</p>
+                <div class="mb-4">
+                    <p class="font-bold">Kapasitas</p>
+                    <p>{{ $apar->kapasitas }}</p>
                 </div>
-                <div>
-                    <span class="font-semibold">Tempat Lahir</span>
-                    <p>{{ $user->birthplace ?? '-' }}</p>
+                <div class="mb-4">
+                    <p class="font-bold">Nomor Tabung</p>
+                    <p>{{ $apar->nomor_tabung }}</p>
+                </div>
+                <div class="mb-4">
+                    <p class="font-bold">Tanggal Kedaluwarsa</p>
+                    <p>{{ $apar->tanggal_kadaluarsa }}</p>
+                </div>
+                <div class="mb-4">
+                    <p class="font-bold">Foto</p>
+                    <img src="{{ asset('storage/apars/' . $apar->foto) }}" alt="APAR" class="w-40 h-40 rounded-lg shadow-md">
                 </div>
             </div>
         </div>
     </div>
-
     @endsection
