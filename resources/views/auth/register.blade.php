@@ -7,16 +7,15 @@
     <title>Buat Akun</title>
 </head>
 <body class="flex items-center justify-center min-h-screen bg-gray-100 p-6">
-    <div class="bg-white p-10 rounded-2xl shadow-xl max-w-full w-full">
-    <a href="{{ route('home') }}">
-            <h1 class="text-2xl font-bold text-gray-800 mb-8 text-left flex items-center -ml-2 ">
+    <div class="bg-white p-10 rounded-2xl md:h-[650px] h-full shadow-xl max-w-full w-full">
+<a href="{{ route('home') }}">            <h1 class="text-2xl font-bold text-gray-800 mb-8 text-left flex items-center -ml-2 ">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6 mr-2 cursor-pointer">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
                 </svg>
                 Buat Akun
             </h1>
         </a>
-        <form method="POST" action="{{ route('register') }}" class="grid grid-cols-1 md:grid-cols-2 gap-4 ml-6">
+        <form method="POST" action="" class="grid grid-cols-1 md:grid-cols-2 gap-6 ml-6">
             @csrf
 
             <!-- NIP -->
@@ -132,7 +131,7 @@
             </div>
 
             <!-- Tombol Simpan -->
-            <div class="col-span-1 md:col-span-2 text-center mt-3">
+            <div class="col-span-1 md:col-span-2 text-center mt-6">
                 <button type="submit"
                     class="w-full sm:max-w-[80%] md:max-w-[380px] bg-[#FFDF00] text-black font-bold py-2 rounded-lg shadow hover:bg-yellow-600 transition mb-4">
                     Simpan
