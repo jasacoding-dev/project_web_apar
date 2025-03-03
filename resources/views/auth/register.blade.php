@@ -15,7 +15,7 @@
                 Buat Akun
             </h1>
         </a>
-        <form method="POST" action="" class="grid grid-cols-1 md:grid-cols-2 gap-6 ml-6">
+        <form method="POST" action="{{ route('register') }}" class="grid grid-cols-1 md:grid-cols-2 gap-6 ml-6">
             @csrf
 
             <!-- NIP -->

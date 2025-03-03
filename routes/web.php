@@ -5,6 +5,7 @@ use App\Http\Controllers\AparController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\PenggunaController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SparepartController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -40,6 +41,15 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/admin/apar/{id}/edit', [AparController::class, 'edit'])->name('apar.edit');
     Route::post('/admin/apar/{id}', [AparController::class, 'update'])->name('apar.update');
     Route::delete('/admin/apar/{id}', [AparController::class, 'destroy'])->name('apar.destroy');
+
+
+    Route::get('admin/sparepart', [SparepartController::class, 'index'])->name('sparepart.index');
+    Route::get('admin/sparepart/create',[SparepartController::class, 'create'])->name('sparepart.create');
+    Route::post('admin/sparepart/store',[SparepartController::class, 'store'])->name('sparepart.store');
+    Route::get('admin/sparepart/{id}/show', [SparepartController::class, 'show'])->name('sparepart.show');
+    Route::get('admin/sparepart/{id}/edit', [SparepartController::class, 'edit'])->name('sparepart.edit');
+    Route::post('/admin/sparepart/{id}', [SparepartController::class, 'update'])->name('sparepart.update');
+    Route::delete('/admin/sparepart/{id}', [SparepartController::class, 'destroy'])->name('sparepart.destroy');
 });
 
 Route::middleware(['auth', 'role:client'])->group(function () {
@@ -99,27 +109,6 @@ Route::get('admin/lupasandi2', function () {
     return view('admin.lupasandi2'); // Ganti dengan view dashboard yang sesuai
 })->name('lupasandi2');
 
-
-
-// Route ke halaman utama (Dashboard)
-Route::get('admin/daftarsparepart', function () {
-    return view('admin.daftarsparepart'); // Ganti dengan view dashboard yang sesuai
-})->name('daftarsparepart');
-
-// Route ke halaman utama (Dashboard)
-Route::get('admin/tambahsparepart', function () {
-    return view('admin.tambahsparepart'); // Ganti dengan view dashboard yang sesuai
-})->name('tambahsparepart');
-
-// Route ke halaman utama (Dashboard)
-Route::get('admin/detailsparepart', function () {
-    return view('admin.detailsparepart'); // Ganti dengan view dashboard yang sesuai
-})->name('detailsparepart');
-
-// Route ke halaman utama (Dashboard)
-Route::get('admin/editsparepart', function () {
-    return view('admin.editsparepart'); // Ganti dengan view dashboard yang sesuai
-})->name('editsparepart');
 
 // Route ke halaman utama (Dashboard)
 Route::get('admin/daftarlokasi', function () {
