@@ -55,37 +55,52 @@
             document.getElementById("logoutModal").classList.add("hidden");
         }
 
-        function setActiveMenu(event) {
-            // Ambil semua menu item
-            document.querySelectorAll(".menu-item").forEach(item => {
-                item.classList.remove("bg-white", "text-[#223E88]", "hover:bg-blue-700", "hover:text-white");
-            });
+      // Fungsi untuk mengatur menu aktif
+function setActiveMenu(event) {
+    document.querySelectorAll(".menu-item").forEach(item => {
+        item.classList.remove("bg-white", "text-[#223E88]", "hover:bg-blue-700", "hover:text-white");
+    });
 
-            // Simpan href dari elemen yang diklik
-            const menuHref = event.currentTarget.getAttribute("href");
-            localStorage.setItem("activeMenu", menuHref);
+    const menuHref = event.currentTarget.getAttribute("href");
+    localStorage.setItem("activeMenu", menuHref);
 
-            // Aktifkan item yang diklik
-            event.currentTarget.classList.add("bg-white", "text-[#223E88]");
-            event.currentTarget.classList.remove("hover:bg-blue-700", "hover:text-white");
-        }
+    event.currentTarget.classList.add("bg-white", "text-[#223E88]");
+    event.currentTarget.classList.remove("hover:bg-blue-700", "hover:text-white");
+}
 
-        document.addEventListener("DOMContentLoaded", function() {
-            const activeMenu = localStorage.getItem("activeMenu");
+// Fungsi untuk menyimpan menu aktif sebelum logout
+function handleLogout() {
+    localStorage.setItem("activeMenuBeforeLogout", localStorage.getItem("activeMenu"));
+}
 
-            if (activeMenu) {
-                const menuItem = document.querySelector(`.menu-item[href='${activeMenu}']`);
+// Fungsi untuk memulihkan menu setelah login kembali
+function restoreAfterLogin() {
+    const lastActiveMenu = localStorage.getItem("activeMenuBeforeLogout");
 
-                // Jika halaman cocok dengan menu di sidebar, aktifkan
-                if (menuItem) {
-                    menuItem.classList.add("bg-white", "text-[#223E88]");
-                    menuItem.classList.remove("hover:bg-blue-700", "hover:text-white");
-                } else {
-                    // Jika halaman di luar sidebar, reset status
-                    localStorage.removeItem("activeMenu");
-                }
-            }
-        });
+    if (lastActiveMenu) {
+        // Reset ke dashboard setelah login
+        localStorage.setItem("activeMenu", "/admin/dashboard");
+        localStorage.removeItem("activeMenuBeforeLogout");
+    }
+}
+
+// Fungsi untuk memulihkan menu aktif saat halaman dimuat
+function restoreActiveMenu() {
+    const activeMenu = localStorage.getItem("activeMenu") || "/admin/dashboard"; // Default ke dashboard
+    const menuItem = document.querySelector(`.menu-item[href='${activeMenu}']`);
+
+    if (menuItem) {
+        menuItem.classList.add("bg-white", "text-[#223E88]");
+        menuItem.classList.remove("hover:bg-blue-700", "hover:text-white");
+    }
+}
+
+// Event Listener
+document.addEventListener("DOMContentLoaded", function () {
+    restoreAfterLogin(); // Pulihkan menu setelah login
+    restoreActiveMenu(); // Terapkan menu aktif setelah halaman dimuat
+});
+
     </script>
 </head>
 
@@ -126,7 +141,7 @@
 
             <!-- Inventaris dengan Dropdown -->
             <div class="relative mx-6">
-                <button onclick="toggleDropdown(); setActiveMenu(event)" class=" flex items-center justify-between w-full px-4 py-3 rounded-lg text-white mb-2 hover:bg-blue-700 hover:text-white">
+                <button onclick="toggleDropdown();" class=" flex items-center justify-between w-full px-4 py-3 rounded-lg text-white mb-2 hover:bg-blue-700 hover:text-white">
                     <div class="flex items-center">
                         <!-- Ikon Inventaris -->
                         <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2">
@@ -166,7 +181,7 @@
             </a>
 
         </nav>
-        <button onclick="openLogoutModal()" class="absolute bottom-4 left-4 right-4 bg-red-500 text-white text-center py-2 rounded-lg hover:bg-red-600 flex items-center justify-center gap-2">
+        <button onclick="handleLogout(); openLogoutModal();" class="absolute bottom-4 left-4 right-4 bg-red-500 text-white text-center py-2 rounded-lg hover:bg-red-600 flex items-center justify-center gap-2">
     <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M4.58366 3.25H10.5V4.08333H4.58333H4.08333V4.58333V17.4167V17.9167H4.58333H10.5V18.75H4.58333C4.2127 18.75 3.90817 18.624 3.64255 18.3584C3.37699 18.0928 3.25051 17.7878 3.25 17.4163V4.58333C3.25 4.21298 3.37612 3.90853 3.64225 3.64285C3.9088 3.37676 4.21371 3.25051 4.58366 3.25ZM15.7437 11.4167H8.75V10.5833H15.7437H16.9509L16.0973 9.72978L14.1041 7.73657L14.6762 7.13328L18.5429 11L14.6762 14.8667L14.1041 14.2634L16.0973 12.2702L16.9509 11.4167H15.7437Z"
             fill="white" stroke="white" />
