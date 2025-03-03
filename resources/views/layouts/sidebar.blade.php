@@ -71,43 +71,22 @@
         }
 
         document.addEventListener("DOMContentLoaded", function() {
-    let activeMenu = localStorage.getItem("activeMenu") || "/admin/dashboard";
+            const activeMenu = localStorage.getItem("activeMenu");
 
-    const menuItem = document.querySelector(`.menu-item[href='${activeMenu}']`);
-    if (menuItem) {
-        menuItem.classList.add("bg-white", "text-[#223E88]");
-        menuItem.classList.remove("hover:bg-blue-700", "hover:text-white");
-    }
-});
+            if (activeMenu) {
+                const menuItem = document.querySelector(`.menu-item[href='${activeMenu}']`);
 
-function setActiveMenu(event) {
-    document.querySelectorAll(".menu-item").forEach(item => {
-        item.classList.remove("bg-white", "text-[#223E88]", "hover:bg-blue-700", "hover:text-white");
-    });
-
-    const menuHref = event.currentTarget.getAttribute("href");
-    localStorage.setItem("activeMenu", menuHref);
-
-    fetch('/set-active-menu', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content') },
-        body: JSON.stringify({ active_menu: menuHref })
-    });
-
-    event.currentTarget.classList.add("bg-white", "text-[#223E88]");
-    event.currentTarget.classList.remove("hover:bg-blue-700", "hover:text-white");
-}
-
+                // Jika halaman cocok dengan menu di sidebar, aktifkan
+                if (menuItem) {
+                    menuItem.classList.add("bg-white", "text-[#223E88]");
+                    menuItem.classList.remove("hover:bg-blue-700", "hover:text-white");
+                } else {
+                    // Jika halaman di luar sidebar, reset status
+                    localStorage.removeItem("activeMenu");
+                }
+            }
+        });
     </script>
-
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        let activeMenu = @json(session('active_menu', '/admin/dashboard'));
-
-        localStorage.setItem("activeMenu", activeMenu);
-    });
-</script>
-
 </head>
 
 <body class="bg-gray-100 relative" onclick="closeSidebar(event)">
