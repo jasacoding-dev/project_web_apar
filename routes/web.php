@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AparController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\PenggunaController;
 use App\Http\Controllers\ProfileController;
@@ -26,15 +27,23 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/admin/pengguna', [PenggunaController::class, 'index'])->name('pengguna.index');
     Route::get('/admin/pengguna/create', [PenggunaController::class, 'create'])->name('pengguna.create');
     Route::post('/admin/pengguna/store', [PenggunaController::class, 'store'])->name('pengguna.store');
-    Route::get('/admin/pengguna/{id}', [PenggunaController::class, 'show'])->name('pengguna.show');
+    Route::get('/admin/pengguna/{id}/show', [PenggunaController::class, 'show'])->name('pengguna.show');
     Route::get('/admin/pengguna/{id}/edit', [PenggunaController::class, 'edit'])->name('pengguna.edit');
     Route::post('/admin/pengguna/{id}', [PenggunaController::class, 'update'])->name('pengguna.update');
     Route::delete('/admin/pengguna/{id}', [PenggunaController::class, 'destroy'])->name('pengguna.destroy');
+
+
+    Route::get('/admin/apar', [AparController::class, 'index'])->name('apar.index');
+    Route::get('/admin/apar/create', [AparController::class, 'create'])->name('apar.create');
+    Route::post('/admin/apar/store', [AparController::class, 'store'])->name('apar.store');
+    Route::get('/admin/apar/{id}/show', [AparController::class, 'show'])->name('apar.show');
+    Route::get('/admin/apar/{id}/edit', [AparController::class, 'edit'])->name('apar.edit');
+    Route::post('/admin/apar/{id}', [AparController::class, 'update'])->name('apar.update');
+    Route::delete('/admin/apar/{id}', [AparController::class, 'destroy'])->name('apar.destroy');
 });
 
 Route::middleware(['auth', 'role:client'])->group(function () {
     Route::get('client/dashboard', [ClientController::class, 'dashboard'])->name('client.dashboard');
-
 });
 
 Route::middleware(['auth', 'role:staff'])->group(function () {});
@@ -90,25 +99,7 @@ Route::get('admin/lupasandi2', function () {
     return view('admin.lupasandi2'); // Ganti dengan view dashboard yang sesuai
 })->name('lupasandi2');
 
-// Route ke halaman utama (Dashboard)
-Route::get('admin/daftarapar', function () {
-    return view('admin.daftarapar'); // Ganti dengan view dashboard yang sesuai
-})->name('daftarapar');
 
-// Route ke halaman utama (Dashboard)
-Route::get('admin/tambahapar', function () {
-    return view('admin.tambahapar'); // Ganti dengan view dashboard yang sesuai
-})->name('tambahapar');
-
-// Route ke halaman utama (Dashboard)
-Route::get('admin/detailapar', function () {
-    return view('admin.detailapar'); // Ganti dengan view dashboard yang sesuai
-})->name('detailapar');
-
-// Route ke halaman utama (Dashboard)
-Route::get('admin/editapar', function () {
-    return view('admin.editapar'); // Ganti dengan view dashboard yang sesuai
-})->name('editapar');
 
 // Route ke halaman utama (Dashboard)
 Route::get('admin/daftarsparepart', function () {
