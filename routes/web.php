@@ -24,6 +24,13 @@ Route::get('/', function () {
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+    // Route ke halaman utama (Dashboard)
+    Route::get('admin/profil', [AdminController::class, 'show'])->name('admin.profile');
+
+    // Route ke halaman utama (Dashboard)
+    Route::get('admin/ubahprofil', function () {
+        return view('admin.ubahprofil'); // Ganti dengan view dashboard yang sesuai
+    })->name('ubahprofil');
 
     Route::get('/admin/pengguna', [PenggunaController::class, 'index'])->name('pengguna.index');
     Route::get('/admin/pengguna/create', [PenggunaController::class, 'create'])->name('pengguna.create');
@@ -44,8 +51,8 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 
 
     Route::get('admin/sparepart', [SparepartController::class, 'index'])->name('sparepart.index');
-    Route::get('admin/sparepart/create',[SparepartController::class, 'create'])->name('sparepart.create');
-    Route::post('admin/sparepart/store',[SparepartController::class, 'store'])->name('sparepart.store');
+    Route::get('admin/sparepart/create', [SparepartController::class, 'create'])->name('sparepart.create');
+    Route::post('admin/sparepart/store', [SparepartController::class, 'store'])->name('sparepart.store');
     Route::get('admin/sparepart/{id}/show', [SparepartController::class, 'show'])->name('sparepart.show');
     Route::get('admin/sparepart/{id}/edit', [SparepartController::class, 'edit'])->name('sparepart.edit');
     Route::post('/admin/sparepart/{id}', [SparepartController::class, 'update'])->name('sparepart.update');
@@ -85,16 +92,6 @@ Route::get('admin/notifications', function () {
 })->name('notifications');
 
 // Route ke halaman utama (Dashboard)
-Route::get('admin/profil', function () {
-    return view('admin.profil'); // Ganti dengan view dashboard yang sesuai
-})->name('profil');
-
-// Route ke halaman utama (Dashboard)
-Route::get('admin/ubahprofil', function () {
-    return view('admin.ubahprofil'); // Ganti dengan view dashboard yang sesuai
-})->name('ubahprofil');
-
-// Route ke halaman utama (Dashboard)
 Route::get('admin/ubahkatasandi', function () {
     return view('admin.ubahkatasandi'); // Ganti dengan view dashboard yang sesuai
 })->name('ubahkatasandi');
@@ -108,7 +105,6 @@ Route::get('admin/lupasandi', function () {
 Route::get('admin/lupasandi2', function () {
     return view('admin.lupasandi2'); // Ganti dengan view dashboard yang sesuai
 })->name('lupasandi2');
-
 
 // Route ke halaman utama (Dashboard)
 Route::get('admin/daftarlokasi', function () {
