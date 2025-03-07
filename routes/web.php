@@ -223,4 +223,31 @@ Route::get('client/notifications', function () {
 })->name('notifications');
 
 
+
+
+// Route Client
+
+Route::get('staff/login', function () {
+    return view('authstaff.login');
+})->name('login');
+
+Route::get('staff/forgotpassword1', function () {
+    return view('authstaff.forgotpassword1');
+})->name('password.request');
+
+Route::get('staff/forgotpassword2', function () {
+    return view('authstaff.forgotpassword2');
+})->name('password.request');
+
+Route::get('staff/resetpassword', function () {
+    return view('authstaff.resetpassword');
+})->name('resetpassword');
+
+Route::get('staff/createaccount', function () {
+    return view('authstaff.createaccount');
+})->name('createaccount');
+
+
+
+
 require __DIR__ . '/auth.php';
