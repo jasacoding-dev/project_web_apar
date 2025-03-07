@@ -5,7 +5,7 @@
     <!-- Kiri: Tombol Menu dan Judul -->
     <div class="flex items-center">
         <button id="menuButton" class="md:hidden text-white text-2xl mr-4" onclick="toggleSidebar()">☰</button>
-        <h1 class="text-lg text-white font-bold ml-0 md:ml-64">Beranda</h1>
+        <h1 class="text-lg text-white font-bold ml-0 md:ml-64">Profil</h1>
     </div>
 
     <!-- Kanan: Ikon Notifikasi dan Profil -->

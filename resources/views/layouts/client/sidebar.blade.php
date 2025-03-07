@@ -124,14 +124,14 @@ document.addEventListener("DOMContentLoaded", function () {
         </div>
 
         <nav class="mt-0">
-            <a href="/admin/dashboard" onclick="setActiveMenu(event)" class="menu-item block px-6 py-3 mx-4 rounded-lg text-white hover:bg-blue-700 mb-2 flex items-center">
+            <a href="/client/dashboard" onclick="setActiveMenu(event)" class="menu-item block px-6 py-3 mx-4 rounded-lg text-white hover:bg-blue-700 mb-2 flex items-center">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2">
                     <path d="M4 21V9L12 3L20 9V21H14V14H10V21H4Z" fill="currentColor" />
                 </svg>
                 Beranda
             </a>
 
-            <a href="/admin/daftarlokasi" onclick="setActiveMenu(event)" class="menu-item block px-6 py-3 mx-4 rounded-lg text-white hover:bg-blue-700 mb-2 flex items-center">
+            <a href="/client/daftarlokasi" onclick="setActiveMenu(event)" class="menu-item block px-6 py-3 mx-4 rounded-lg text-white hover:bg-blue-700 mb-2 flex items-center">
                 <!-- Ikon Lokasi -->
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 mr-2">
                     <path fill-rule="evenodd" d="m11.54 22.351.07.04.028.016a.76.76 0 0 0 .723 0l.028-.015.071-.041a16.975 16.975 0 0 0 1.144-.742 19.58 19.58 0 0 0 2.683-2.282c1.944-1.99 3.963-4.98 3.963-8.827a8.25 8.25 0 0 0-16.5 0c0 3.846 2.02 6.837 3.963 8.827a19.58 19.58 0 0 0 2.682 2.282 16.975 16.975 0 0 0 1.145.742ZM12 13.5a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" clip-rule="evenodd" />

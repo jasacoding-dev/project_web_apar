@@ -212,4 +212,15 @@ Route::get('client/editlokasi', function () {
     return view('client.editlokasi'); // Ganti dengan view dashboard yang sesuai
 })->name('editlokasi');
 
+// Route ke halaman utama (Dashboard)
+Route::get('client/profil', function () {
+    return view('client.profil'); // Ganti dengan view dashboard yang sesuai
+})->name('profil');
+
+// Route ke halaman utama (Dashboard)
+Route::get('client/notifications', function () {
+    return view('client.notifications'); // Ganti dengan view dashboard yang sesuai
+})->name('notifications');
+
+
 require __DIR__ . '/auth.php';
