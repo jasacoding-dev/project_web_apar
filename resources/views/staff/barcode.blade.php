@@ -79,37 +79,33 @@
     <table class="w-full border-collapse border border-gray-300">
         <thead>
             <tr class="bg-[#0168AD] text-white">
-                <th class="border border-gray-300 px-4 py-2 text-center w-[50px]">
-                    <input type="checkbox" id="select-all" class="w-4 h-4">
-                </th>
-                <th class="border border-gray-300 px-4 py-2 text-left min-w-[200px]">Nama Gedung</th>
-                <th class="border border-gray-300 px-4 py-2 text-left min-w-[200px]">Nama Ruangan</th>
-                <th class="border border-gray-300 px-4 py-2 text-left min-w-[200px]">Tanggal Kadaluarsa</th>
+                <th class="border border-gray-300 px-4 py-2 text-left min-w-[200px]">Kode Barcode</th>
+                <th class="border border-gray-300 px-4 py-2 text-left min-w-[200px]">Lokasi Gedung</th>
+                <th class="border border-gray-300 px-4 py-2 text-left min-w-[200px]">Lokasi Penempatan</th>
+                <th class="border border-gray-300 px-4 py-2 text-left min-w-[200px]">Status</th>
             </tr>
         </thead>
         <tbody>
             <!-- Data pengguna -->
             <tr class="bg-white">
-                <td class="border border-gray-300 px-4 py-2 text-center">
-                    <input type="checkbox" class="row-checkbox w-4 h-4">
-                </td>
-                <td class="border border-gray-300 px-4 py-2 font-bold">User</td>
-                <td class="border border-gray-300 px-4 py-2">40</td>
+            <td class="border border-gray-300 px-4 py-2 font-bold">
+            <a href="/staff/detailbarcode" class="text-blue-500 hover:underline">111</a>
+            </td>
+                 <td class="border border-gray-300 px-4 py-2">40</td>
                 <td class="border border-gray-300 px-4 py-2">40 Desember 2024</td>
+                <td class="border border-gray-300 px-4 py-2">40 Desember 2024</td>
+            </tr>
+            <tr class="bg-white">
+            <td class="border border-gray-300 px-4 py-2 font-bold">
+                    <a href="/staff/detailbarcode" class="text-blue-500 hover:underline">111</a>
+                </td>
+                 <td class="border border-gray-300 px-4 py-2">40</td>
+                <td class="border border-gray-300 px-4 py-2">40 Desember 2024</td>
+                <td class="border border-gray-300 px-4 py-2">40 Desember 2024</td>
+
             </tr>
             <!-- Tambahkan lebih banyak data jika perlu -->
         </tbody>
     </table>
 </div>
-
-<script>
-    // JavaScript untuk mengontrol checkbox "Select All"
-    document.getElementById('select-all').addEventListener('change', function() {
-        const checkboxes = document.querySelectorAll('.row-checkbox');
-        checkboxes.forEach(checkbox => {
-            checkbox.checked = this.checked;
-        });
-    });
-</script>
-
 @endsection

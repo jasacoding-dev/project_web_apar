@@ -11,11 +11,11 @@
 
 <body class="min-h-screen flex flex-col">
   <div class="flex flex-grow min-h-screen">
-    @include('layouts.sidebar')
+    @include('layouts.staff.sidebar')
 
     <!-- Main Content -->
     <main class="flex-1 flex flex-col">
-        @include('layouts.profil.header')
+        @include('layouts.staff.profil.header')
 
         <!-- Konten Dinamis -->
         <div class="md:ml-0">
