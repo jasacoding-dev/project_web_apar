@@ -6,7 +6,7 @@
 
 <!-- Form Container -->
 <main class="p-6 mt-16 max-w-full mx-auto"> <!-- mt-4 untuk mendekatkan ke tombol back -->
-<div class="bg-white shadow-lg rounded-lg p-6 w-full min-h-screen md:min-h-0">
+    <div class="bg-white shadow-lg rounded-lg p-6 w-full min-h-screen md:min-h-0">
         <h2 class="text-sm font-bold text-gray-700">Selamat Pagi</h2>
         <p class="mt-2 text-sm text-gray-600">Pastikan sistem kebakaranmu siap pakai, ya!</p>
         <div class="mt-4 space-y-4">
@@ -15,5 +15,6 @@
             </div>
         </div>
     </div>
+
 
     @endsection

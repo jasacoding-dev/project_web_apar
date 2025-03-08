@@ -201,4 +201,42 @@ Route::get('client/editlokasi', function () {
     return view('client.editlokasi'); // Ganti dengan view dashboard yang sesuai
 })->name('editlokasi');
 
+// Route ke halaman utama (Dashboard)
+Route::get('client/profil', function () {
+    return view('client.profil'); // Ganti dengan view dashboard yang sesuai
+})->name('profil');
+
+// Route ke halaman utama (Dashboard)
+Route::get('client/notifications', function () {
+    return view('client.notifications'); // Ganti dengan view dashboard yang sesuai
+})->name('notifications');
+
+
+
+
+// Route Client
+
+Route::get('staff/login', function () {
+    return view('authstaff.login');
+})->name('login');
+
+Route::get('staff/forgotpassword1', function () {
+    return view('authstaff.forgotpassword1');
+})->name('password.request');
+
+Route::get('staff/forgotpassword2', function () {
+    return view('authstaff.forgotpassword2');
+})->name('password.request');
+
+Route::get('staff/resetpassword', function () {
+    return view('authstaff.resetpassword');
+})->name('resetpassword');
+
+Route::get('staff/createaccount', function () {
+    return view('authstaff.createaccount');
+})->name('createaccount');
+
+
+
+
 require __DIR__ . '/auth.php';

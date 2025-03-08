@@ -1,4 +1,4 @@
-@extends('layouts.profil.app')
+@extends('layouts.client.profil.app')
 
 @section('title', 'Profil')
 
@@ -11,8 +11,8 @@
             <!-- Header -->
             <div class="bg-[#0168AD] rounded-t-lg p-1 -mt-3">
                 <nav class="flex justify-center space-x-4">
-                    <a href="{{ route('admin.profile') }}" class="text-white font-semibold hover:underline">Detail Profil</a>
-                    <a href="{{ route('admin.ubahkatasandi') }}" class="text-white font-semibold hover:underline">Ubah Kata Sandi</a>
+                    <a href="#" class="text-white font-semibold hover:underline">Detail Profil</a>
+                    <a href="/admin/ubahkatasandi" class="text-white font-semibold hover:underline">Ubah Kata Sandi</a>
                 </nav>
             </div>
 
@@ -34,8 +34,8 @@
         </button>
     </div>
     <div class="text-center md:text-left">
-        <p class="text-sm font-bold">{{ $user->name }}</p>
-        <p class="text-sm text-gray-600">{{ $role }}</p>
+        <p class="text-sm font-bold"></p>
+        <p class="text-sm text-gray-600"></p>
     </div>
 </div>
 
@@ -60,12 +60,13 @@
                     </div>
 
                     <!-- Edit Button -->
-                    <a href="{{ route('admin.profile.edit') }}"
-                        class="absolute top-4 right-4 p-2 rounded-full cursor-pointer w-auto h-11 text-white p-1 rounded-lg border-2 px-1 py-1 bg-[#0168AD] transition mr-4">
+                    <button
+                        class="absolute top-4 right-4 p-2 rounded-full cursor-pointer w-auto h-11 text-white p-1 rounded-lg border-2 px-1 py-1 bg-[#0168AD] transition mr-4"
+                        onclick="window.location.href='/admin/'">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-7 w-7">
                             <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
                         </svg>
-                    </a>
+                    </button>
                 </div>
             </div>
         </table>
