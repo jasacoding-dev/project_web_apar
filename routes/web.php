@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AparController;
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\LokasiController;
 use App\Http\Controllers\PenggunaController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SparepartController;
@@ -24,13 +25,19 @@ Route::get('/', function () {
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
-    // Route ke halaman utama (Dashboard)
-    Route::get('admin/profil', [AdminController::class, 'show'])->name('admin.profile');
 
-    // Route ke halaman utama (Dashboard)
-    Route::get('admin/ubahprofil', function () {
-        return view('admin.ubahprofil'); // Ganti dengan view dashboard yang sesuai
-    })->name('ubahprofil');
+
+    Route::get('/admin/profil', [AdminController::class, 'show'])->name('admin.profile');
+    Route::get('/admin/profil/ubah', [AdminController::class, 'editprofile'])->name('admin.profile.edit');
+    Route::post('/admin/profil/update', [AdminController::class, 'updateProfile'])->name('admin.updateProfile');
+    Route::post('/admin/profile/update-picture', [AdminController::class, 'updateProfilePicture'])->name('admin.profile.updatePicture');
+    Route::get('/admin/ubahkatasandi', [AdminController::class, 'showChangePasswordForm'])->name('admin.ubahkatasandi');
+    Route::post('/admin/ubahkatasandi', [AdminController::class, 'updatePassword'])->name('admin.updatePassword');
+    Route::get('/admin/lupasandi', [AdminController::class, 'showForgotPasswordForm'])->name('admin.lupasandi');
+    Route::post('/admin/lupasandi', [AdminController::class, 'sendResetLinkEmail'])->name('admin.sendResetLink');
+    Route::get('/admin/lupasandi2', [AdminController::class, 'showResetPasswordForm'])->name('admin.lupasandi2');
+    Route::post('/admin/lupasandi2', [AdminController::class, 'resetPassword'])->name('admin.resetPassword');
+
 
     Route::get('/admin/pengguna', [PenggunaController::class, 'index'])->name('pengguna.index');
     Route::get('/admin/pengguna/create', [PenggunaController::class, 'create'])->name('pengguna.create');
@@ -57,6 +64,15 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('admin/sparepart/{id}/edit', [SparepartController::class, 'edit'])->name('sparepart.edit');
     Route::post('/admin/sparepart/{id}', [SparepartController::class, 'update'])->name('sparepart.update');
     Route::delete('/admin/sparepart/{id}', [SparepartController::class, 'destroy'])->name('sparepart.destroy');
+
+
+    Route::get('admin/lokasi', [LokasiController::class, 'index'])->name('lokasi.index');
+    Route::get('admin/lokasi/create', [LokasiController::class, 'create'])->name('lokasi.create');
+    Route::post('admin/lokasi/store', [LokasiController::class, 'store'])->name('lokasi.store');
+    Route::get('admin/lokasi/{id}/show', [LokasiController::class, 'show'])->name('lokasi.show');
+    Route::get('admin/lokasi/{id}/edit', [LokasiController::class, 'edit'])->name('lokasi.edit');
+    Route::post('/admin/lokasi/{id}', [LokasiController::class, 'update'])->name('lokasi.update');
+    Route::delete('/admin/lokasi/{id}', [LokasiController::class, 'destroy'])->name('lokasi.destroy');
 });
 
 Route::middleware(['auth', 'role:client'])->group(function () {
@@ -92,36 +108,6 @@ Route::get('admin/notifications', function () {
 })->name('notifications');
 
 // Route ke halaman utama (Dashboard)
-Route::get('admin/ubahkatasandi', function () {
-    return view('admin.ubahkatasandi'); // Ganti dengan view dashboard yang sesuai
-})->name('ubahkatasandi');
-
-// Route ke halaman utama (Dashboard)
-Route::get('admin/lupasandi', function () {
-    return view('admin.lupasandi'); // Ganti dengan view dashboard yang sesuai
-})->name('lupasandi');
-
-// Route ke halaman utama (Dashboard)
-Route::get('admin/lupasandi2', function () {
-    return view('admin.lupasandi2'); // Ganti dengan view dashboard yang sesuai
-})->name('lupasandi2');
-
-// Route ke halaman utama (Dashboard)
-Route::get('admin/daftarlokasi', function () {
-    return view('admin.daftarlokasi'); // Ganti dengan view dashboard yang sesuai
-})->name('daftarlokasi');
-
-// Route ke halaman utama (Dashboard)
-Route::get('admin/tambahlokasi', function () {
-    return view('admin.tambahlokasi'); // Ganti dengan view dashboard yang sesuai
-})->name('tambahlokasi');
-
-// Route ke halaman utama (Dashboard)
-Route::get('admin/detaillokasi', function () {
-    return view('admin.detaillokasi'); // Ganti dengan view dashboard yang sesuai
-})->name('detaillokasi');
-
-// Route ke halaman utama (Dashboard)
 Route::get('admin/detailriwayat', function () {
     return view('admin.detailriwayat'); // Ganti dengan view dashboard yang sesuai
 })->name('detailriwayat');
@@ -130,11 +116,6 @@ Route::get('admin/detailriwayat', function () {
 Route::get('admin/detailriwayat2', function () {
     return view('admin.detailriwayat2'); // Ganti dengan view dashboard yang sesuai
 })->name('detailriwayat2');
-
-// Route ke halaman utama (Dashboard)
-Route::get('admin/editlokasi', function () {
-    return view('admin.editlokasi'); // Ganti dengan view dashboard yang sesuai
-})->name('editlokasi');
 
 // Route ke halaman utama (Dashboard)
 Route::get('admin/daftarbarcode', function () {
