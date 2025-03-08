@@ -21,91 +21,45 @@
 
             <!-- NIP -->
             <div>
-                <label for="nip" class="block text-gray-700 font-medium text-sm mb-1">NIP<span class="text-red-500">*</span></label>
+                <label for="nip" class="block text-gray-700 font-medium text-sm mb-1">Nama Instansi<span class="text-red-500">*</span></label>
                 <input type="text" id="nip" name="nip" class="w-full border border-gray-300 rounded-lg py-2 px-3 text-sm" placeholder="Masukkan NIP" required>
             </div>
 
             <!-- Nama -->
             <div>
-                <label for="name" class="block text-gray-700 font-medium text-sm mb-1">Nama<span class="text-red-500">*</span></label>
-                <input type="text" id="name" name="name" :value="old('name')" autofocus autocomplete="name" class="w-full border border-gray-300 rounded-lg py-2 px-3 text-sm" placeholder="Masukkan nama" required>
+                <label for="name" class="block text-gray-700 font-medium text-sm mb-1">Alamat<span class="text-red-500">*</span></label>
+                <input type="text" id="name" name="name" :value="old('name')" autofocus autocomplete="name" class="w-full border border-gray-300 rounded-lg py-2 px-3 text-sm" placeholder="Masukkan Alamat" required>
             </div>
 
             <!-- Nomor Telepon -->
             <div>
-                <label for="phone" class="block text-gray-700 font-medium text-sm mb-1">Nomor Telepon<span class="text-red-500">*</span></label>
-                <input type="tel" id="phone" name="phone" class="w-full border border-gray-300 rounded-lg py-2 px-3 text-sm" placeholder="Masukkan nomor telepon" required>
+                <label for="phone" class="block text-gray-700 font-medium text-sm mb-1">NPWP<span class="text-red-500">*</span></label>
+                <input type="tel" id="phone" name="phone" class="w-full border border-gray-300 rounded-lg py-2 px-3 text-sm" placeholder="Masukkan NPWP " required>
             </div>
 
             <!-- Email -->
             <div>
-                <label for="email" class="block text-gray-700 font-medium text-sm mb-1">Email<span class="text-red-500">*</span></label>
-                <input type="email" id="email" name="email" :value="old('email')" autocomplete="username" class="w-full border border-gray-300 rounded-lg py-2 px-3 text-sm" placeholder="Masukkan email" required>
+                <label for="email" class="block text-gray-700 font-medium text-sm mb-1">Nomor PIC 1<span class="text-red-500">*</span></label>
+                <input type="email" id="email" name="email" :value="old('email')" autocomplete="username" class="w-full border border-gray-300 rounded-lg py-2 px-3 text-sm" placeholder="Masukkan Nomor PIC 1" required>
             </div>
 
             <!-- Alamat -->
             <div>
-                <label for="address" class="block text-gray-700 font-medium text-sm mb-1">Alamat<span class="text-red-500">*</span></label>
-                <input type="text" id="address" name="address" class="w-full border border-gray-300 rounded-lg py-2 px-3 text-sm" placeholder="Masukkan alamat" required>
+                <label for="address" class="block text-gray-700 font-medium text-sm mb-1">Nama PIC 2<span class="text-red-500">*</span></label>
+                <input type="text" id="address" name="address" class="w-full border border-gray-300 rounded-lg py-2 px-3 text-sm" placeholder="Masukkan Nama PIC 2" required>
             </div>
-            <div class="relative w-full">
-                <label for="gender" class="block text-gray-700 font-medium text-sm mb-1">
-                    Jenis Kelamin<span class="text-red-500">*</span>
-                </label>
-                <button id="dropdownButton" class="w-full border border-gray-300 rounded-lg py-2 px-3 text-sm text-left bg-white flex items-center justify-between">
-                    <span id="selectedText">Pilih Jenis Kelamin</span>
-                    <svg id="dropdownIcon" name="gender" class="w-4 h-4 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                    </svg>
-                </button>
-                <ul id="dropdownMenu" class="relative w-full bg-white border border-gray-300 rounded-lg mt-1 hidden">
-                    <li class="px-4 py-2 cursor-pointer hover:bg-yellow-400" data-value="laki-laki">Laki-Laki</li>
-                    <li class="px-4 py-2 cursor-pointer hover:bg-yellow-400" data-value="perempuan">Perempuan</li>
-                </ul>
-                <input type="hidden" name="gender" id="gender">
-            </div>
-
-            <script>
-                const button = document.getElementById("dropdownButton");
-                const menu = document.getElementById("dropdownMenu");
-                const input = document.getElementById("gender");
-                const icon = document.getElementById("dropdownIcon");
-                const selectedText = document.getElementById("selectedText");
-
-                button.addEventListener("click", () => {
-                    menu.classList.toggle("hidden");
-                    icon.classList.toggle("rotate-180");
-                });
-
-                menu.querySelectorAll("li").forEach(item => {
-                    item.addEventListener("click", () => {
-                        selectedText.textContent = item.textContent;
-                        input.value = item.getAttribute("data-value");
-                        menu.classList.add("hidden");
-                        icon.classList.remove("rotate-180");
-                    });
-                });
-
-                document.addEventListener("click", (e) => {
-                    if (!button.contains(e.target) && !menu.contains(e.target)) {
-                        menu.classList.add("hidden");
-                        icon.classList.remove("rotate-180");
-                    }
-                });
-            </script>
-
 
             <!-- Tempat Lahir -->
             <div>
-                <label for="birthplace" class="block text-gray-700 font-medium text-sm mb-1">Tempat Lahir<span class="text-red-500">*</span></label>
-                <input type="text" id="birthplace" name="birthplace" class="w-full border border-gray-300 rounded-lg py-2 px-3 text-sm" placeholder="Masukkan tempat lahir" required>
+                <label for="birthplace" class="block text-gray-700 font-medium text-sm mb-1"> Nomor Telepon PIC<span class="text-red-500">*</span></label>
+                <input type="text" id="birthplace" name="birthplace" class="w-full border border-gray-300 rounded-lg py-2 px-3 text-sm" placeholder="Masukkan Nomor Telepon PIC" required>
             </div>
 
-            <!-- Tanggal Lahir -->
             <div>
-                <label for="birthdate" class="block text-gray-700 font-medium text-sm mb-1">Tanggal Lahir<span class="text-red-500">*</span></label>
-                <input type="date" id="birthdate" name="birthdate" class="w-full border border-gray-300 rounded-lg py-2 px-3 text-sm" required>
+                <label for="address" class="block text-gray-700 font-medium text-sm mb-1">Email<span class="text-red-500">*</span></label>
+                <input type="text" id="address" name="address" class="w-full border border-gray-300 rounded-lg py-2 px-3 text-sm" placeholder="Masukkan Email" required>
             </div>
+            
 
             <!-- Password -->
             <div class="relative">
