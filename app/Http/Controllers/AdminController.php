@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 
@@ -72,6 +73,29 @@ class AdminController extends Controller
         ]);
 
         return redirect()->route('admin.profile')->with('success', 'Profil berhasil diperbarui.');
+    }
+
+    public function updateProfilePicture(Request $request)
+    {
+        // Validasi input
+        $request->validate([
+            'profile_picture' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
+        // Ambil user yang sedang login
+        $user = Auth::user();
+
+        // Hapus foto profil lama jika ada
+        if ($user->profile_picture) {
+            Storage::delete('public/' . $user->profile_picture);
+        }
+
+        // Simpan foto profil baru
+        $path = $request->file('profile_picture')->store('profile_pictures', 'public');
+        $user->profile_picture = $path;
+        $user->save();
+
+        return redirect()->back()->with('success', 'Foto profil berhasil diperbarui.');
     }
 
     public function showChangePasswordForm()
