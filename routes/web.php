@@ -24,13 +24,17 @@ Route::get('/', function () {
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
-    // Route ke halaman utama (Dashboard)
-    Route::get('admin/profil', [AdminController::class, 'show'])->name('admin.profile');
 
-    // Route ke halaman utama (Dashboard)
-    Route::get('admin/ubahprofil', function () {
-        return view('admin.ubahprofil'); // Ganti dengan view dashboard yang sesuai
-    })->name('ubahprofil');
+    Route::get('/admin/profil', [AdminController::class, 'show'])->name('admin.profile');
+    Route::get('/admin/profil/ubah', [AdminController::class, 'editprofile'])->name('admin.profile.edit');
+    Route::post('/admin/profil/update', [AdminController::class, 'updateProfile'])->name('admin.updateProfile');
+    Route::get('/admin/ubahkatasandi', [AdminController::class, 'showChangePasswordForm'])->name('admin.ubahkatasandi');
+    Route::post('/admin/ubahkatasandi', [AdminController::class, 'updatePassword'])->name('admin.updatePassword');
+    Route::get('/admin/lupasandi', [AdminController::class, 'showForgotPasswordForm'])->name('admin.lupasandi');
+    Route::post('/admin/lupasandi', [AdminController::class, 'sendResetLinkEmail'])->name('admin.sendResetLink');
+    Route::get('/admin/lupasandi2', [AdminController::class, 'showResetPasswordForm'])->name('admin.lupasandi2');
+    Route::post('/admin/lupasandi2', [AdminController::class, 'resetPassword'])->name('admin.resetPassword');
+
 
     Route::get('/admin/pengguna', [PenggunaController::class, 'index'])->name('pengguna.index');
     Route::get('/admin/pengguna/create', [PenggunaController::class, 'create'])->name('pengguna.create');
@@ -90,21 +94,6 @@ Route::get('/resetpassword', function () {
 Route::get('admin/notifications', function () {
     return view('admin.notifications'); // Ganti dengan view dashboard yang sesuai
 })->name('notifications');
-
-// Route ke halaman utama (Dashboard)
-Route::get('admin/ubahkatasandi', function () {
-    return view('admin.ubahkatasandi'); // Ganti dengan view dashboard yang sesuai
-})->name('ubahkatasandi');
-
-// Route ke halaman utama (Dashboard)
-Route::get('admin/lupasandi', function () {
-    return view('admin.lupasandi'); // Ganti dengan view dashboard yang sesuai
-})->name('lupasandi');
-
-// Route ke halaman utama (Dashboard)
-Route::get('admin/lupasandi2', function () {
-    return view('admin.lupasandi2'); // Ganti dengan view dashboard yang sesuai
-})->name('lupasandi2');
 
 // Route ke halaman utama (Dashboard)
 Route::get('admin/daftarlokasi', function () {
