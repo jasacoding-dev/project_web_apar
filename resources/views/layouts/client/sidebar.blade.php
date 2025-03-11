@@ -55,52 +55,51 @@
             document.getElementById("logoutModal").classList.add("hidden");
         }
 
-      // Fungsi untuk mengatur menu aktif
-function setActiveMenu(event) {
-    document.querySelectorAll(".menu-item").forEach(item => {
-        item.classList.remove("bg-white", "text-[#223E88]", "hover:bg-blue-700", "hover:text-white");
-    });
+        // Fungsi untuk mengatur menu aktif
+        function setActiveMenu(event) {
+            document.querySelectorAll(".menu-item").forEach(item => {
+                item.classList.remove("bg-white", "text-[#223E88]", "hover:bg-blue-700", "hover:text-white");
+            });
 
-    const menuHref = event.currentTarget.getAttribute("href");
-    localStorage.setItem("activeMenu", menuHref);
+            const menuHref = event.currentTarget.getAttribute("href");
+            localStorage.setItem("activeMenu", menuHref);
 
-    event.currentTarget.classList.add("bg-white", "text-[#223E88]");
-    event.currentTarget.classList.remove("hover:bg-blue-700", "hover:text-white");
-}
+            event.currentTarget.classList.add("bg-white", "text-[#223E88]");
+            event.currentTarget.classList.remove("hover:bg-blue-700", "hover:text-white");
+        }
 
-// Fungsi untuk menyimpan menu aktif sebelum logout
-function handleLogout() {
-    localStorage.setItem("activeMenuBeforeLogout", localStorage.getItem("activeMenu"));
-}
+        // Fungsi untuk menyimpan menu aktif sebelum logout
+        function handleLogout() {
+            localStorage.setItem("activeMenuBeforeLogout", localStorage.getItem("activeMenu"));
+        }
 
-// Fungsi untuk memulihkan menu setelah login kembali
-function restoreAfterLogin() {
-    const lastActiveMenu = localStorage.getItem("activeMenuBeforeLogout");
+        // Fungsi untuk memulihkan menu setelah login kembali
+        function restoreAfterLogin() {
+            const lastActiveMenu = localStorage.getItem("activeMenuBeforeLogout");
 
-    if (lastActiveMenu) {
-        // Reset ke dashboard setelah login
-        localStorage.setItem("activeMenu", "/admin/dashboard");
-        localStorage.removeItem("activeMenuBeforeLogout");
-    }
-}
+            if (lastActiveMenu) {
+                // Reset ke dashboard setelah login
+                localStorage.setItem("activeMenu", "/admin/dashboard");
+                localStorage.removeItem("activeMenuBeforeLogout");
+            }
+        }
 
-// Fungsi untuk memulihkan menu aktif saat halaman dimuat
-function restoreActiveMenu() {
-    const activeMenu = localStorage.getItem("activeMenu") || "/admin/dashboard"; // Default ke dashboard
-    const menuItem = document.querySelector(`.menu-item[href='${activeMenu}']`);
+        // Fungsi untuk memulihkan menu aktif saat halaman dimuat
+        function restoreActiveMenu() {
+            const activeMenu = localStorage.getItem("activeMenu") || "/admin/dashboard"; // Default ke dashboard
+            const menuItem = document.querySelector(`.menu-item[href='${activeMenu}']`);
 
-    if (menuItem) {
-        menuItem.classList.add("bg-white", "text-[#223E88]");
-        menuItem.classList.remove("hover:bg-blue-700", "hover:text-white");
-    }
-}
+            if (menuItem) {
+                menuItem.classList.add("bg-white", "text-[#223E88]");
+                menuItem.classList.remove("hover:bg-blue-700", "hover:text-white");
+            }
+        }
 
-// Event Listener
-document.addEventListener("DOMContentLoaded", function () {
-    restoreAfterLogin(); // Pulihkan menu setelah login
-    restoreActiveMenu(); // Terapkan menu aktif setelah halaman dimuat
-});
-
+        // Event Listener
+        document.addEventListener("DOMContentLoaded", function() {
+            restoreAfterLogin(); // Pulihkan menu setelah login
+            restoreActiveMenu(); // Terapkan menu aktif setelah halaman dimuat
+        });
     </script>
 </head>
 
@@ -124,14 +123,14 @@ document.addEventListener("DOMContentLoaded", function () {
         </div>
 
         <nav class="mt-0">
-            <a href="/client/dashboard" onclick="setActiveMenu(event)" class="menu-item block px-6 py-3 mx-4 rounded-lg text-white hover:bg-blue-700 mb-2 flex items-center">
+            <a href="{{ route('client.dashboard') }}" onclick="setActiveMenu(event)" class="menu-item block px-6 py-3 mx-4 rounded-lg text-white hover:bg-blue-700 mb-2 flex items-center">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2">
                     <path d="M4 21V9L12 3L20 9V21H14V14H10V21H4Z" fill="currentColor" />
                 </svg>
                 Beranda
             </a>
 
-            <a href="/client/daftarlokasi" onclick="setActiveMenu(event)" class="menu-item block px-6 py-3 mx-4 rounded-lg text-white hover:bg-blue-700 mb-2 flex items-center">
+            <a href="{{ route('client.lokasi') }}" onclick="setActiveMenu(event)" class="menu-item block px-6 py-3 mx-4 rounded-lg text-white hover:bg-blue-700 mb-2 flex items-center">
                 <!-- Ikon Lokasi -->
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 mr-2">
                     <path fill-rule="evenodd" d="m11.54 22.351.07.04.028.016a.76.76 0 0 0 .723 0l.028-.015.071-.041a16.975 16.975 0 0 0 1.144-.742 19.58 19.58 0 0 0 2.683-2.282c1.944-1.99 3.963-4.98 3.963-8.827a8.25 8.25 0 0 0-16.5 0c0 3.846 2.02 6.837 3.963 8.827a19.58 19.58 0 0 0 2.682 2.282 16.975 16.975 0 0 0 1.145.742ZM12 13.5a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" clip-rule="evenodd" />
@@ -141,12 +140,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
         </nav>
         <button onclick="handleLogout(); openLogoutModal();" class="absolute bottom-4 left-4 right-4 bg-red-500 text-white text-center py-2 rounded-lg hover:bg-red-600 flex items-center justify-center gap-2">
-    <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M4.58366 3.25H10.5V4.08333H4.58333H4.08333V4.58333V17.4167V17.9167H4.58333H10.5V18.75H4.58333C4.2127 18.75 3.90817 18.624 3.64255 18.3584C3.37699 18.0928 3.25051 17.7878 3.25 17.4163V4.58333C3.25 4.21298 3.37612 3.90853 3.64225 3.64285C3.9088 3.37676 4.21371 3.25051 4.58366 3.25ZM15.7437 11.4167H8.75V10.5833H15.7437H16.9509L16.0973 9.72978L14.1041 7.73657L14.6762 7.13328L18.5429 11L14.6762 14.8667L14.1041 14.2634L16.0973 12.2702L16.9509 11.4167H15.7437Z"
-            fill="white" stroke="white" />
-    </svg>
-    Keluar
-</button>
+            <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M4.58366 3.25H10.5V4.08333H4.58333H4.08333V4.58333V17.4167V17.9167H4.58333H10.5V18.75H4.58333C4.2127 18.75 3.90817 18.624 3.64255 18.3584C3.37699 18.0928 3.25051 17.7878 3.25 17.4163V4.58333C3.25 4.21298 3.37612 3.90853 3.64225 3.64285C3.9088 3.37676 4.21371 3.25051 4.58366 3.25ZM15.7437 11.4167H8.75V10.5833H15.7437H16.9509L16.0973 9.72978L14.1041 7.73657L14.6762 7.13328L18.5429 11L14.6762 14.8667L14.1041 14.2634L16.0973 12.2702L16.9509 11.4167H15.7437Z"
+                    fill="white" stroke="white" />
+            </svg>
+            Keluar
+        </button>
 
     </div>
 

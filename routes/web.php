@@ -77,6 +77,8 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 
 Route::middleware(['auth', 'role:client'])->group(function () {
     Route::get('client/dashboard', [ClientController::class, 'dashboard'])->name('client.dashboard');
+    Route::get('client/lokasi', [ClientController::class, 'lokasi'])->name('client.lokasi');
+    Route::get('client/lokasi/{id}/show', [ClientController::class, 'show'])->name('client.show');
 });
 
 Route::middleware(['auth', 'role:staff'])->group(function () {});
