@@ -201,6 +201,27 @@ Route::get('client/profil', function () {
 })->name('profil');
 
 // Route ke halaman utama (Dashboard)
+Route::get('client/profil', function () {
+    return view('client.profil'); // Ganti dengan view dashboard yang sesuai
+})->name('profil');
+
+// Route ke halaman utama (Dashboard)
+Route::get('client/lupasandi', function () {
+    return view('client.lupasandi'); // Ganti dengan view dashboard yang sesuai
+})->name('lupasandi');
+
+// Route ke halaman utama (Dashboard)
+Route::get('client/lupasandi2', function () {
+    return view('client.lupasandi2'); // Ganti dengan view dashboard yang sesuai
+})->name('lupasandi2');
+
+// Route ke halaman utama (Dashboard)
+Route::get('client/ubahkatasandi', function () {
+    return view('client.ubahkatasandi'); // Ganti dengan view dashboard yang sesuai
+})->name('ubahkatasandi');
+
+
+// Route ke halaman utama (Dashboard)
 Route::get('client/notifications', function () {
     return view('client.notifications'); // Ganti dengan view dashboard yang sesuai
 })->name('notifications');
@@ -208,7 +229,7 @@ Route::get('client/notifications', function () {
 
 
 
-// Route Client
+// Route Staff
 
 Route::get('staff/login', function () {
     return view('authstaff.login');
@@ -230,7 +251,46 @@ Route::get('staff/createaccount', function () {
     return view('authstaff.createaccount');
 })->name('createaccount');
 
+Route::get('staff/daftarlokasi', function () {
+    return view('staff.daftarlokasi');
+})->name('daftarlokasi');
 
+// Route ke halaman utama (Dashboard)
+Route::get('staff/tambahlokasi', function () {
+    return view('staff.tambahlokasi'); // Ganti dengan view dashboard yang sesuai
+})->name('tambahlokasi');
+
+// Route ke halaman utama (Dashboard)
+Route::get('staff/detaillokasi', function () {
+    return view('staff.detaillokasi'); // Ganti dengan view dashboard yang sesuai
+})->name('detaillokasi');
+
+// Route ke halaman utama (Dashboard)
+Route::get('staff/detailriwayat', function () {
+    return view('staff.detailriwayat'); // Ganti dengan view dashboard yang sesuai
+})->name('detailriwayat');
+
+// Route ke halaman utama (Dashboard)
+Route::get('staff/detailriwayat2', function () {
+    return view('staff.detailriwayat2'); // Ganti dengan view dashboard yang sesuai
+})->name('detailriwayat2');
+
+// Route ke halaman utama (Dashboard)
+Route::get('staff/editlokasi', function () {
+    return view('staff.editlokasi'); // Ganti dengan view dashboard yang sesuai
+})->name('editlokasi');
+
+Route::get('staff/profil', function () {
+    return view('staff.profil'); // Ganti dengan view dashboard yang sesuai
+})->name('profil');
+
+Route::get('staff/ubahprofil', function () {
+    return view('staff.ubahprofil'); // Ganti dengan view dashboard yang sesuai
+})->name('ubahprofil');
+
+Route::get('staff/barcode', function () {
+    return view('staff.barcode');
+})->name('barcode');
 
 
 require __DIR__ . '/auth.php';
