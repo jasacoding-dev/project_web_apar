@@ -76,9 +76,21 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 });
 
 Route::middleware(['auth', 'role:client'])->group(function () {
-    Route::get('client/dashboard', [ClientController::class, 'dashboard'])->name('client.dashboard');
+    Route::get('/client/dashboard', [ClientController::class, 'dashboard'])->name('client.dashboard');
+
+    Route::get('/client/profil', [ClientController::class, 'profile'])->name('client.profile');
+    Route::get('/client/profil/ubah', [ClientController::class, 'editprofile'])->name('client.profile.edit');
+    Route::post('/client/profil/update', [ClientController::class, 'updateProfile'])->name('client.updateProfile');
+    Route::post('/client/profile/update-picture', [ClientController::class, 'updateProfilePicture'])->name('client.profile.updatePicture');
+    Route::get('/client/ubahkatasandi', [ClientController::class, 'showChangePasswordForm'])->name('client.ubahkatasandi');
+    Route::post('/client/ubahkatasandi', [ClientController::class, 'updatePassword'])->name('client.updatePassword');
+    Route::get('/client/lupasandi', [ClientController::class, 'showForgotPasswordForm'])->name('client.lupasandi');
+    Route::post('/client/lupasandi', [ClientController::class, 'sendResetLinkEmail'])->name('client.sendResetLink');
+    Route::get('/client/lupasandi2', [ClientController::class, 'showResetPasswordForm'])->name('client.lupasandi2');
+    Route::post('/client/lupasandi2', [ClientController::class, 'resetPassword'])->name('client.resetPassword');
+
     Route::get('client/lokasi', [ClientController::class, 'lokasi'])->name('client.lokasi');
-    Route::get('client/lokasi/{id}/show', [ClientController::class, 'show'])->name('client.show');
+    Route::get('client/lokasi/{id}/show', [ClientController::class, 'showlokasi'])->name('client.showlokasi');
 });
 
 Route::middleware(['auth', 'role:staff'])->group(function () {});
@@ -162,64 +174,10 @@ Route::get('client/createaccount', function () {
     return view('authclient.createaccount');
 })->name('createaccount');
 
-
-
-
-
-Route::get('client/daftarlokasi', function () {
-    return view('client.daftarlokasi'); // Ganti dengan view dashboard yang sesuai
-})->name('daftarlokasi');
-
-// Route ke halaman utama (Dashboard)
-Route::get('client/tambahlokasi', function () {
-    return view('client.tambahlokasi'); // Ganti dengan view dashboard yang sesuai
-})->name('tambahlokasi');
-
-// Route ke halaman utama (Dashboard)
-Route::get('client/detaillokasi', function () {
-    return view('client.detaillokasi'); // Ganti dengan view dashboard yang sesuai
-})->name('detaillokasi');
-
-// Route ke halaman utama (Dashboard)
-Route::get('client/detailriwayat', function () {
-    return view('client.detailriwayat'); // Ganti dengan view dashboard yang sesuai
-})->name('detailriwayat');
-
 // Route ke halaman utama (Dashboard)
 Route::get('client/detailriwayat2', function () {
     return view('client.detailriwayat2'); // Ganti dengan view dashboard yang sesuai
 })->name('detailriwayat2');
-
-// Route ke halaman utama (Dashboard)
-Route::get('client/editlokasi', function () {
-    return view('client.editlokasi'); // Ganti dengan view dashboard yang sesuai
-})->name('editlokasi');
-
-// Route ke halaman utama (Dashboard)
-Route::get('client/profil', function () {
-    return view('client.profil'); // Ganti dengan view dashboard yang sesuai
-})->name('profil');
-
-// Route ke halaman utama (Dashboard)
-Route::get('client/profil', function () {
-    return view('client.profil'); // Ganti dengan view dashboard yang sesuai
-})->name('profil');
-
-// Route ke halaman utama (Dashboard)
-Route::get('client/lupasandi', function () {
-    return view('client.lupasandi'); // Ganti dengan view dashboard yang sesuai
-})->name('lupasandi');
-
-// Route ke halaman utama (Dashboard)
-Route::get('client/lupasandi2', function () {
-    return view('client.lupasandi2'); // Ganti dengan view dashboard yang sesuai
-})->name('lupasandi2');
-
-// Route ke halaman utama (Dashboard)
-Route::get('client/ubahkatasandi', function () {
-    return view('client.ubahkatasandi'); // Ganti dengan view dashboard yang sesuai
-})->name('ubahkatasandi');
-
 
 // Route ke halaman utama (Dashboard)
 Route::get('client/notifications', function () {

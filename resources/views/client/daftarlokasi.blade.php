@@ -36,7 +36,7 @@
                     <!-- Data pengguna -->
                     <tr class="bg-white">
                         <td class="border border-gray-300 px-4 py-2 font-bold">
-                            <a href="{{ route('client.show', $lokasi->id) }}" class="text-blue-500 hover:underline">{{ $lokasi->nama_gedung }}</a>
+                            <a href="{{ route('client.showlokasi', $lokasi->id) }}" class="text-blue-500 hover:underline">{{ $lokasi->nama_gedung }}</a>
                         </td>
                         <td class="border border-gray-300 px-4 py-2">{{ $lokasi->nama_ruangan }}</td>
                         <td class="border border-gray-300 px-4 py-2">{{ $lokasi->tanggal_kadaluwarsa }}</td>
