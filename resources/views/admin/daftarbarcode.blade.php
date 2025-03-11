@@ -28,27 +28,39 @@
 
 <!-- Modal -->
 <div id="modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
-    <div class="bg-white p-6 rounded-lg shadow-lg w-[210mm] h-[150mm] flex flex-col justify-between">        
-        <!-- Container QR Code -->
-        <div id="barcode-container" class="flex justify-center space-x-8">
-            <div class="text-center">
-                <img src="qrcode1.png" alt="QR Code 1" class="w-32 h-32 mx-auto">
-                <p class="mt-2 font-semibold">MD A001203</p>
-            </div>
-            <div class="text-center">
-                <img src="qrcode2.png" alt="QR Code 2" class="w-32 h-32 mx-auto">
-                <p class="mt-2 font-semibold">MD A003200</p>
-            </div>
+    <div class="bg-white p-0 rounded-lg shadow-lg w-[210mm] h-[150mm] flex">
+        
+        <!-- Garis Abu-Abu di Kiri Full Tinggi -->
+        <div class="w-16 bg-gray-400 h-full"></div>
+<!-- Bagian Kiri (QR Code) -->
+<div class="w-2/3 p-6 flex flex-col justify-center bg-white">
+    <div id="barcode-container" class="flex flex-wrap justify-center gap-4">
+        <div class="text-center">
+            <img src="qrcode1.png" alt="QR Code 1" class="w-32 h-32 mx-auto">
+            <p class="mt-2 font-semibold">MD A001203</p>
         </div>
-
-        <!-- Tombol -->
-        <div class="flex justify-end space-x-4 mt-6 rounded-lg">
-            <button id="close-modal" class="bg-white border border-[#FFDF00] text-black  font-semibold px-3 py-1 rounded">Kembali</button>
-            <button id="print-btn" class="bg-[#FFDF00] text-black px-3 py-1  font-semibold rounded">Cetak</button>
+        <div class="text-center">
+            <img src="qrcode2.png" alt="QR Code 2" class="w-32 h-32 mx-auto">
+            <p class="mt-2 font-semibold">MD A003200</p>
         </div>
     </div>
 </div>
+
+
+        <!-- Garis Pembatas -->
+        <div class="w-20 bg-gray-400"></div>
+
+        <!-- Bagian Kanan (Tombol) -->
+        <div class="w-1/3 p-6 flex flex-col justify-end">
+            <div class="flex justify-end space-x-4 mt-6 rounded-lg">
+                <button id="close-modal" class="bg-white border border-[#FFDF00] text-black font-semibold px-3 py-1 rounded">Kembali</button>
+                <button id="print-btn" class="bg-[#FFDF00] text-black px-3 py-1 font-semibold rounded">Cetak</button>
+            </div>
+        </div>
+        </div>
+    </div>
 </div>
+
 
 <div class="w-full min-h-screen md:w-full md:min-h-12 lg:w-full max-h-[360px] overflow-y-auto overflow-x-auto border border-gray-300 rounded-lg shadow-md">
     <table class="w-full border-collapse border border-gray-300">
@@ -98,77 +110,87 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        const selectAllCheckbox = document.getElementById('select-all');
-        const rowCheckboxes = document.querySelectorAll('.row-checkbox');
-        const cetakBarcodeBtn = document.getElementById('cetak-barcode');
-        const modal = document.getElementById('modal');
-        const barcodeContainer = document.getElementById('barcode-container');
-        const closeModalBtn = document.getElementById('close-modal');
-        const printBtn = document.getElementById('print-btn');
+    const selectAllCheckbox = document.getElementById('select-all');
+    const rowCheckboxes = document.querySelectorAll('.row-checkbox');
+    const cetakBarcodeBtn = document.getElementById('cetak-barcode');
+    const modal = document.getElementById('modal');
+    const barcodeContainer = document.getElementById('barcode-container');
+    const closeModalBtn = document.getElementById('close-modal');
+    const printBtn = document.getElementById('print-btn');
 
-        function updateButtonState() {
-            const anyChecked = [...rowCheckboxes].some(checkbox => checkbox.checked);
-            if (anyChecked) {
-                cetakBarcodeBtn.classList.remove('opacity-50', 'cursor-not-allowed');
-            } else {
-                cetakBarcodeBtn.classList.add('opacity-50', 'cursor-not-allowed');
-            }
+    function updateButtonState() {
+        const anyChecked = [...rowCheckboxes].some(checkbox => checkbox.checked);
+        if (anyChecked) {
+            cetakBarcodeBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+        } else {
+            cetakBarcodeBtn.classList.add('opacity-50', 'cursor-not-allowed');
         }
+    }
 
-        selectAllCheckbox.addEventListener('change', function() {
-            rowCheckboxes.forEach(checkbox => checkbox.checked = this.checked);
-            updateButtonState();
-        });
+    selectAllCheckbox.addEventListener('change', function() {
+        rowCheckboxes.forEach(checkbox => checkbox.checked = this.checked);
+        updateButtonState();
+    });
+
+    rowCheckboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', updateButtonState);
+    });
+
+    cetakBarcodeBtn.addEventListener('click', function () {
+        if (cetakBarcodeBtn.classList.contains('cursor-not-allowed')) return;
+
+        // Kosongkan isi barcode-container sebelum menambahkan barcode baru
+        barcodeContainer.innerHTML = '';
 
         rowCheckboxes.forEach(checkbox => {
-            checkbox.addEventListener('change', updateButtonState);
+            if (checkbox.checked) {
+                const id = checkbox.getAttribute('data-id');
+
+                const barcodeDiv = document.createElement('div');
+                barcodeDiv.classList.add('text-center', 'p-2');
+
+                const barcodeCanvas = document.createElement('canvas');
+                barcodeCanvas.setAttribute('id', 'barcode-' + id);
+
+                const label = document.createElement('p');
+                label.textContent = "ID: " + id;
+                label.classList.add('font-semibold', 'mt-2');
+
+                barcodeDiv.appendChild(barcodeCanvas);
+                barcodeDiv.appendChild(label);
+                barcodeContainer.appendChild(barcodeDiv);
+
+                JsBarcode("#barcode-" + id, id, {
+                    format: "CODE128",
+                    width: 2,
+                    height: 50,
+                    displayValue: true,
+                    fontSize: 12
+                });
+            }
         });
 
-        cetakBarcodeBtn.addEventListener('click', function () {
-            if (cetakBarcodeBtn.classList.contains('cursor-not-allowed')) return;
-
-            // Kosongkan isi barcode-container sebelum menambahkan barcode baru
-            barcodeContainer.innerHTML = '';
-
-            rowCheckboxes.forEach(checkbox => {
-                if (checkbox.checked) {
-                    const id = checkbox.getAttribute('data-id');
-
-                    const barcodeDiv = document.createElement('div');
-                    barcodeDiv.classList.add('text-center', 'p-2');
-
-                    const barcodeCanvas = document.createElement('canvas');
-                    barcodeCanvas.setAttribute('id', 'barcode-' + id);
-
-                    const label = document.createElement('p');
-                    label.textContent = "ID: " + id;
-                    label.classList.add('font-semibold', 'mt-2');
-
-                    barcodeDiv.appendChild(barcodeCanvas);
-                    barcodeDiv.appendChild(label);
-                    barcodeContainer.appendChild(barcodeDiv);
-
-                    JsBarcode("#barcode-" + id, id, {
-                        format: "CODE128",
-                        width: 2,
-                        height: 50,
-                        displayValue: true,
-                        fontSize: 12
-                    });
-                }
-            });
-
-            modal.classList.remove('hidden');
-        });
-
-        closeModalBtn.addEventListener('click', function () {
-            modal.classList.add('hidden');
-        });
-
-        printBtn.addEventListener('click', function () {
-            window.print();
-        });
+        modal.classList.remove('hidden');
     });
+
+    closeModalBtn.addEventListener('click', function () {
+        modal.classList.add('hidden');
+    });
+
+    printBtn.addEventListener('click', function () {
+        // Sembunyikan tombol sebelum cetak
+        closeModalBtn.classList.add('hidden');
+        printBtn.classList.add('hidden');
+
+        // Cetak halaman
+        window.print();
+
+        // Tampilkan kembali tombol setelah selesai mencetak
+        closeModalBtn.classList.remove('hidden');
+        printBtn.classList.remove('hidden');
+    });
+});
+
 </script>
 
 @endsection
