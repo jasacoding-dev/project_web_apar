@@ -250,5 +250,33 @@ Route::get('staff/barcode', function () {
     return view('staff.barcode');
 })->name('barcode');
 
+Route::get('staff/detailbarcode', function () {
+    return view('staff.detailbarcode');
+})->name('detailbarcode');
+
+Route::get('staff/kustom', function () {
+    return view('staff.kustom');
+})->name('kustom');
+
+Route::get('staff/perbaikan', function () {
+    return view('staff.perbaikan');
+})->name('perbaikan');
+
+Route::get('staff/ubahkatasandi', function () {
+    return view('staff.ubahkatasandi');
+})->name('ubahkatasandi');
+
+Route::get('staff/lupasandi', function () {
+    return view('staff.lupasandi');
+})->name('lupasandi');
+
+Route::get('staff/lupasandi2', function () {
+    return view('staff.lupasandi2');
+})->name('lupasandi2');
+
+
+
+
+
 
 require __DIR__ . '/auth.php';
