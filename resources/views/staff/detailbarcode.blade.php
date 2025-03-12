@@ -156,9 +156,11 @@
         <button class="absolute top-2 right-2 text-black text-xl font-bold" onclick="toggleSuccessModal(false)">&times;</button>
 
         <div class="mb-4 mt-4 flex justify-center">
-            <div class="rounded-full border-4 border-[#FFDF00] bg-green-500 p-4 flex items-center justify-center">
-                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGIAAABWCAYAAAA0TkO1AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAMiSURBVHgB7d3RUdtAFIXhaypICUoHlEA6oIMkFSQdoFQAHSQdUIJLIB0sHVDCn2VwJkBsrWTp3F3Z95vR+IUBa8/A8Wq1wiwsBrjLx2cL9eQAbvjnxoK/PPAd/4swPO1CSOx3n48PFvR2gz0kPYdlQeddL0QYNeSBvWSap3xcW1gOw71QEiW+FMq9EGGoMb4XSuIT1bHywF2xrESU+DTM64ViGBsLo+TB2uaXK9P4baGM5Xrh4G+EhWEs3wvvxdyiBF0v/NVbKMsD9YDOvYUyohfqy4N0jVZnYRj6XvhuoUwcwp2FMvS9ENeWSvIgfUEnEb1Qhr4XYtI2BjFpqy8P1C06WwtlRC/Ux0svPKFzaaGM6IX60PZCTNrGyAP1DZ1ETNrK0PbC8/ftzMtaE39+32h7wW9fBC/XYhIr/FiGthd688LbC2JpTWGg7YUH88L+q5JpDWGwfxPJUpLbGDB8adjvjRwBfS/4TNoYd30+0WgY+X39Qqc3D0xbJEk0FgbaXvhpHjhupSrRSBjoe0H/EZ55y4WJymGgXeTxmbSxzJptomIYaHtBP2lj2YXzRIUw0C7+96YmOoGEYxhoe0E/aeMEbi1E2wvJ4xwu8qHcrNLlY+twIre7n6XwdbPZPJqHPFA9WkkVBmvvhT0ntLowmL7pfAqfSduBE1tNGOh7oe66CysJg/mbzg/xXWkbQuNhoO2Ftm6bp9Ew0G4ubPMODBoLA3EvWMtoKIz8dVs0Eq30whAaCANtL1zZWlAxDLSbC3tbGyqEgbYX1rvXGecw0G06T6z9tnmcwkDbC52dAnzCUDmtvc7ow1BoctI2ey2Cl08da3lY4GNeW/hoDbqwmfKJ9fnlh7XvMR+f7NTR/p+p89nrTLth9HZuaC+M831AFe2EkTj3vc60EUZnoXoY8YCq19Dei3pI7HXexzmMtlfaanMKIxG9UOYQRjygaixhGL2FaQRhxAOqjrVgGInohXkWCqOzMN/MMHoLyzkyjJi0KUwMIxEPqNIZGUY7t82fshFhxD/u9jIQRm/B154w/B5QFd56FUaKXqhsF8bJP1X4D2ZAFj1Engf9AAAAAElFTkSuQmCC" alt="Success Icon" class="h-16 w-16" />
-            </div>
+    <div class="rounded-full border-4 border-[#FFDF00] bg-green-500 p-4 flex items-center justify-center">
+        <svg width="70" height="65" viewBox="0 0 85 75" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M72.5986 0L33.6514 51.7801L10.625 28.577L0 39.2913L35.4111 75L85 10.7143L72.5986 0Z" fill="white"/>
+        </svg>
+    </div>
         </div>
         <h2 class="text-lg font-semibold mb-2">Berhasil</h2>
         <p>Permohonan refilling berhasil diajukan</p>
