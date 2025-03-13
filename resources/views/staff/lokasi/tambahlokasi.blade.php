@@ -1,15 +1,15 @@
-@extends('layouts.lokasi.app')
+@extends('layouts.staff.lokasi.app')
 
 @section('title', 'Lokasi')
 
 @section('content')
 <!-- Tombol Back dengan Ikon -->
 <div class="flex items-center mt-20 mb-2 ml-4"> <!-- Tambahkan mb-2 untuk mengurangi jarak bawah -->
-    <a href="{{ route('lokasi.show', $lokasi->id) }}" class="flex items-center text-gray-700 hover:text-gray-900">
+    <a href="{{ route('staff.index') }}" class="flex items-center text-gray-700 hover:text-gray-900">
         <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
         </svg>
-        <span class="text-lg font-semibold">Edit Lokasi</span>
+        <span class="text-lg font-semibold">Tambah Lokasi</span>
     </a>
 </div>
 
@@ -17,11 +17,11 @@
 <main class="p-6 -mt-4 max-w-full mx-auto"> <!-- mt-4 untuk mendekatkan ke tombol back -->
     <div class="bg-white p-6 rounded-lg shadow-lg">
         <!-- 🔹 Tulisan "Edit APAR" -->
-        <h2 class="text-center text-xl font-bold mb-2">Edit Lokasi</h2>
+        <h2 class="text-center text-xl font-bold mb-2">Tambah Lokasi</h2>
         <p class="text-center text-gray-500 mb-4">Masukkan lokasi sesuai dengan penempatan APAR</p>
 
 
-        <form action="{{ route('lokasi.update', $lokasi->id) }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('staff.lokasi.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <!--  Nama Gedung Input -->
             <div>
@@ -29,9 +29,9 @@
                     Nama Gedung Apar<span class="text-red-500">*</span>
                 </label>
                 <input
-                    type="text" id="nama_gedung" name="nama_gedung"
-                    class="mt-1 block w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2  text-sm focus:ring-[#6C757D] focus:border-[#6C757D] text-[#6C757D]"
-                    value="{{ $lokasi->nama_gedung }}" placeholder="Masukkan Nama Gedung">
+                    type="text" id="Nama Gedung" name="nama_gedung"
+                    class="mt-1 block w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 text-sm focus:ring-[#6C757D] focus:border-[#6C757D] text-[#6C757D]"
+                    placeholder="Masukkan Nama Gedung">
             </div>
 
             <!-- Sistem Lantai -->
@@ -40,20 +40,20 @@
                     Lantai<span class="text-red-500">*</span>
                 </label>
                 <input
-                    type="text" id="lantai" name="lantai"
-                    class="mt-1 block w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2  text-sm focus:ring-[#6C757D] focus:border-[#6C757D] text-[#6C757D]"
-                    value="{{ $lokasi->lantai }}" placeholder="Masukkan Lantai">
+                    type="text" id="Lantai" name="lantai"
+                    class="mt-1 block w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 text-sm focus:ring-[#6C757D] focus:border-[#6C757D] text-[#6C757D]"
+                    placeholder="Masukkan Lantai">
             </div>
 
             <!-- Nama Ruangan -->
             <div>
-                <label for="Nama Ruangan" class="block text-sm font-medium text-gray-700">
+                <label for="Nama Ruangan" class="block text-sm font-medium text-gray-700 mt-4">
                     Nama Ruangan<span class="text-red-500">*</span>
                 </label>
                 <input
                     type="text" id="nama_ruangan" name="nama_ruangan"
-                    class="mt-1 block w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2  text-sm focus:ring-[#6C757D] focus:border-[#6C757D] text-[#6C757D]"
-                    value="{{ $lokasi->nama_ruangan }}" placeholder="Masukkan Nama Ruangan">
+                    class="mt-1 block w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 text-sm focus:ring-[#6C757D] focus:border-[#6C757D] text-[#6C757D]"
+                    placeholder="Masukkan Nama Ruangan">
             </div>
 
             <!-- Pemilik Gedung -->
@@ -64,7 +64,7 @@
                 <input
                     type="text" id="pemilik_gedung" name="pemilik_gedung"
                     class="mt-1 block w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 text-sm focus:ring-[#6C757D] focus:border-[#6C757D] text-[#6C757D]"
-                    value="{{ $lokasi->pemilik_gedung }}" placeholder="Masukkan Pemilik Gedung">
+                    placeholder="Masukkan Pemilik Gedung">
             </div>
 
             <!-- Alamat Gedung -->
@@ -75,7 +75,7 @@
                 <input
                     type="text" id="alamat_gedung" name="alamat_gedung"
                     class="mt-1 block w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 text-sm focus:ring-[#6C757D] focus:border-[#6C757D] text-[#6C757D]"
-                    value="{{ $lokasi->alamat_gedung }}" placeholder="Masukkan Alamat Gedung">
+                    placeholder="Masukkan Alamat Gedung">
             </div>
 
             <!-- Pic Gedung -->
@@ -86,7 +86,7 @@
                 <input
                     type="text" id="pic_gedung" name="pic_gedung"
                     class="mt-1 block w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 text-sm focus:ring-[#6C757D] focus:border-[#6C757D] text-[#6C757D]"
-                    value="{{ $lokasi->pic_gedung }}" placeholder="Masukkan Pic Gedung">
+                    placeholder="Masukkan Pic Gedung">
             </div>
 
             <!-- Satuan Kerja -->
@@ -97,7 +97,7 @@
                 <input
                     type="text" id="satuan_kerja" name="satuan_kerja"
                     class="mt-1 block w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 text-sm focus:ring-[#6C757D] focus:border-[#6C757D] text-[#6C757D]"
-                    value="{{ $lokasi->satuan_kerja }}" placeholder="Masukkan Satuan Kerja">
+                    placeholder="Masukkan Satuan Kerja">
             </div>
 
             <!-- Tanggal Pengecekan -->
@@ -107,8 +107,7 @@
                 </label>
                 <input
                     type="date" id="tanggal_pengecekan" name="tanggal_pengecekan"
-                    class="mt-1 block w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2  text-sm focus:ring-[#6C757D] focus:border-[#6C757D] text-[#6C757D]"
-                    value="{{ $lokasi->tanggal_pengecekan }}">
+                    class="mt-1 block w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2  text-sm focus:ring-[#6C757D] focus:border-[#6C757D] text-[#6C757D]">
             </div>
 
 
@@ -119,7 +118,7 @@
                 </label>
                 <input
                     type="date" id="tanggal_kadaluwarsa" name="tanggal_kadaluwarsa"
-                    class="mt-1 block w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2  text-sm focus:ring-[#6C757D] focus:border-[#6C757D] text-[#6C757D]" value="{{ $lokasi->tanggal_kadaluwarsa }}">
+                    class="mt-1 block w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2  text-sm focus:ring-[#6C757D] focus:border-[#6C757D] text-[#6C757D]">
             </div>
 
             <!-- Foto -->
@@ -136,13 +135,7 @@
                         accept="image/*"
                         onchange="updateFileName(this)">
                     <div class="border border-gray-300 rounded-lg flex items-center justify-between p-2 w-full">
-                        <span id="file-name" class="text-gray-400 text-sm pl-2">
-                            @if ($lokasi->foto)
-                            {{ basename($lokasi->foto) }}
-                            @else
-                            Belum ada file dipilih
-                            @endif
-                        </span>
+                        <span id="file-name" class="text-gray-400 text-sm pl-2">Belum ada file dipilih</span>
                         <label for="foto" class="bg-yellow-400 text-black font-semibold text-sm py-1 px-2 rounded-lg cursor-pointer hover:bg-yellow-500 transition">
                             Pilih File
                         </label>

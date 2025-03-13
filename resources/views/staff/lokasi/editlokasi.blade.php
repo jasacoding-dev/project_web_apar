@@ -1,11 +1,11 @@
-@extends('layouts.lokasi.app')
+@extends('layouts.staff.lokasi.app')
 
 @section('title', 'Lokasi')
 
 @section('content')
 <!-- Tombol Back dengan Ikon -->
 <div class="flex items-center mt-20 mb-2 ml-4"> <!-- Tambahkan mb-2 untuk mengurangi jarak bawah -->
-    <a href="{{ route('lokasi.show', $lokasi->id) }}" class="flex items-center text-gray-700 hover:text-gray-900">
+    <a href="{{ route('staff.lokasi.show', $lokasi->id) }}" class="flex items-center text-gray-700 hover:text-gray-900">
         <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
         </svg>
@@ -21,7 +21,7 @@
         <p class="text-center text-gray-500 mb-4">Masukkan lokasi sesuai dengan penempatan APAR</p>
 
 
-        <form action="{{ route('lokasi.update', $lokasi->id) }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('staff.lokasi.update', $lokasi->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
             <!--  Nama Gedung Input -->
             <div>

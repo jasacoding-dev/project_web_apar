@@ -38,7 +38,7 @@ class AuthenticatedSessionController extends Controller
         }
 
         if (Auth::user()->hasRole('staff')) {
-            return redirect()->route('staff.dashboard');
+            return redirect()->route('staff.index');
         }
 
         // Default redirect jika peran tidak sesuai

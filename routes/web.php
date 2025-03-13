@@ -7,6 +7,7 @@ use App\Http\Controllers\LokasiController;
 use App\Http\Controllers\PenggunaController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SparepartController;
+use App\Http\Controllers\StaffController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -93,7 +94,46 @@ Route::middleware(['auth', 'role:client'])->group(function () {
     Route::get('client/lokasi/{id}/show', [ClientController::class, 'showlokasi'])->name('client.showlokasi');
 });
 
-Route::middleware(['auth', 'role:staff'])->group(function () {});
+Route::middleware(['auth', 'role:staff'])->group(function () {
+    Route::get('/staff/lokasi', [StaffController::class, 'index'])->name('staff.index');
+    Route::get('/staff/lokasi/create', [StaffController::class, 'createlokasi'])->name('staff.lokasi.create');
+    Route::post('/staff/lokasi/store', [StaffController::class, 'storelokasi'])->name('staff.lokasi.store');
+    Route::get('/staff/lokasi/{id}/show', [StaffController::class, 'showlokasi'])->name('staff.lokasi.show');
+    Route::get('/staff/lokasi/{id}/edit', [StaffController::class, 'editlokasi'])->name('staff.lokasi.edit');
+    Route::post('/staff/lokasi/{id}', [StaffController::class, 'updatelokasi'])->name('staff.lokasi.update');
+    Route::delete('/staff/lokasi/{id}', [StaffController::class, 'destroylokasi'])->name('staff.lokasi.destroy');
+    
+
+    Route::get('/staff/barcode', [StaffController::class, 'indexbarcode'])->name('barcode.index');
+    
+    Route::get('staff/detailbarcode', function () {
+        return view('staff.detailbarcode');
+    })->name('detailbarcode');
+    
+
+    Route::get('/staff/profil', [StaffController::class, 'profile'])->name('staff.profile');
+    Route::get('/staff/profil/ubah', [StaffController::class, 'editprofile'])->name('staff.profile.edit');
+    Route::post('/staff/profil/update', [StaffController::class, 'updateProfile'])->name('staff.updateProfile');
+    Route::post('/staff/profil/update-picture', [StaffController::class, 'updateProfilePicture'])->name('staff.profile.updatePicture');
+    Route::get('/staff/ubahkatasandi', [StaffController::class, 'showChangePasswordForm'])->name('staff.ubahkatasandi');
+    Route::post('/staff/ubahkatasandi', [StaffController::class, 'updatePassword'])->name('staff.updatePassword');
+    Route::get('/staff/lupasandi', [StaffController::class, 'showForgotPasswordForm'])->name('staff.lupasandi');
+    Route::post('/staff/lupasandi', [StaffController::class, 'sendResetLinkEmail'])->name('staff.sendResetLink');
+    Route::get('/staff/lupasandi2', [StaffController::class, 'showResetPasswordForm'])->name('staff.lupasandi2');
+    Route::post('/staff/lupasandi2', [StaffController::class, 'resetPassword'])->name('staff.resetPassword');
+
+
+
+    // Route ke halaman utama (Dashboard)
+    Route::get('staff/detailriwayat', function () {
+        return view('staff.detailriwayat'); // Ganti dengan view dashboard yang sesuai
+    })->name('detailriwayat');
+    
+    // Route ke halaman utama (Dashboard)
+    Route::get('staff/detailriwayat2', function () {
+        return view('staff.detailriwayat2'); // Ganti dengan view dashboard yang sesuai
+    })->name('detailriwayat2');
+});
 
 
 
@@ -149,15 +189,6 @@ Route::get('/dashboard1', function () {
 
 
 
-
-
-
-// Route Client
-
-Route::get('client/login', function () {
-    return view('authclient.login');
-})->name('login');
-
 Route::get('client/forgotpassword1', function () {
     return view('authclient.forgotpassword1');
 })->name('password.request');
@@ -187,72 +218,8 @@ Route::get('client/notifications', function () {
 
 
 
-// Route Staff
 
-Route::get('staff/login', function () {
-    return view('authstaff.login');
-})->name('login');
 
-Route::get('staff/forgotpassword1', function () {
-    return view('authstaff.forgotpassword1');
-})->name('password.request');
-
-Route::get('staff/forgotpassword2', function () {
-    return view('authstaff.forgotpassword2');
-})->name('password.request');
-
-Route::get('staff/resetpassword', function () {
-    return view('authstaff.resetpassword');
-})->name('resetpassword');
-
-Route::get('staff/createaccount', function () {
-    return view('authstaff.createaccount');
-})->name('createaccount');
-
-Route::get('staff/daftarlokasi', function () {
-    return view('staff.daftarlokasi');
-})->name('daftarlokasi');
-
-// Route ke halaman utama (Dashboard)
-Route::get('staff/tambahlokasi', function () {
-    return view('staff.tambahlokasi'); // Ganti dengan view dashboard yang sesuai
-})->name('tambahlokasi');
-
-// Route ke halaman utama (Dashboard)
-Route::get('staff/detaillokasi', function () {
-    return view('staff.detaillokasi'); // Ganti dengan view dashboard yang sesuai
-})->name('detaillokasi');
-
-// Route ke halaman utama (Dashboard)
-Route::get('staff/detailriwayat', function () {
-    return view('staff.detailriwayat'); // Ganti dengan view dashboard yang sesuai
-})->name('detailriwayat');
-
-// Route ke halaman utama (Dashboard)
-Route::get('staff/detailriwayat2', function () {
-    return view('staff.detailriwayat2'); // Ganti dengan view dashboard yang sesuai
-})->name('detailriwayat2');
-
-// Route ke halaman utama (Dashboard)
-Route::get('staff/editlokasi', function () {
-    return view('staff.editlokasi'); // Ganti dengan view dashboard yang sesuai
-})->name('editlokasi');
-
-Route::get('staff/profil', function () {
-    return view('staff.profil'); // Ganti dengan view dashboard yang sesuai
-})->name('profil');
-
-Route::get('staff/ubahprofil', function () {
-    return view('staff.ubahprofil'); // Ganti dengan view dashboard yang sesuai
-})->name('ubahprofil');
-
-Route::get('staff/barcode', function () {
-    return view('staff.barcode');
-})->name('barcode');
-
-Route::get('staff/detailbarcode', function () {
-    return view('staff.detailbarcode');
-})->name('detailbarcode');
 
 Route::get('staff/kustom', function () {
     return view('staff.kustom');
@@ -262,17 +229,6 @@ Route::get('staff/perbaikan', function () {
     return view('staff.perbaikan');
 })->name('perbaikan');
 
-Route::get('staff/ubahkatasandi', function () {
-    return view('staff.ubahkatasandi');
-})->name('ubahkatasandi');
-
-Route::get('staff/lupasandi', function () {
-    return view('staff.lupasandi');
-})->name('lupasandi');
-
-Route::get('staff/lupasandi2', function () {
-    return view('staff.lupasandi2');
-})->name('lupasandi2');
 
 
 

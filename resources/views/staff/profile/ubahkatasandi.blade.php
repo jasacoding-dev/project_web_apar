@@ -11,8 +11,8 @@
             <!-- Header -->
             <div class="bg-[#0168AD] rounded-t-lg p-1 -mt-3">
                 <nav class="flex justify-center space-x-4">
-                    <a href="" class="text-white font-normal hover:underline">Detail Profil</a>
-                    <a href="}" class="text-white font-semibold hover:underline">Ubah Kata Sandi</a>
+                    <a href="{{ route('staff.profile') }}" class="text-white font-normal hover:underline">Detail Profil</a>
+                    <a href="{{ route('staff.ubahkatasandi') }}" class="text-white font-semibold hover:underline">Ubah Kata Sandi</a>
                 </nav>
             </div>
 
@@ -20,7 +20,7 @@
             <div class="bg-white  rounded-b-lg p-4 w-full sm:w-[96%] md:w-full min-h-[80vh] md:min-h-0 flex flex-col justify-start overflow-auto">
                 <h2 class="text-lg font-bold mb-2 sm:mb-3 text-left">Ubah Kata Sandi</h2>
 
-                <form action="" method="POST" class="flex flex-col justify-start gap-2 sm:gap-3">
+                <form action="{{ route('staff.updatePassword') }}" method="POST" class="flex flex-col justify-start gap-2 sm:gap-3">
                     @csrf
                     <!-- Kata Sandi Lama -->
                     <div class="mb-1 sm:mb-2">
@@ -72,7 +72,7 @@
 
                     <!-- Lupa Kata Sandi -->
                     <div class="mt-1 sm:mt-1 text-right">
-                        <a href="" class="text-yellow-500 text-sm font-medium hover:underline">
+                        <a href="{{ route('staff.lupasandi') }}" class="text-yellow-500 text-sm font-medium hover:underline">
                             Lupa Kata Sandi?
                         </a>
                     </div>

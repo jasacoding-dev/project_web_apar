@@ -21,153 +21,151 @@
         <p class="text-center text-gray-500 mb-4">Masukkan lokasi sesuai dengan penempatan APAR</p>
 
 
-        <form action="{{ route('lokasi.store') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('lokasi.store') }}" method="POST" enctype="multipart/form-data" class="space-y-4">
             @csrf
-            <!-- Form -->
-            <form class="space-y-4">
-                <!--  Nama Gedung Input -->
-                <div>
-                    <label for=" Nama Gedung" class="block text-sm font-medium text-gray-700">
-                        Nama Gedung Apar<span class="text-red-500">*</span>
-                    </label>
+            <!--  Nama Gedung Input -->
+            <div>
+                <label for=" Nama Gedung" class="block text-sm font-medium text-gray-700">
+                    Nama Gedung Apar<span class="text-red-500">*</span>
+                </label>
+                <input
+                    type="text" id="Nama Gedung" name="nama_gedung"
+                    class="mt-1 block w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 text-sm focus:ring-[#6C757D] focus:border-[#6C757D] text-[#6C757D]"
+                    placeholder="Masukkan Nama Gedung">
+            </div>
+
+            <!-- Sistem Lantai -->
+            <div>
+                <label for="Sistem Kerja" class="block text-sm font-medium text-gray-700 mt-4">
+                    Lantai<span class="text-red-500">*</span>
+                </label>
+                <input
+                    type="text" id="Lantai" name="lantai"
+                    class="mt-1 block w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 text-sm focus:ring-[#6C757D] focus:border-[#6C757D] text-[#6C757D]"
+                    placeholder="Masukkan Lantai">
+            </div>
+
+            <!-- Nama Ruangan -->
+            <div>
+                <label for="Nama Ruangan" class="block text-sm font-medium text-gray-700 mt-4">
+                    Nama Ruangan<span class="text-red-500">*</span>
+                </label>
+                <input
+                    type="text" id="nama_ruangan" name="nama_ruangan"
+                    class="mt-1 block w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 text-sm focus:ring-[#6C757D] focus:border-[#6C757D] text-[#6C757D]"
+                    placeholder="Masukkan Nama Ruangan">
+            </div>
+
+            <!-- Pemilik Gedung -->
+            <div>
+                <label for="Pemilik Gedung" class="block text-sm font-medium text-gray-700 mt-4">
+                    Pemilik Gedung<span class="text-red-500">*</span>
+                </label>
+                <input
+                    type="text" id="pemilik_gedung" name="pemilik_gedung"
+                    class="mt-1 block w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 text-sm focus:ring-[#6C757D] focus:border-[#6C757D] text-[#6C757D]"
+                    placeholder="Masukkan Pemilik Gedung">
+            </div>
+
+            <!-- Alamat Gedung -->
+            <div>
+                <label for="Alamat Gedung" class="block text-sm font-medium text-gray-700 mt-4">
+                    Alamat Gedung<span class="text-red-500">*</span>
+                </label>
+                <input
+                    type="text" id="alamat_gedung" name="alamat_gedung"
+                    class="mt-1 block w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 text-sm focus:ring-[#6C757D] focus:border-[#6C757D] text-[#6C757D]"
+                    placeholder="Masukkan Alamat Gedung">
+            </div>
+
+            <!-- Pic Gedung -->
+            <div>
+                <label for="Pic Gedung" class="block text-sm font-medium text-gray-700 mt-4">
+                    Pic Gedung<span class="text-red-500">*</span>
+                </label>
+                <input
+                    type="text" id="pic_gedung" name="pic_gedung"
+                    class="mt-1 block w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 text-sm focus:ring-[#6C757D] focus:border-[#6C757D] text-[#6C757D]"
+                    placeholder="Masukkan Pic Gedung">
+            </div>
+
+            <!-- Satuan Kerja -->
+            <div>
+                <label for="Satuan Kerja" class="block text-sm font-medium text-gray-700 mt-4">
+                    Satuan Kerja<span class="text-red-500">*</span>
+                </label>
+                <input
+                    type="text" id="satuan_kerja" name="satuan_kerja"
+                    class="mt-1 block w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 text-sm focus:ring-[#6C757D] focus:border-[#6C757D] text-[#6C757D]"
+                    placeholder="Masukkan Satuan Kerja">
+            </div>
+
+            <!-- Tanggal Pengecekan -->
+            <div>
+                <label for="tanggal_Pengecekan" class="block text-sm font-medium text-gray-700 mt-4">
+                    Tanggal Pengecekan<span class="text-red-500">*</span>
+                </label>
+                <input
+                    type="date" id="tanggal_pengecekan" name="tanggal_pengecekan"
+                    class="mt-1 block w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2  text-sm focus:ring-[#6C757D] focus:border-[#6C757D] text-[#6C757D]">
+            </div>
+
+
+            <!-- Tanggal Kadaluarsa -->
+            <div>
+                <label for="tanggal_kadaluwarsa" class="block text-sm font-medium text-gray-700 mt-4">
+                    Tanggal kadaluwarsa<span class="text-red-500">*</span>
+                </label>
+                <input
+                    type="date" id="tanggal_kadaluwarsa" name="tanggal_kadaluwarsa"
+                    class="mt-1 block w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2  text-sm focus:ring-[#6C757D] focus:border-[#6C757D] text-[#6C757D]">
+            </div>
+
+            <!-- Foto -->
+            <div>
+                <label for="foto" class="block text-sm font-medium text-gray-700 mt-4">
+                    Foto<span class="text-red-500">*</span>
+                </label>
+                <div class="mt-1 relative w-full">
                     <input
-                        type="text" id="Nama Gedung" name="nama_gedung"
-                        class="mt-1 block w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 text-sm focus:ring-[#6C757D] focus:border-[#6C757D] text-[#6C757D]"
-                        placeholder="Masukkan Nama Gedung">
-                </div>
-
-                <!-- Sistem Lantai -->
-                <div>
-                    <label for="Sistem Kerja" class="block text-sm font-medium text-gray-700 mt-4">
-                        Lantai<span class="text-red-500">*</span>
-                    </label>
-                    <input
-                        type="text" id="Lantai" name="lantai"
-                        class="mt-1 block w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 text-sm focus:ring-[#6C757D] focus:border-[#6C757D] text-[#6C757D]"
-                        placeholder="Masukkan Lantai">
-                </div>
-
-                <!-- Nama Ruangan -->
-                <div>
-                    <label for="Nama Ruangan" class="block text-sm font-medium text-gray-700 mt-4">
-                        Nama Ruangan<span class="text-red-500">*</span>
-                    </label>
-                    <input
-                        type="text" id="nama_ruangan" name="nama_ruangan"
-                        class="mt-1 block w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 text-sm focus:ring-[#6C757D] focus:border-[#6C757D] text-[#6C757D]"
-                        placeholder="Masukkan Nama Ruangan">
-                </div>
-
-                <!-- Pemilik Gedung -->
-                <div>
-                    <label for="Pemilik Gedung" class="block text-sm font-medium text-gray-700 mt-4">
-                        Pemilik Gedung<span class="text-red-500">*</span>
-                    </label>
-                    <input
-                        type="text" id="pemilik_gedung" name="pemilik_gedung"
-                        class="mt-1 block w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 text-sm focus:ring-[#6C757D] focus:border-[#6C757D] text-[#6C757D]"
-                        placeholder="Masukkan Pemilik Gedung">
-                </div>
-
-                <!-- Alamat Gedung -->
-                <div>
-                    <label for="Alamat Gedung" class="block text-sm font-medium text-gray-700 mt-4">
-                        Alamat Gedung<span class="text-red-500">*</span>
-                    </label>
-                    <input
-                        type="text" id="alamat_gedung" name="alamat_gedung"
-                        class="mt-1 block w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 text-sm focus:ring-[#6C757D] focus:border-[#6C757D] text-[#6C757D]"
-                        placeholder="Masukkan Alamat Gedung">
-                </div>
-
-                <!-- Pic Gedung -->
-                <div>
-                    <label for="Pic Gedung" class="block text-sm font-medium text-gray-700 mt-4">
-                        Pic Gedung<span class="text-red-500">*</span>
-                    </label>
-                    <input
-                        type="text" id="pic_gedung" name="pic_gedung"
-                        class="mt-1 block w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 text-sm focus:ring-[#6C757D] focus:border-[#6C757D] text-[#6C757D]"
-                        placeholder="Masukkan Pic Gedung">
-                </div>
-
-                <!-- Satuan Kerja -->
-                <div>
-                    <label for="Satuan Kerja" class="block text-sm font-medium text-gray-700 mt-4">
-                        Satuan Kerja<span class="text-red-500">*</span>
-                    </label>
-                    <input
-                        type="text" id="satuan_kerja" name="satuan_kerja"
-                        class="mt-1 block w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 text-sm focus:ring-[#6C757D] focus:border-[#6C757D] text-[#6C757D]"
-                        placeholder="Masukkan Satuan Kerja">
-                </div>
-
-                <!-- Tanggal Pengecekan -->
-                <div>
-                    <label for="tanggal_Pengecekan" class="block text-sm font-medium text-gray-700 mt-4">
-                        Tanggal Pengecekan<span class="text-red-500">*</span>
-                    </label>
-                    <input
-                        type="date" id="tanggal_pengecekan" name="tanggal_pengecekan"
-                        class="mt-1 block w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2  text-sm focus:ring-[#6C757D] focus:border-[#6C757D] text-[#6C757D]">
-                </div>
-
-
-                <!-- Tanggal Kadaluarsa -->
-                <div>
-                    <label for="tanggal_kadaluwarsa" class="block text-sm font-medium text-gray-700 mt-4">
-                        Tanggal kadaluwarsa<span class="text-red-500">*</span>
-                    </label>
-                    <input
-                        type="date" id="tanggal_kadaluwarsa" name="tanggal_kadaluwarsa"
-                        class="mt-1 block w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2  text-sm focus:ring-[#6C757D] focus:border-[#6C757D] text-[#6C757D]">
-                </div>
-
-                <!-- Foto -->
-                <div>
-                    <label for="foto" class="block text-sm font-medium text-gray-700 mt-4">
-                        Foto<span class="text-red-500">*</span>
-                    </label>
-                    <div class="mt-1 relative w-full">
-                        <input
-                            type="file"
-                            id="foto"
-                            name="foto"
-                            class="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-                            accept="image/*"
-                            onchange="updateFileName(this)">
-                        <div class="border border-gray-300 rounded-lg flex items-center justify-between p-2 w-full">
-                            <span id="file-name" class="text-gray-400 text-sm pl-2">Belum ada file dipilih</span>
-                            <label for="foto" class="bg-yellow-400 text-black font-semibold text-sm py-1 px-2 rounded-lg cursor-pointer hover:bg-yellow-500 transition">
-                                Pilih File
-                            </label>
-                        </div>
+                        type="file"
+                        id="foto"
+                        name="foto"
+                        class="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                        accept="image/*"
+                        onchange="updateFileName(this)">
+                    <div class="border border-gray-300 rounded-lg flex items-center justify-between p-2 w-full">
+                        <span id="file-name" class="text-gray-400 text-sm pl-2">Belum ada file dipilih</span>
+                        <label for="foto" class="bg-yellow-400 text-black font-semibold text-sm py-1 px-2 rounded-lg cursor-pointer hover:bg-yellow-500 transition">
+                            Pilih File
+                        </label>
                     </div>
                 </div>
+            </div>
 
-                <!-- Script untuk menampilkan nama file -->
-                <script>
-                    function updateFileName(input) {
-                        const fileNameSpan = document.getElementById("file-name");
-                        if (input.files.length > 0) {
-                            fileNameSpan.textContent = input.files[0].name; // Menampilkan nama file
-                            fileNameSpan.classList.remove("text-gray-400"); // Menghilangkan warna abu-abu default
-                        } else {
-                            fileNameSpan.textContent = "Belum ada file dipilih"; // Reset jika tidak ada file
-                            fileNameSpan.classList.add("text-gray-400");
-                        }
+            <!-- Script untuk menampilkan nama file -->
+            <script>
+                function updateFileName(input) {
+                    const fileNameSpan = document.getElementById("file-name");
+                    if (input.files.length > 0) {
+                        fileNameSpan.textContent = input.files[0].name; // Menampilkan nama file
+                        fileNameSpan.classList.remove("text-gray-400"); // Menghilangkan warna abu-abu default
+                    } else {
+                        fileNameSpan.textContent = "Belum ada file dipilih"; // Reset jika tidak ada file
+                        fileNameSpan.classList.add("text-gray-400");
                     }
-                </script>
+                }
+            </script>
 
-                <!-- Tombol Simpan -->
-                <div class="flex justify-center">
-                    <button
-                        type="submit"
-                        class="bg-[#FFDF00] w-80 text-black font-bold px-8 py-2 rounded-lg hover:bg-yellow-500 transition mt-4">
-                        Simpan
-                    </button>
-                </div>
-            </form>
+            <!-- Tombol Simpan -->
+            <div class="flex justify-center">
+                <button
+                    type="submit"
+                    class="bg-[#FFDF00] w-80 text-black font-bold px-8 py-2 rounded-lg hover:bg-yellow-500 transition mt-4">
+                    Simpan
+                </button>
+            </div>
+        </form>
     </div>
 
     <script>
