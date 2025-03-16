@@ -21,6 +21,17 @@
         <h2 class="text-center text-xl font-bold mb-2">Tambah Data APAR</h2>
         <p class="text-center text-gray-500 mb-4">Masukkan data APAR dengan tepat</p>
 
+        @if (session('error'))
+        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
+            <span class="block sm:inline">{{ session('error') }}</span>
+        </div>
+        @endif
+
+        @if (session('success'))
+        <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4" role="alert">
+            <span class="block sm:inline">{{ session('success') }}</span>
+        </div>
+        @endif
 
         <form action="{{ route('apar.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
@@ -126,93 +137,133 @@
                             <li class="px-4 py-2 cursor-pointer hover:bg-yellow-400" data-value="{{ $model->id }}">{{ $model->model_tabung }}</li>
                             @endforeach
                         </ul>
-
                         <input type="hidden" name="model_tabung_id" id="model_tabung_id" required>
                     </div>
+                </div>
+
+                <!-- Nomor Tabung -->
+                <div>
+                    <label for="Nomor Tabung" class="block text-sm font-medium text-gray-700 mt-4">
+                        Nomor Tabung<span class="text-red-500">*</span>
+                    </label>
+                    <input
+                        type="text" id="Nomor Tabung" name="nomor_tabung"
+                        class="mt-1 block w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 text-sm focus:ring-[#6C757D] focus:border-[#6C757D] text-[#6C757D]"
+                        placeholder="Masukkan Nomor Tabung">
+                </div>
+
+                <!-- Form Lokasi Gedung -->
+                <div>
+                    <label for="nama_gedung" class="block text-sm font-medium text-gray-700 mt-4">
+                        Lokasi Gedung<span class="text-red-500">*</span>
+                    </label>
+                    <div class="relative">
+                        <button type="button" id="nama_gedung-button" class="mt-1 block w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 text-sm focus:ring-[#6C757D] focus:border-[#6C757D] text-[#6C757D] flex justify-between items-center z-50">
+                            Pilih Gedung
+                            <svg id="nama-gedung-icon" class="w-5 h-5 ml-2 transform transition-transform duration-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="none" stroke="currentColor" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 7l7 7 7-7"></path>
+                            </svg>
+                        </button>
+                        <ul id="nama_gedung-dropdown" class="relative w-full mt-2 bg-white border border-gray-300 rounded-lg shadow-lg hidden z-20">
+                            @foreach ($gedungs as $gedung)
+                            <li class="px-4 py-2 cursor-pointer hover:bg-yellow-400" data-value="{{ $gedung->nama_gedung }}">{{ $gedung->nama_gedung }}</li>
+                            @endforeach
+                        </ul>
+                        <input type="hidden" name="nama_gedung" id="nama_gedung" required>
+                    </div>
+                </div>
+
+                <!-- Form Lokasi Ruangan -->
+                <div>
+                    <label for="nama_ruangan" class="block text-sm font-medium text-gray-700 mt-4">
+                        Lokasi Ruangan<span class="text-red-500">*</span>
+                    </label>
+                    <div class="relative">
+                        <button type="button" id="nama_ruangan-button" class="mt-1 block w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 text-sm focus:ring-[#6C757D] focus:border-[#6C757D] text-[#6C757D] flex justify-between items-center z-50" disabled>
+                            Pilih Ruangan
+                            <svg id="nama-ruangan-icon" class="w-5 h-5 ml-2 transform transition-transform duration-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="none" stroke="currentColor" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 7l7 7 7-7"></path>
+                            </svg>
+                        </button>
+                        <ul id="nama_ruangan-dropdown" class="relative w-full mt-2 bg-white border border-gray-300 rounded-lg shadow-lg hidden z-20">
+                            @foreach ($ruangans as $ruangan)
+                            <li class="px-4 py-2 cursor-pointer hover:bg-yellow-400" data-value="{{ $ruangan->nama_ruangan }}" data-gedung="{{ $ruangan->nama_gedung }}">{{ $ruangan->nama_ruangan }}</li>
+                            @endforeach
+                        </ul>
+                        <input type="hidden" name="nama_ruangan" id="nama_ruangan" required>
+                    </div>
+                </div>
+
+                <!-- Tanggal Kadaluarsa -->
+                <div>
+                    <label for="tanggal_kadaluwarsa" class="block text-sm font-medium text-gray-700 mt-4">
+                        Tanggal kadaluwarsa<span class="text-red-500">*</span>
+                    </label>
+                    <input
+                        type="date" id="tanggal_kadaluwarsa" name="tanggal_kadaluarsa"
+                        class="mt-1 block w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2  text-sm focus:ring-[#6C757D] focus:border-[#6C757D] text-[#6C757D]">
+                </div>
+
+                <!-- Keterangan -->
+                <div>
+                    <label for="Keterangan" class="block text-sm font-medium text-gray-700 mt-4">
+                        Keterangan
+                    </label>
+                    <textarea
+                        id="Keterangan" name="keterangan"
+                        class="mt-1 block w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2  text-sm focus:ring-[#6C757D] focus:border-[#6C757D] text-[#6C757D]"
+                        placeholder="Tambahkan keterangan tambahan..." rows="3"></textarea>
+                </div>
 
 
-
-                    <!-- Nomor Tabung -->
-                    <div>
-                        <label for="Nomor Tabung" class="block text-sm font-medium text-gray-700 mt-4">
-                            Nomor Tabung<span class="text-red-500">*</span>
-                        </label>
+                <!-- Foto -->
+                <div>
+                    <label for="foto" class="block text-sm font-medium text-gray-700 mt-4 z-50">
+                        Foto<span class="text-red-500">*</span>
+                    </label>
+                    <div class="mt-1 relative w-full">
                         <input
-                            type="text" id="Nomor Tabung" name="nomor_tabung"
-                            class="mt-1 block w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 text-sm focus:ring-[#6C757D] focus:border-[#6C757D] text-[#6C757D]"
-                            placeholder="Masukkan Nomor Tabung">
-                    </div>
-
-
-                    <!-- Tanggal Kadaluarsa -->
-                    <div>
-                        <label for="tanggal_kadaluwarsa" class="block text-sm font-medium text-gray-700 mt-4">
-                            Tanggal kadaluwarsa<span class="text-red-500">*</span>
-                        </label>
-                        <input
-                            type="date" id="tanggal_kadaluwarsa" name="tanggal_kadaluarsa"
-                            class="mt-1 block w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2  text-sm focus:ring-[#6C757D] focus:border-[#6C757D] text-[#6C757D]">
-                    </div>
-
-                    <!-- Keterangan -->
-                    <div>
-                        <label for="Keterangan" class="block text-sm font-medium text-gray-700 mt-4">
-                            Keterangan
-                        </label>
-                        <textarea
-                            id="Keterangan" name="keterangan"
-                            class="mt-1 block w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2  text-sm focus:ring-[#6C757D] focus:border-[#6C757D] text-[#6C757D]"
-                            placeholder="Tambahkan keterangan tambahan..." rows="3"></textarea>
-                    </div>
-
-
-                    <!-- Foto -->
-                    <div>
-                        <label for="foto" class="block text-sm font-medium text-gray-700 mt-4 z-50">
-                            Foto<span class="text-red-500">*</span>
-                        </label>
-                        <div class="mt-1 relative w-full">
-                            <input
-                                type="file" id="foto" name="foto"
-                                class="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-                                accept="image/*"
-                                onchange="updateFileName(this)">
-                            <div class="border border-gray-300 rounded-lg flex items-center justify-between p-2 w-full">
-                                <span id="file-name" class="text-gray-400 text-sm pl-2">Belum ada file dipilih</span>
-                                <label for="foto" class="bg-yellow-400 text-black font-semibold text-sm py-1 px-2 rounded-lg cursor-pointer hover:bg-yellow-500 transition">
-                                    Pilih File
-                                </label>
-                            </div>
+                            type="file" id="foto" name="foto"
+                            class="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                            accept="image/*"
+                            onchange="updateFileName(this)">
+                        <div class="border border-gray-300 rounded-lg flex items-center justify-between p-2 w-full">
+                            <span id="file-name" class="text-gray-400 text-sm pl-2">Belum ada file dipilih</span>
+                            <label for="foto" class="bg-yellow-400 text-black font-semibold text-sm py-1 px-2 rounded-lg cursor-pointer hover:bg-yellow-500 transition">
+                                Pilih File
+                            </label>
                         </div>
                     </div>
+                </div>
 
-                    <!-- Script untuk menampilkan nama file -->
-                    <script>
-                        function updateFileName(input) {
-                            const fileNameSpan = document.getElementById("file-name");
-                            if (input.files.length > 0) {
-                                fileNameSpan.textContent = input.files[0].name; // Menampilkan nama file
-                                fileNameSpan.classList.remove("text-gray-400"); // Menghilangkan warna abu-abu default
-                            } else {
-                                fileNameSpan.textContent = "Belum ada file dipilih"; // Reset jika tidak ada file
-                                fileNameSpan.classList.add("text-gray-400");
-                            }
+                <!-- Script untuk menampilkan nama file -->
+                <script>
+                    function updateFileName(input) {
+                        const fileNameSpan = document.getElementById("file-name");
+                        if (input.files.length > 0) {
+                            fileNameSpan.textContent = input.files[0].name; // Menampilkan nama file
+                            fileNameSpan.classList.remove("text-gray-400"); // Menghilangkan warna abu-abu default
+                        } else {
+                            fileNameSpan.textContent = "Belum ada file dipilih"; // Reset jika tidak ada file
+                            fileNameSpan.classList.add("text-gray-400");
                         }
-                    </script>
+                    }
+                </script>
 
-                    <!-- Tombol Simpan -->
-                    <div class="flex justify-center">
-                        <button
-                            type="submit"
-                            class="bg-[#FFDF00] w-80 text-black font-bold px-8 py-2 rounded-lg hover:bg-yellow-500 transition mt-4">
-                            Simpan
-                        </button>
-                    </div>
+                <!-- Tombol Simpan -->
+                <div class="flex justify-center">
+                    <button
+                        type="submit"
+                        class="bg-[#FFDF00] w-80 text-black font-bold px-8 py-2 rounded-lg hover:bg-yellow-500 transition mt-4">
+                        Simpan
+                    </button>
+                </div>
             </form>
     </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+
             // Fungsi untuk menangani dropdown umum
             function setupDropdown(buttonId, dropdownId, iconId, hiddenInputId) {
                 const button = document.getElementById(buttonId);
@@ -244,19 +295,58 @@
                 });
             }
 
-            // Inisialisasi dropdown Jenis Media
             setupDropdown('jenis-media-button', 'jenis-media-dropdown', 'jenis-media-icon', 'jenis_media_id');
-
-            // Setup dropdown untuk model tabung
             setupDropdown('model-tabung-button', 'model-tabung-dropdown', 'model-tabung-icon', 'model_tabung_id');
+            setupDropdown('nama_gedung-button', 'nama_gedung-dropdown', 'nama-gedung-icon', 'nama_gedung');
+            setupDropdown('nama_ruangan-button', 'nama_ruangan-dropdown', 'nama-ruangan-icon', 'nama_ruangan');
+
+            // Filter ruangan berdasarkan gedung yang dipilih
+            const gedungDropdown = document.getElementById('nama_gedung-dropdown');
+            const ruanganDropdown = document.getElementById('nama_ruangan-dropdown');
+            const ruanganButton = document.getElementById('nama_ruangan-button');
+            const ruanganItems = ruanganDropdown.querySelectorAll('li');
+
+            gedungDropdown.addEventListener('click', (event) => {
+                if (event.target.tagName === 'LI') {
+                    const selectedGedung = event.target.dataset.value;
+
+                    // Sembunyikan semua ruangan
+                    ruanganItems.forEach(item => {
+                        item.style.display = 'none';
+                    });
+
+                    // Tampilkan ruangan yang sesuai dengan gedung yang dipilih
+                    ruanganItems.forEach(item => {
+                        if (item.dataset.gedung === selectedGedung) {
+                            item.style.display = 'block';
+                        }
+                    });
+
+                    // Aktifkan tombol dropdown ruangan
+                    ruanganButton.disabled = false;
+
+                    // Reset pilihan ruangan
+                    ruanganButton.innerHTML = 'Pilih Ruangan <svg id="nama_ruangan-icon" class="w-5 h-5 ml-2 transform transition-transform duration-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="none" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 7l7 7 7-7"></path></svg>';
+                    document.getElementById('nama_ruangan').value = '';
+                }
+            });
         });
     </script>
 
-
     <style>
+        button[disabled] {
+            background-color: #f3f4f6;
+            color: #9ca3af;
+            cursor: not-allowed;
+        }
+
         /* Animasi untuk dropdown */
         .rotate-180 {
             transform: rotate(180deg);
+        }
+
+        .hidden {
+            display: none;
         }
     </style>
 

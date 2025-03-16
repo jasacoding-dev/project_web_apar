@@ -5,7 +5,7 @@
 @section('content')
 
 <!-- Form Container -->
-<main class="p-6 mt-16 max-w-full mx-auto"> <!-- mt-4 untuk mendekatkan ke tombol back -->
+<main class="p-6 mt-16 max-w-full mx-auto">
     <div class="bg-white shadow-md rounded-b-lg p-4 w-auto sm:w-[96%] md:w-full min-h-[96vh] md:min-h-[80vh] flex flex-col justify-start overflow-auto">
         <!-- Header (Search Bar and Add Button) -->
         <div class="flex flex-row items-center justify-between w-full space-x-4 mb-4">
@@ -16,6 +16,7 @@
                 </svg>
                 <input
                     type="text"
+                    id="search"
                     placeholder="Cari..."
                     class="bg-transparent outline-none w-full ml-2 text-sm text-gray-600">
             </div>
@@ -26,7 +27,7 @@
             </a>
         </div>
 
-
+        <!-- Table Container -->
         <div class="w-full min-h-screen md:w-full md:min-h-12 lg:w-full max-h-[360px] overflow-y-auto overflow-x-auto border border-gray-300 rounded-lg shadow-md">
             <table class="w-full border-collapse border border-gray-300">
                 <thead>
@@ -36,9 +37,8 @@
                         <th class="border border-gray-300 px-4 py-2 text-left min-w-[200px]">Tanggal Kadluwarsa</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="lokasi-table-body">
                     @foreach ($lokasis as $lokasi)
-                    <!-- Data pengguna -->
                     <tr class="bg-white">
                         <td class="border border-gray-300 px-4 py-2 font-bold">
                             <a href="{{ route('lokasi.show', $lokasi->id) }}" class="text-blue-500 hover:underline">{{ $lokasi->nama_gedung }}</a>
@@ -50,4 +50,34 @@
                 </tbody>
             </table>
         </div>
-        @endsection
+    </div>
+</main>
+
+<script>
+    document.getElementById("search").addEventListener("input", function() {
+        let searchQuery = this.value;
+
+        // Kirim permintaan AJAX untuk pencarian
+        fetchData(searchQuery);
+    });
+
+    function fetchData(searchQuery) {
+        fetch(`/search-lokasi?query=${searchQuery}`)
+            .then(response => response.json())
+            .then(data => {
+                let tbody = document.getElementById("lokasi-table-body");
+                tbody.innerHTML = '';
+                data.forEach(lokasi => {
+                    let row = `<tr class="bg-white">
+                        <td class="border border-gray-300 px-4 py-2 font-bold">
+                            <a href="/lokasi/${lokasi.id}" class="text-blue-500 hover:underline">${lokasi.nama_gedung}</a>
+                        </td>
+                        <td class="border border-gray-300 px-4 py-2">${lokasi.nama_ruangan}</td>
+                        <td class="border border-gray-300 px-4 py-2">${lokasi.tanggal_kadaluwarsa}</td>
+                    </tr>`;
+                    tbody.innerHTML += row;
+                });
+            });
+    }
+</script>
+@endsection

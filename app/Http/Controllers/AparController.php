@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Apar;
+use App\Models\Barcode;
+use App\Models\Lokasi;
 use App\Models\MediaApar;
 use App\Models\ModelTabung;
 use Illuminate\Http\Request;
@@ -14,57 +16,98 @@ class AparController extends Controller
     public function index()
     {
         $apars = Apar::with(['jenisMedia', 'modelTabung'])->get();
-        return view('admin.apar.daftarapar', compact('apars'));
+        $mediaApar = MediaApar::all();
+        return view('admin.apar.daftarapar', compact('apars', 'mediaApar'));
+    }
+
+    public function search(Request $request)
+    {
+        $query = $request->input('query');
+        $mediaId = $request->input('media_id');
+
+        $apars = Apar::with(['jenisMedia', 'modelTabung'])
+            ->when($query, function ($q) use ($query) {
+                return $q->where('nomor_apar', 'like', "%{$query}%");
+            })
+            ->when($mediaId, function ($q) use ($mediaId) {
+                return $q->where('jenis_media_id', $mediaId);
+            })
+            ->get();
+
+        return response()->json($apars);
     }
 
     public function create()
     {
         $mediaApar = MediaApar::all();
         $modelTabung = ModelTabung::all();
-        return view('admin.apar.tambahapar', compact('mediaApar', 'modelTabung'));
+        $gedungs = Lokasi::select('nama_gedung')->distinct()->get();
+        $ruangans = Lokasi::select('nama_gedung', 'nama_ruangan')->get();
+        return view('admin.apar.tambahapar', compact('mediaApar', 'modelTabung', 'gedungs', 'ruangans'));
     }
 
     public function store(Request $request)
     {
         $request->validate([
-            'nomor_apar' => 'required|unique:apars',
-            'pemilik' => 'required',
-            'merek' => 'required',
-            'sistem_kerja' => 'required',
-            'jenis_media_id' => 'required',
-            'kapasitas' => 'required',
-            'model_tabung_id' => 'required',
-            'nomor_tabung' => 'required|unique:apars',
+            'nomor_apar' => 'required|string|unique:apars',
+            'pemilik' => 'required|string',
+            'merek' => 'required|string',
+            'sistem_kerja' => 'required|string',
+            'jenis_media_id' => 'required|exists:media_apars,id',
+            'kapasitas' => 'required|string',
+            'model_tabung_id' => 'required|exists:model_tabungs,id',
+            'nomor_tabung' => 'required|string|unique:apars',
             'tanggal_kadaluarsa' => 'required|date',
-            'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'keterangan' => 'nullable|string',
+            'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'nama_gedung' => 'required|string',
+            'nama_ruangan' => 'required|string',
         ]);
 
-        $fotoPath = null;
-        if ($request->hasFile('foto')) {
-            $fotoPath = $request->file('foto')->store('apars', 'public');
-            $fotoPath = basename($fotoPath);
+        try {
+            $fotoPath = null;
+            if ($request->hasFile('foto')) {
+                $fotoPath = $request->file('foto')->store('apars', 'public');
+                $fotoPath = basename($fotoPath);
+            }
+
+            // Simpan data APAR
+            $apar = Apar::create([
+                'nomor_apar' => $request->nomor_apar,
+                'pemilik' => $request->pemilik,
+                'merek' => $request->merek,
+                'sistem_kerja' => $request->sistem_kerja,
+                'jenis_media_id' => $request->jenis_media_id,
+                'kapasitas' => $request->kapasitas,
+                'model_tabung_id' => $request->model_tabung_id,
+                'nomor_tabung' => $request->nomor_tabung,
+                'tanggal_kadaluarsa' => $request->tanggal_kadaluarsa,
+                'keterangan' => $request->keterangan,
+                'foto' => $fotoPath,
+            ]);
+
+            // Ambil id_lokasi berdasarkan nama_gedung dan nama_ruangan
+            $lokasi = Lokasi::where('nama_gedung', $request->nama_gedung)
+                ->where('nama_ruangan', $request->nama_ruangan)
+                ->first();
+
+            if ($lokasi) {
+                // Simpan relasi ke tabel barcodes
+                Barcode::create([
+                    'id_lokasi' => $lokasi->id,
+                    'id_apar' => $apar->id,
+                ]);
+            }
+
+            return redirect()->route('apar.index')->with('success', 'APAR berhasil ditambahkan!');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
         }
-
-        Apar::create([
-            'nomor_apar' => $request->nomor_apar,
-            'pemilik' => $request->pemilik,
-            'merek' => $request->merek,
-            'sistem_kerja' => $request->sistem_kerja,
-            'jenis_media_id' => $request->jenis_media_id,
-            'kapasitas' => $request->kapasitas,
-            'model_tabung_id' => $request->model_tabung_id,
-            'nomor_tabung' => $request->nomor_tabung,
-            'tanggal_kadaluarsa' => $request->tanggal_kadaluarsa,
-            'keterangan' => $request->keterangan,
-            'foto' => $fotoPath,
-        ]);
-
-        return redirect()->route('apar.index')->with('success', 'Data APAR berhasil ditambahkan');
     }
 
     public function show($id)
     {
-        $apar = Apar::with(['jenisMedia', 'modelTabung'])->findOrFail($id);
+        $apar = Apar::with(['jenisMedia', 'modelTabung', 'lokasis'])->findOrFail($id);
         return view('admin.apar.detailapar', compact('apar'));
     }
 
@@ -73,8 +116,10 @@ class AparController extends Controller
         $apar = Apar::findOrFail($id);
         $mediaApar = MediaApar::all();
         $modelTabungs = ModelTabung::all();
+        $gedungs = Lokasi::select('nama_gedung')->distinct()->get();
+        $ruangans = Lokasi::select('nama_gedung', 'nama_ruangan')->get();
 
-        return view('admin.apar.editapar', compact('apar', 'mediaApar', 'modelTabungs'));
+        return view('admin.apar.editapar', compact('apar', 'mediaApar', 'modelTabungs', 'gedungs', 'ruangans'));
     }
 
     public function update(Request $request, $id)
@@ -92,18 +137,12 @@ class AparController extends Controller
             'tanggal_kadaluarsa' => 'required|date',
             'keterangan' => 'nullable|string',
             'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'nama_gedung' => 'required|string',
+            'nama_ruangan' => 'required|string',
         ]);
 
-        // Debugging: Log data request
-        Log::info('Data request:', $request->all());
-
-        // Ambil data APAR yang akan diupdate
         $apar = Apar::findOrFail($id);
 
-        // Debugging: Log data APAR sebelum diupdate
-        Log::info('Data APAR sebelum diupdate:', $apar->toArray());
-
-        // Update data APAR kecuali foto
         $apar->update($request->except('foto'));
 
         // Handle file upload
@@ -126,6 +165,18 @@ class AparController extends Controller
 
             // Debugging: Log path file baru
             Log::info('File foto disimpan di:', ['path' => $fotoPath]);
+        }
+
+        $lokasi = Lokasi::where('nama_gedung', $request->nama_gedung)
+            ->where('nama_ruangan', $request->nama_ruangan)
+            ->first();
+
+        if ($lokasi) {
+            // Update relasi barcode
+            Barcode::updateOrCreate(
+                ['id_apar' => $apar->id],
+                ['id_lokasi' => $lokasi->id]
+            );
         }
 
         // Debugging: Log data APAR setelah diupdate

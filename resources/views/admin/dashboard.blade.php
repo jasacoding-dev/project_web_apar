@@ -11,10 +11,9 @@
         <p class="mt-2 text-sm text-gray-600">Pastikan sistem kebakaranmu siap pakai, ya!</p>
         <div class="mt-4 space-y-4">
             <div class="bg-white border border-black rounded-lg shadow p-4 flex justify-center items-center h-24">
-                <p class="text-gray-800 font-semibold">950/1000 APAR Terdata</p>
+                <p class="text-gray-800 font-semibold">{{ $jumlahApar }}/{{ $jumlahLokasi }} Apar dan lokasi yang Terdata</p>
             </div>
         </div>
     </div>
 
-@endsection
-
+    @endsection

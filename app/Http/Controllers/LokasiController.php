@@ -14,6 +14,18 @@ class LokasiController extends Controller
         return view('admin.lokasi.daftarlokasi', compact('lokasis'));
     }
 
+    public function search(Request $request)
+    {
+        $query = $request->input('query');
+
+        $lokasis = Lokasi::where('nama_gedung', 'like', "%{$query}%")
+            ->orWhere('nama_ruangan', 'like', "%{$query}%")
+            ->orWhere('tanggal_kadaluwarsa', 'like', "%{$query}%")
+            ->get();
+
+        return response()->json($lokasis);
+    }
+
     public function create()
     {
         return view('admin.lokasi.tambahlokasi');
@@ -125,7 +137,7 @@ class LokasiController extends Controller
         $filePath = storage_path('app/public/lokasi_foto/' . $lokasi->foto);
         if ($lokasi->foto && Storage::exists($filePath)) {
             Storage::delete($filePath);
-        } 
+        }
         // Hapus data dari database
         $lokasi->delete();
 

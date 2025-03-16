@@ -40,7 +40,17 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::post('/admin/lupasandi2', [AdminController::class, 'resetPassword'])->name('admin.resetPassword');
 
 
+    Route::get('admin/barcode', [AdminController::class, 'indexbarcode'])->name('admin.barcode');
+    Route::get('/search-barcode', [AdminController::class, 'searchbarcode'])->name('search.barcode');
+
+
+    Route::get('admin/cetakbarcode', function () {
+        return view('admin.cetakbarcode'); // Ganti dengan view dashboard yang sesuai
+    })->name('cetakbarcode');
+
+
     Route::get('/admin/pengguna', [PenggunaController::class, 'index'])->name('pengguna.index');
+    Route::get('/search-users', [PenggunaController::class, 'search'])->name('search.users');
     Route::get('/admin/pengguna/create', [PenggunaController::class, 'create'])->name('pengguna.create');
     Route::post('/admin/pengguna/store', [PenggunaController::class, 'store'])->name('pengguna.store');
     Route::get('/admin/pengguna/{id}/show', [PenggunaController::class, 'show'])->name('pengguna.show');
@@ -50,6 +60,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 
 
     Route::get('/admin/apar', [AparController::class, 'index'])->name('apar.index');
+    Route::get('/search-apar', [AparController::class, 'search'])->name('search.apar');
     Route::get('/admin/apar/create', [AparController::class, 'create'])->name('apar.create');
     Route::post('/admin/apar/store', [AparController::class, 'store'])->name('apar.store');
     Route::get('/admin/apar/{id}/show', [AparController::class, 'show'])->name('apar.show');
@@ -59,6 +70,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 
 
     Route::get('admin/sparepart', [SparepartController::class, 'index'])->name('sparepart.index');
+    Route::get('/search-sparepart', [SparepartController::class, 'search'])->name('search.sparepart');
     Route::get('admin/sparepart/create', [SparepartController::class, 'create'])->name('sparepart.create');
     Route::post('admin/sparepart/store', [SparepartController::class, 'store'])->name('sparepart.store');
     Route::get('admin/sparepart/{id}/show', [SparepartController::class, 'show'])->name('sparepart.show');
@@ -68,6 +80,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 
 
     Route::get('admin/lokasi', [LokasiController::class, 'index'])->name('lokasi.index');
+    Route::get('/search-lokasi', [LokasiController::class, 'search'])->name('search.lokasi');
     Route::get('admin/lokasi/create', [LokasiController::class, 'create'])->name('lokasi.create');
     Route::post('admin/lokasi/store', [LokasiController::class, 'store'])->name('lokasi.store');
     Route::get('admin/lokasi/{id}/show', [LokasiController::class, 'show'])->name('lokasi.show');
@@ -102,14 +115,14 @@ Route::middleware(['auth', 'role:staff'])->group(function () {
     Route::get('/staff/lokasi/{id}/edit', [StaffController::class, 'editlokasi'])->name('staff.lokasi.edit');
     Route::post('/staff/lokasi/{id}', [StaffController::class, 'updatelokasi'])->name('staff.lokasi.update');
     Route::delete('/staff/lokasi/{id}', [StaffController::class, 'destroylokasi'])->name('staff.lokasi.destroy');
-    
+
 
     Route::get('/staff/barcode', [StaffController::class, 'indexbarcode'])->name('barcode.index');
-    
+
     Route::get('staff/detailbarcode', function () {
         return view('staff.detailbarcode');
     })->name('detailbarcode');
-    
+
 
     Route::get('/staff/profil', [StaffController::class, 'profile'])->name('staff.profile');
     Route::get('/staff/profil/ubah', [StaffController::class, 'editprofile'])->name('staff.profile.edit');
@@ -128,7 +141,7 @@ Route::middleware(['auth', 'role:staff'])->group(function () {
     Route::get('staff/detailriwayat', function () {
         return view('staff.detailriwayat'); // Ganti dengan view dashboard yang sesuai
     })->name('detailriwayat');
-    
+
     // Route ke halaman utama (Dashboard)
     Route::get('staff/detailriwayat2', function () {
         return view('staff.detailriwayat2'); // Ganti dengan view dashboard yang sesuai
@@ -171,15 +184,6 @@ Route::get('admin/detailriwayat2', function () {
     return view('admin.detailriwayat2'); // Ganti dengan view dashboard yang sesuai
 })->name('detailriwayat2');
 
-// Route ke halaman utama (Dashboard)
-Route::get('admin/daftarbarcode', function () {
-    return view('admin.daftarbarcode'); // Ganti dengan view dashboard yang sesuai
-})->name('daftarbarcode');
-
-// Route ke halaman utama (Dashboard)
-Route::get('admin/cetakbarcode', function () {
-    return view('admin.cetakbarcode'); // Ganti dengan view dashboard yang sesuai
-})->name('cetakbarcode');
 
 // Route ke halaman utama (Dashboard)
 Route::get('/dashboard1', function () {

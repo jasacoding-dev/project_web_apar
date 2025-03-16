@@ -194,7 +194,15 @@
                 </div>
                 <div class="mb-4">
                     <p class="font-bold">Lokasi</p>
+                    @if ($apar->lokasis->isNotEmpty())
+                    <ul>
+                        @foreach ($apar->lokasis as $lokasi)
+                        <li>{{ $lokasi->nama_gedung }} - {{ $lokasi->nama_ruangan }}</li>
+                        @endforeach
+                    </ul>
+                    @else
                     <p>-</p>
+                    @endif
                 </div>
                 <div class="mb-4">
                     <p class="font-bold">Keterangan</p>
@@ -226,7 +234,11 @@
                 </div>
                 <div class="mb-4">
                     <p class="font-bold">Foto</p>
-                    <img src="{{ asset('storage/apars/' . $apar->foto) }}" alt="APAR" class="w-40 h-40 rounded-lg shadow-md">
+                    @if ($apar->foto)
+                    <img src="{{ asset('storage/' . $apar->foto) }}" alt="Foto APAR" class="w-40 h-40 rounded-lg shadow-md">
+                    @else
+                    <p>Tidak ada foto</p>
+                    @endif
                 </div>
             </div>
         </div>

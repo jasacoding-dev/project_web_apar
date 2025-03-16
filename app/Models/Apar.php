@@ -34,4 +34,14 @@ class Apar extends Model
     {
         return $this->belongsTo(ModelTabung::class, 'model_tabung_id');
     }
+
+    public function lokasis()
+    {
+        return $this->hasManyThrough(Lokasi::class, Barcode::class, 'id_apar', 'id', 'id', 'id_lokasi');
+    }
+
+    public function barcodes()
+    {
+        return $this->hasMany(Barcode::class, 'id_apar');
+    }
 }

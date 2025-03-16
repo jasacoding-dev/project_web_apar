@@ -17,6 +17,19 @@ class PenggunaController extends Controller
         return view('admin.pengguna.pengguna', compact('users'));
     }
 
+    public function search(Request $request)
+    {
+        $query = $request->input('query');
+
+        $users = User::with('roles')
+            ->where('name', 'like', "%{$query}%")
+            ->orWhere('email', 'like', "%{$query}%")
+            ->orWhere('phone', 'like', "%{$query}%")
+            ->get();
+
+        return response()->json($users);
+    }
+
     public function create()
     {
         $roles = Role::all();

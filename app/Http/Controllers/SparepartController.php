@@ -14,6 +14,16 @@ class SparepartController extends Controller
         return view('admin.sparepart.daftarsparepart', compact('spareparts'));
     }
 
+    public function search(Request $request)
+    {
+        $query = $request->input('query');
+
+        $spareparts = Sparepart::where('nama_sparepart', 'like', "%{$query}%")
+            ->get();
+
+        return response()->json($spareparts);
+    }
+
     public function create()
     {
         return view('admin.sparepart.tambahsparepart');
@@ -73,7 +83,7 @@ class SparepartController extends Controller
         $sparepart->nama_sparepart = $request->nama_sparepart;
         $sparepart->jumlah = $request->jumlah;
         $sparepart->keterangan = $request->keterangan;
-        
+
 
         $sparepart->update($request->except('foto'));
 
@@ -104,7 +114,7 @@ class SparepartController extends Controller
         $filePath = storage_path('app/public/sparepart/' . $sparepart->foto);
         if ($sparepart->foto && Storage::exists($filePath)) {
             Storage::delete($filePath);
-        } 
+        }
         // Hapus data dari database
         $sparepart->delete();
 

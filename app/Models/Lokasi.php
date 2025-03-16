@@ -21,4 +21,9 @@ class Lokasi extends Model
         'tanggal_kadaluwarsa',
         'foto',
     ];
+
+    public function barcodes()
+    {
+        return $this->hasMany(Barcode::class, 'id_lokasi');
+    }
 }

@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Mail\ResetPasswordMail;
+use App\Models\Apar;
+use App\Models\Barcode;
+use App\Models\Lokasi;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -17,7 +20,9 @@ class AdminController extends Controller
 {
     public function dashboard()
     {
-        return view('admin.dashboard');
+        $jumlahApar = Apar::count();
+        $jumlahLokasi = Lokasi::count();
+        return view('admin.dashboard',compact('jumlahApar', 'jumlahLokasi'));
     }
 
     public function show()
@@ -234,5 +239,28 @@ class AdminController extends Controller
 
         return redirect()->route('admin.profile')
             ->with('success', 'Kata sandi berhasil diubah.');
+    }
+
+    public function indexbarcode()
+    {
+        $barcodes = Barcode::with(['lokasi', 'apar'])->get();
+        return view('admin.barcode.daftarbarcode', compact('barcodes'));
+    }
+
+    public function searchbarcode(Request $request)
+    {
+        $query = $request->input('query');
+
+        $barcodes = Barcode::with(['lokasi', 'apar'])
+            ->whereHas('apar', function ($q) use ($query) {
+                $q->where('nomor_apar', 'like', "%{$query}%");
+            })
+            ->orWhereHas('lokasi', function ($q) use ($query) {
+                $q->where('nama_gedung', 'like', "%{$query}%")
+                    ->orWhere('nama_ruangan', 'like', "%{$query}%");
+            })
+            ->get();
+
+        return response()->json($barcodes);
     }
 }

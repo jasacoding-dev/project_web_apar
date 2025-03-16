@@ -4,7 +4,7 @@
 
 @section('content')
 <!-- Form Container -->
-<main class="p-6 mt-16 max-w-full mx-auto"> <!-- mt-4 untuk mendekatkan ke tombol back -->
+<main class="p-6 mt-16 max-w-full mx-auto">
     <div class="bg-white shadow-md rounded-b-lg p-4 w-auto sm:w-[96%] md:w-full min-h-[96vh] md:min-h-[80vh] flex flex-col justify-start overflow-auto">
         <!-- Header (Search Bar, Dropdown, and Add Button) -->
         <div class="flex flex-row items-center justify-between w-full mb-4">
@@ -16,6 +16,7 @@
                     </svg>
                     <input
                         type="text"
+                        id="search"
                         placeholder="Cari..."
                         class="bg-transparent outline-none w-full ml-2 text-sm text-gray-600">
                 </div>
@@ -29,14 +30,14 @@
                         </svg>
                     </button>
                     <div id="dropdownMenu1" class="absolute right-0 mt-2 w-40 bg-white border border-gray-300 shadow-lg rounded-lg hidden overflow-hidden">
-                        <ul class="py-2">
-                            <li><a href="#" class="dropdown-option block px-4 py-2 hover:bg-[#0168AD] text-gray-700"> 1</a></li>
-                            <li><a href="#" class="dropdown-option block px-4 py-2 hover:bg-[#0168AD] text-gray-700">Tipe 2</a></li>
-                            <li><a href="#" class="dropdown-option block px-4 py-2 hover:bg-[#0168AD] text-gray-700">Tipe 3</a></li>
+                        <ul id="jenis-media-dropdown" class="py-2">
+                            <li class="px-4 py-2 cursor-pointer hover:bg-yellow-400" data-value="">Semua</li>
+                            @foreach ($mediaApar as $media)
+                            <li class="px-4 py-2 cursor-pointer hover:bg-yellow-400" data-value="{{ $media->id }}">{{ $media->nama_media }}</li>
+                            @endforeach
                         </ul>
                     </div>
                 </div>
-
             </div>
 
             <!-- Add Button -->
@@ -45,44 +46,7 @@
             </a>
         </div>
 
-        <style>
-            /* Tambahkan class khusus agar tidak konflik */
-            .rotate-180-dropdown {
-                transform: rotate(180deg);
-            }
-        </style>
-
-        <script>
-            document.getElementById("dropdownButton1").addEventListener("click", function() {
-                let dropdownMenu = document.getElementById("dropdownMenu1");
-                let dropdownIcon = document.getElementById("dropdownIcon1");
-
-                dropdownMenu.classList.toggle("hidden");
-                dropdownIcon.classList.toggle("rotate-180-dropdown"); // Menggunakan class unik agar tidak bentrok dengan sidebar
-            });
-
-            document.querySelectorAll(".dropdown-option").forEach(item => {
-                item.addEventListener("click", function(event) {
-                    event.preventDefault();
-                    document.getElementById("dropdownText1").innerText = this.innerText;
-                    document.getElementById("dropdownMenu1").classList.add("hidden");
-                    document.getElementById("dropdownIcon1").classList.remove("rotate-180-dropdown"); // Reset ikon setelah memilih
-                });
-            });
-
-            // Close dropdown when clicking outside
-            document.addEventListener("click", function(event) {
-                let dropdown = document.getElementById("dropdownMenu1");
-                let button = document.getElementById("dropdownButton1");
-
-                if (!button.contains(event.target) && !dropdown.contains(event.target)) {
-                    dropdown.classList.add("hidden");
-                    document.getElementById("dropdownIcon1").classList.remove("rotate-180-dropdown"); // Reset ikon jika klik di luar
-                }
-            });
-        </script>
-
-
+        <!-- Table Container -->
         <div class="w-full min-h-screen md:w-full md:min-h-12 lg:w-full max-h-[360px] overflow-y-auto overflow-x-auto border border-gray-300 rounded-lg shadow-md">
             <table class="w-full border-collapse border border-gray-300">
                 <thead>
@@ -92,8 +56,7 @@
                         <th class="border border-gray-300 px-4 py-2 text-left min-w-[200px]">Model Tabung</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <!-- Data pengguna -->
+                <tbody id="apar-table-body">
                     @foreach($apars as $apar)
                     <tr class="bg-white">
                         <td class="border border-gray-300 px-4 py-2 font-bold">
@@ -103,10 +66,62 @@
                         <td class="border border-gray-300 px-4 py-2">{{ $apar->modelTabung->model_tabung ?? '-' }}</td>
                     </tr>
                     @endforeach
-                    <!-- Tambahkan lebih banyak data jika perlu -->
                 </tbody>
             </table>
         </div>
+    </div>
+</main>
 
+<script>
+    document.getElementById("dropdownButton1").addEventListener("click", function() {
+        let dropdownMenu = document.getElementById("dropdownMenu1");
+        let dropdownIcon = document.getElementById("dropdownIcon1");
 
-        @endsection
+        dropdownMenu.classList.toggle("hidden");
+        dropdownIcon.classList.toggle("rotate-180-dropdown");
+    });
+
+    document.querySelectorAll("#jenis-media-dropdown li").forEach(item => {
+        item.addEventListener("click", function(event) {
+            event.preventDefault();
+            document.getElementById("dropdownText1").innerText = this.innerText;
+            document.getElementById("dropdownMenu1").classList.add("hidden");
+            document.getElementById("dropdownIcon1").classList.remove("rotate-180-dropdown");
+
+            // Ambil nilai yang dipilih dari dropdown
+            let selectedMediaId = this.getAttribute("data-value");
+            let searchQuery = document.getElementById("search").value;
+
+            // Kirim permintaan AJAX untuk filter dan pencarian
+            fetchData(searchQuery, selectedMediaId);
+        });
+    });
+
+    document.getElementById("search").addEventListener("input", function() {
+        let searchQuery = this.value;
+        let selectedMediaId = document.querySelector("#jenis-media-dropdown li[data-value]").getAttribute("data-value");
+
+        // Kirim permintaan AJAX untuk filter dan pencarian
+        fetchData(searchQuery, selectedMediaId);
+    });
+
+    function fetchData(searchQuery, mediaId) {
+        fetch(`/search-apar?query=${searchQuery}&media_id=${mediaId}`)
+            .then(response => response.json())
+            .then(data => {
+                let tbody = document.getElementById("apar-table-body");
+                tbody.innerHTML = '';
+                data.forEach(apar => {
+                    let row = `<tr class="bg-white">
+                        <td class="border border-gray-300 px-4 py-2 font-bold">
+                            <a href="/apar/${apar.id}" class="text-blue-500 hover:underline">${apar.nomor_apar}</a>
+                        </td>
+                        <td class="border border-gray-300 px-4 py-2">${apar.jenis_media?.nama_media ?? '-'}</td>
+                        <td class="border border-gray-300 px-4 py-2">${apar.model_tabung?.model_tabung ?? '-'}</td>
+                    </tr>`;
+                    tbody.innerHTML += row;
+                });
+            });
+    }
+</script>
+@endsection

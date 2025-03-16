@@ -137,6 +137,48 @@
                     placeholder="Masukkan Nomor Tabung">
             </div>
 
+            <!-- Form Lokasi Gedung -->
+            <div>
+                <label for="nama_gedung" class="block text-sm font-medium text-gray-700 mt-4">
+                    Lokasi Gedung<span class="text-red-500">*</span>
+                </label>
+                <div class="relative">
+                    <button type="button" id="nama_gedung-button" class="mt-1 block w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 text-sm focus:ring-[#6C757D] focus:border-[#6C757D] text-[#6C757D] flex justify-between items-center z-50">
+                        {{ $apar->lokasis->first()->nama_gedung ?? 'Pilih Gedung' }}
+                        <svg id="nama_gedung-icon" class="w-5 h-5 ml-2 transform transition-transform duration-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="none" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 7l7 7 7-7"></path>
+                        </svg>
+                    </button>
+                    <ul id="nama_gedung-dropdown" class="relative w-full mt-2 bg-white border border-gray-300 rounded-lg shadow-lg hidden z-20">
+                        @foreach ($gedungs as $gedung)
+                        <li class="px-4 py-2 cursor-pointer hover:bg-yellow-400" data-value="{{ $gedung->nama_gedung }}">{{ $gedung->nama_gedung }}</li>
+                        @endforeach
+                    </ul>
+                    <input type="hidden" name="nama_gedung" id="nama_gedung" value="{{ $apar->lokasis->first()->nama_gedung ?? '' }}">
+                </div>
+            </div>
+
+            <!-- Form Lokasi Ruangan -->
+            <div>
+                <label for="nama_ruangan" class="block text-sm font-medium text-gray-700 mt-4">
+                    Lokasi Ruangan<span class="text-red-500">*</span>
+                </label>
+                <div class="relative">
+                    <button type="button" id="nama_ruangan-button" class="mt-1 block w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 text-sm focus:ring-[#6C757D] focus:border-[#6C757D] text-[#6C757D] flex justify-between items-center z-50">
+                        {{ $apar->lokasis->first()->nama_ruangan ?? 'Pilih Ruangan' }}
+                        <svg id="nama_ruangan-icon" class="w-5 h-5 ml-2 transform transition-transform duration-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="none" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 7l7 7 7-7"></path>
+                        </svg>
+                    </button>
+                    <ul id="nama_ruangan-dropdown" class="relative w-full mt-2 bg-white border border-gray-300 rounded-lg shadow-lg hidden z-20">
+                        @foreach ($ruangans as $ruangan)
+                        <li class="px-4 py-2 cursor-pointer hover:bg-yellow-400" data-value="{{ $ruangan->nama_ruangan }}" data-gedung="{{ $ruangan->nama_gedung }}">{{ $ruangan->nama_ruangan }}</li>
+                        @endforeach
+                    </ul>
+                    <input type="hidden" name="nama_ruangan" id="nama_ruangan" value="{{ $apar->lokasis->first()->nama_ruangan ?? '' }}">
+                </div>
+            </div>
+
             <!-- Tanggal Kadaluarsa -->
             <div>
                 <label for="tanggal_kadaluwarsa" class="block text-sm font-medium text-gray-700 mt-4">
@@ -248,9 +290,36 @@
 
         // Inisialisasi dropdown Jenis Media
         setupDropdown('jenis-media-button', 'jenis-media-dropdown', 'jenis-media-icon', 'jenis_media_id');
-
-        // Setup dropdown untuk model tabung
         setupDropdown('model-tabung-button', 'model-tabung-dropdown', 'model-tabung-icon', 'model_tabung_id');
+        setupDropdown('nama_gedung-button', 'nama_gedung-dropdown', 'nama_gedung-icon', 'nama_gedung');
+        setupDropdown('nama_ruangan-button', 'nama_ruangan-dropdown', 'nama_ruangan-icon', 'nama_ruangan');
+
+        // Filter ruangan berdasarkan gedung yang dipilih
+        const gedungDropdown = document.getElementById('nama_gedung-dropdown');
+        const ruanganDropdown = document.getElementById('nama_ruangan-dropdown');
+        const ruanganItems = ruanganDropdown.querySelectorAll('li');
+
+        gedungDropdown.addEventListener('click', (event) => {
+            if (event.target.tagName === 'LI') {
+                const selectedGedung = event.target.dataset.value;
+
+                // Sembunyikan semua ruangan
+                ruanganItems.forEach(item => {
+                    item.style.display = 'none';
+                });
+
+                // Tampilkan ruangan yang sesuai dengan gedung yang dipilih
+                ruanganItems.forEach(item => {
+                    if (item.dataset.gedung === selectedGedung) {
+                        item.style.display = 'block';
+                    }
+                });
+
+                // Reset pilihan ruangan
+                document.getElementById('nama_ruangan-button').innerHTML = 'Pilih Ruangan <svg id="nama_ruangan-icon" class="w-5 h-5 ml-2 transform transition-transform duration-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="none" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 7l7 7 7-7"></path></svg>';
+                document.getElementById('nama_ruangan').value = '';
+            }
+        });
     </script>
 
 
