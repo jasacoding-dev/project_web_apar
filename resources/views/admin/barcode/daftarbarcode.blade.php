@@ -82,41 +82,63 @@
         </div>
 
         <style>
-            @media print {
-                body * {
-                    visibility: hidden;
-                }
+     @media print {
+    body * {
+        visibility: hidden;
+        background: none !important;
+    }
 
-                #modal,
-                #modal * {
-                    visibility: visible;
-                }
+    #modal,
+    #modal * {
+        background: none !important;
+        visibility: visible;
+    }
 
-                #modal {
-                    position: absolute;
-                    left: 0;
-                    top: 0;
-                    width: 100%;
-                    height: 100%;
-                }
+    #modal {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        padding: 0;
+        margin: 0;
+    }
 
-                #barcode-container {
-                    display: flex;
-                    flex-wrap: wrap;
-                    gap: 20px;
-                }
+    #barcode-container {
+        background: none !important;
+        display: grid;
+        grid-template-columns: repeat(4, 22mm); /* Maksimal 3 kolom per baris */
+        column-gap: 84px; /* Spasi horizontal (jarak antar barcode ke kanan) */
+    row-gap: 86px; /* Spasi vertikal (jarak antar barcode ke bawah) */
+        justify-content: center;
+        align-items: flex-start;
+        margin-top: -100px;
+        margin-left: 80px; /* Tambahkan spasi ke kanan */
 
-                #barcode-container>div {
-                    flex: 1 1 calc(33.33% - 20px);
-                    max-width: calc(33.33% - 20px);
-                    box-sizing: border-box;
-                }
+    }
 
-                #barcode-container canvas {
-                    width: 100% !important;
-                    height: auto !important;
-                }
-            }
+    #barcode-container > div {
+        background: none !important;
+        width: 40mm;
+        height: 40mm;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        page-break-inside: avoid;
+    }
+
+    #barcode-container canvas {
+        background: none !important;
+        width: 40mm !important;
+        height: 40mm !important;
+    }
+}
+
         </style>
 
         <!-- JsBarcode Library -->
