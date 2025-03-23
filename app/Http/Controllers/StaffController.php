@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Mail\ResetPasswordMailStaff;
+use App\Models\Barcode;
 use App\Models\Lokasi;
+use App\Models\PerbaikanBarcodeSparepart;
+use App\Models\PerbaikanLaporanKustom;
+use App\Models\Sparepart;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -246,6 +250,18 @@ class StaffController extends Controller
         return view('staff.lokasi.tambahlokasi');
     }
 
+    public function searchlokasi(Request $request)
+    {
+        $query = $request->input('query');
+
+        $lokasis = Lokasi::where('nama_gedung', 'like', "%{$query}%")
+            ->orWhere('nama_ruangan', 'like', "%{$query}%")
+            ->orWhere('tanggal_kadaluwarsa', 'like', "%{$query}%")
+            ->get();
+
+        return response()->json($lokasis);
+    }
+
     public function storelokasi(Request $request)
     {
         // Validasi input
@@ -352,7 +368,7 @@ class StaffController extends Controller
         $filePath = storage_path('app/public/lokasi_foto/' . $lokasi->foto);
         if ($lokasi->foto && Storage::exists($filePath)) {
             Storage::delete($filePath);
-        } 
+        }
         // Hapus data dari database
         $lokasi->delete();
 
@@ -363,6 +379,141 @@ class StaffController extends Controller
     //Barcode
     public function indexbarcode()
     {
-        return view('staff.barcode.barcode');
+        $barcodes = Barcode::with(['lokasi', 'apar'])->get();
+        return view('staff.barcode.barcode', compact('barcodes'));
     }
+
+    public function searchbarcode(Request $request)
+    {
+        $query = $request->input('query');
+
+        $barcodes = Barcode::with(['lokasi', 'apar'])
+            ->whereHas('apar', function ($q) use ($query) {
+                $q->where('nomor_apar', 'like', "%{$query}%");
+            })
+            ->orWhereHas('lokasi', function ($q) use ($query) {
+                $q->where('nama_gedung', 'like', "%{$query}%")
+                    ->orWhere('nama_ruangan', 'like', "%{$query}%");
+            })
+            ->get();
+
+        return response()->json($barcodes);
+    }
+
+    public function showScanPage()
+    {
+        return view('staff.barcode.scan-barcode');
+    }
+
+    public function showDetailbarcode($nomor_apar)
+    {
+        $barcode = Barcode::with(['lokasi', 'apar'])
+            ->whereHas('apar', function ($query) use ($nomor_apar) {
+                $query->where('nomor_apar', $nomor_apar);
+            })
+            ->first();
+
+        if (!$barcode) {
+            return redirect()->back()->with('error', 'Barcode tidak ditemukan.');
+        }
+
+        return view('staff.barcode.detailbarcode', compact('barcode'));
+    }
+
+    public function updateStatus(Request $request, $nomor_apar)
+    {
+        $request->validate([
+            'status' => 'required|in:Baik,Perlu Perbaikan,Refilling,Kustom',
+        ]);
+
+        // Temukan barcode berdasarkan nomor_apar
+        $barcode = Barcode::whereHas('apar', function ($query) use ($nomor_apar) {
+            $query->where('nomor_apar', $nomor_apar);
+        })->firstOrFail();
+
+        // Update status
+        $barcode->status = $request->status;
+        $barcode->save();
+
+        // Redirect berdasarkan status yang dipilih
+        switch ($request->status) {
+            case 'Baik':
+                return redirect()->route('barcode.index');
+            case 'Perlu Perbaikan':
+                return redirect()->route('staff.status.perbaikan', $nomor_apar);
+            case 'Kustom':
+                return redirect()->route('staff.status.kustom', $nomor_apar);
+            case 'Refilling':
+                return redirect()->back()->with('success', 'Permohonan refilling berhasil diajukan.');
+            default:
+                return redirect()->back()->with('error', 'Status tidak valid.');
+        }
+    }
+
+    //Perbaiki Sparepart
+    public function statusperbaikan($nomor_apar)
+    {
+        $spareparts = Sparepart::all();
+        return view('staff.status.perbaikan', compact('spareparts', 'nomor_apar'));
+    }
+
+    public function storesparepart(Request $request, $nomor_apar)
+    {
+        $request->validate([
+            'spareparts' => 'required|array',
+            'spareparts.*' => 'exists:spareparts,id',
+        ]);
+
+        $barcode = Barcode::whereHas('apar', function ($query) use ($nomor_apar) {
+            $query->where('nomor_apar', $nomor_apar);
+        })->first();
+
+        if (!$barcode) {
+            return redirect()->back()->with('error', 'Barcode tidak ditemukan.');
+        }
+
+        foreach ($request->spareparts as $sparepartId) {
+            PerbaikanBarcodeSparepart::create([
+                'id_barcode' => $barcode->id,
+                'id_sparepart' => $sparepartId,
+            ]);
+        }
+    
+        return redirect()->route('barcode.index')->with('success', 'Data sparepart berhasil disimpan.');
+    }
+    //End Perbaiki Sparepart
+
+    //Perbaikan Kustom
+    public function statuskustom($nomor_apar)
+    {
+        return view('staff.status.kustom', compact('nomor_apar'));
+    }
+
+
+    public function storekustom(Request $request, $nomor_apar)
+    {
+        $request->validate([
+            'temuan' => 'required|string',
+            'jumlah' => 'required|integer',
+            'rencana_tindak_lanjut' => 'required|in:perlu_pengecekan,perlu_pengadaan,perlu_penggantian',
+        ]);
+
+        $barcode = Barcode::whereHas('apar', function ($query) use ($nomor_apar) {
+            $query->where('nomor_apar', $nomor_apar);
+        })->first();
+
+        if (!$barcode) {
+            return redirect()->back()->with('error', 'Barcode tidak ditemukan.');
+        }
+
+        PerbaikanLaporanKustom::create([
+            'id_barcode' => $barcode->id,
+            'temuan' => $request->temuan,
+            'jumlah' => $request->jumlah,
+            'rencana_tindak_lanjut' => $request->rencana_tindak_lanjut,
+        ]);
+
+        return redirect()->route('barcode.index')->with('success', 'Laporan kustom berhasil disimpan.');
+    }
+    //End Perbaikan Kustom
 }

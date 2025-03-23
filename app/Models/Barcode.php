@@ -12,6 +12,7 @@ class Barcode extends Model
     protected $fillable = [
         'id_lokasi',
         'id_apar',
+        'status',
     ];
 
     public function lokasi()
@@ -22,5 +23,10 @@ class Barcode extends Model
     public function apar()
     {
         return $this->belongsTo(Apar::class, 'id_apar');
+    }
+    
+    public function spareparts()
+    {
+        return $this->belongsToMany(Sparepart::class, 'perbaikan_sparepart_barcodes', 'id_barcode', 'id_sparepart');
     }
 }

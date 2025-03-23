@@ -16,4 +16,9 @@ class Sparepart extends Model
         'keterangan',
         'foto',
     ];
+
+    public function barcodes()
+    {
+        return $this->belongsToMany(Barcode::class, 'perbaikan_sparepart_barcodes', 'id_sparepart', 'id_barcode');
+    }
 }

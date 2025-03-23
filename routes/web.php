@@ -109,6 +109,7 @@ Route::middleware(['auth', 'role:client'])->group(function () {
 
 Route::middleware(['auth', 'role:staff'])->group(function () {
     Route::get('/staff/lokasi', [StaffController::class, 'index'])->name('staff.index');
+    Route::get('/search-lokasi', [StaffController::class, 'searchlokasi'])->name('search.lokasi');
     Route::get('/staff/lokasi/create', [StaffController::class, 'createlokasi'])->name('staff.lokasi.create');
     Route::post('/staff/lokasi/store', [StaffController::class, 'storelokasi'])->name('staff.lokasi.store');
     Route::get('/staff/lokasi/{id}/show', [StaffController::class, 'showlokasi'])->name('staff.lokasi.show');
@@ -118,10 +119,14 @@ Route::middleware(['auth', 'role:staff'])->group(function () {
 
 
     Route::get('/staff/barcode', [StaffController::class, 'indexbarcode'])->name('barcode.index');
-
-    Route::get('staff/detailbarcode', function () {
-        return view('staff.detailbarcode');
-    })->name('detailbarcode');
+    Route::get('/search-barcode', [StaffController::class, 'searchbarcode'])->name('search.barcode');
+    Route::get('/staff/scan-barcode', [StaffController::class, 'showScanPage'])->name('staff.scan.barcode');
+    Route::get('/staff/barcode/detail/{nomor_apar}', [StaffController::class, 'showDetailbarcode'])->name('staff.barcode.detail');
+    Route::post('/staff/barcode/detail/{nomor_apar}/update-status', [StaffController::class, 'updateStatus'])->name('barcode.updateStatus');
+    Route::get('/staff/barcode/perbaikan/{nomor_apar}', [StaffController::class, 'statusperbaikan'])->name('staff.status.perbaikan');   
+    Route::post('/staff/barcode/perbaikan/{nomor_apar}/store', [StaffController::class, 'storesparepart'])->name('staff.status.perbaikan.store');
+    Route::get('/staff/barcode/kustom/{nomor_apar}', [StaffController::class, 'statuskustom'])->name('staff.status.kustom');
+    Route::post('/staff/barcode/kustom/{nomor_apar}/store', [StaffController::class, 'storekustom'])->name('laporan.kustom.store');
 
 
     Route::get('/staff/profil', [StaffController::class, 'profile'])->name('staff.profile');

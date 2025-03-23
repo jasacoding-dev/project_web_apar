@@ -11,11 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('barcodes', function (Blueprint $table) {
+        Schema::create('perbaikan_laporan_kustom', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('id_lokasi')->constrained('lokasis')->onDelete('cascade');
-            $table->foreignId('id_apar')->constrained('apars')->onDelete('cascade');
-            $table->enum('status', ['Baik', 'Perlu Perbaikan', 'Refilling', 'Kustom'])->default('Baik');
+            $table->foreignId('id_barcode')->constrained('barcodes')->onDelete('cascade');
+            $table->text('temuan');
+            $table->integer('jumlah');
+            $table->enum('rencana_tindak_lanjut', ['perlu_pengecekan', 'perlu_pengadaan', 'perlu_penggantian']);
             $table->timestamps();
         });
     }
@@ -25,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('barcodes');
+        Schema::dropIfExists('perbaikan_laporan_kustom');
     }
 };

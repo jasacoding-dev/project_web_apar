@@ -5,7 +5,7 @@
 @section('content')
 
 <!-- Form Container -->
-<main class="p-6 mt-16 max-w-full mx-auto"> <!-- mt-4 untuk mendekatkan ke tombol back -->
+<main class="p-6 mt-16 max-w-full mx-auto">
     <div class="bg-white shadow-md rounded-b-lg p-4 w-auto sm:w-[96%] md:w-full min-h-[96vh] md:min-h-[80vh] flex flex-col justify-start overflow-auto">
         <!-- Header (Search Bar and Add Button) -->
         <div class="flex flex-row items-center justify-between w-full space-x-4 mb-4">
@@ -16,11 +16,12 @@
                 </svg>
                 <input
                     type="text"
+                    id="search"
                     placeholder="Cari..."
                     class="bg-transparent outline-none w-full ml-2 text-sm text-gray-600">
             </div>
 
-            <a href="/staff/detailbarcode" class="cursor-pointer bg-[#FFDF00] text-black font-bold px-6 py-2 rounded-lg flex items-center space-x-2 whitespace-nowrap">
+            <a href="{{ route('staff.scan.barcode') }}" class="cursor-pointer bg-[#FFDF00] text-black font-bold px-6 py-2 rounded-lg flex items-center space-x-2 whitespace-nowrap">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M3 8V6a2 2 0 012-2h2M3 16v2a2 2 0 002 2h2M21 8V6a2 2 0 00-2-2h-2M21 16v2a2 2 0 01-2 2h-2M7 8h10M7 16h10" />
                 </svg>
@@ -38,27 +39,53 @@
                         <th class="border border-gray-300 px-4 py-2 text-left min-w-[200px]">Status</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="barcode-table-body">
                     <!-- Data pengguna -->
+                    @foreach($barcodes as $barcode)
                     <tr class="bg-white">
                         <td class="border border-gray-300 px-4 py-2 font-bold">
-                            <a class="text-black">111</a>
+                            <a class="text-black">{{ $barcode->apar->nomor_apar }}</a>
                         </td>
-                        <td class="border border-gray-300 px-4 py-2">40</td>
-                        <td class="border border-gray-300 px-4 py-2">40 Desember 2024</td>
-                        <td class="border border-gray-300 px-4 py-2">40 Desember 2024</td>
+                        <td class="border border-gray-300 px-4 py-2">{{ $barcode->lokasi->nama_gedung }}</td>
+                        <td class="border border-gray-300 px-4 py-2">{{ $barcode->lokasi->nama_ruangan }}</td>
+                        <td class="border border-gray-300 px-4 py-2">{{ $barcode->status ?? 'N/A' }}</td>
                     </tr>
-                    <tr class="bg-white">
-                        <td class="border border-gray-300 px-4 py-2 font-bold">
-                            <a class="text-black">111</a>
-                        </td>
-                        <td class="border border-gray-300 px-4 py-2">40</td>
-                        <td class="border border-gray-300 px-4 py-2">40 Desember 2024</td>
-                        <td class="border border-gray-300 px-4 py-2">40 Desember 2024</td>
-
-                    </tr>
-                    <!-- Tambahkan lebih banyak data jika perlu -->
+                    @endforeach
                 </tbody>
             </table>
         </div>
-        @endsection
+    </div>
+</main>
+
+
+<script>
+    const searchInput = document.getElementById('search');
+
+    searchInput.addEventListener('input', function() {
+        const query = this.value;
+        fetchData(query);
+    });
+
+    function fetchData(query) {
+        fetch(`/search-barcode?query=${query}`)
+            .then(response => response.json())
+            .then(data => {
+                let tbody = document.getElementById("barcode-table-body");
+                tbody.innerHTML = '';
+
+                data.forEach(barcode => {
+                    const row = `<tr class="bg-white">
+                        <td class="border border-gray-300 px-4 py-2 font-bold">
+                            <a class="text-black">${barcode.apar.nomor_apar}</a>
+                        </td>
+                        <td class="border border-gray-300 px-4 py-2">${barcode.lokasi.nama_gedung}</td>
+                        <td class="border border-gray-300 px-4 py-2">${barcode.lokasi.nama_ruangan}</td>
+                        <td class="border border-gray-300 px-4 py-2">${barcode.status ?? 'N/A'}</td>
+                    </tr>`;
+                    tbody.innerHTML += row;
+                });
+            })
+            .catch(error => console.error('Error fetching data:', error));
+    }
+</script>
+@endsection
