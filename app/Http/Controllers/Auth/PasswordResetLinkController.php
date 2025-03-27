@@ -3,42 +3,66 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\RedirectResponse;
+use App\Mail\OTPMail;
+use App\Models\OTPCode;
+use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Password;
-use Illuminate\View\View;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Str;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Log;
 
 class PasswordResetLinkController extends Controller
 {
-    /**
-     * Display the password reset link request view.
-     */
-    public function create(): View
+    public function create()
     {
         return view('auth.forgot-password');
     }
 
-    /**
-     * Handle an incoming password reset link request.
-     *
-     * @throws \Illuminate\Validation\ValidationException
-     */
-    public function store(Request $request): RedirectResponse
+    public function store(Request $request)
     {
         $request->validate([
-            'email' => ['required', 'email'],
+            'email' => ['required', 'email', 'exists:users,email'],
         ]);
 
-        // We will send the password reset link to this user. Once we have attempted
-        // to send the link, we will examine the response then see the message we
-        // need to show to the user. Finally, we'll send out a proper response.
-        $status = Password::sendResetLink(
-            $request->only('email')
+        // Pastikan user ada
+        $user = User::where('email', $request->email)->first();
+        if (!$user) {
+            return back()->withErrors(['email' => 'Email tidak ditemukan']);
+        }
+
+        // Generate OTP (5 digit)
+        $otpCode = Str::random(5, '0123456789');
+        $expiresAt = Carbon::now()->addMinutes(5);
+
+        // Simpan OTP ke database
+        OTPCode::updateOrCreate(
+            ['email' => $request->email],
+            [
+                'code' => $otpCode,
+                'expires_at' => $expiresAt,
+                'created_at' => Carbon::now()
+            ]
         );
 
-        return $status == Password::RESET_LINK_SENT
-                    ? back()->with('status', __($status))
-                    : back()->withInput($request->only('email'))
-                        ->withErrors(['email' => __($status)]);
+        // Kirim email OTP
+        Mail::to($request->email)->send(new OTPMail($otpCode));
+
+        // Simpan email ke session (gunakan put dan save)
+        Session::put('otp_email', $request->email);
+        Session::save(); // Pastikan session disimpan
+
+        // Debugging
+        Log::info('Email stored in session', [
+            'email' => $request->email,
+            'session_email' => Session::get('otp_email'),
+            'otp_code' => $otpCode
+        ]);
+
+        return redirect()->route('password.otp')->with([
+            'email' => $request->email,
+            'status' => 'Kode OTP telah dikirim ke email Anda'
+        ]);
     }
 }

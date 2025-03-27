@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Mail\ResetPasswordMail;
 use App\Mail\ResetPasswordMailClient;
+use App\Models\Apar;
+use App\Models\Barcode;
 use App\Models\Lokasi;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -19,19 +21,86 @@ class ClientController extends Controller
 {
     public function dashboard()
     {
-        return view('client.dashboard');
+        $jumlahApar = Apar::count();
+        $jumlahLokasi = Lokasi::count();
+        return view('client.dashboard', compact('jumlahApar', 'jumlahLokasi'));
     }
 
     public function lokasi()
     {
         $lokasis = Lokasi::all();
-        return view('client.daftarlokasi', compact('lokasis'));
+        return view('client.lokasi.daftarlokasi', compact('lokasis'));
+    }
+
+    public function search(Request $request)
+    {
+        $query = $request->input('query');
+
+        $lokasis = Lokasi::where('nama_gedung', 'like', "%{$query}%")
+            ->orWhere('nama_ruangan', 'like', "%{$query}%")
+            ->orWhere('tanggal_kadaluwarsa', 'like', "%{$query}%")
+            ->get();
+
+        return response()->json($lokasis);
     }
 
     public function showlokasi($id)
     {
         $lokasi = Lokasi::findOrFail($id);
-        return view('client.detaillokasi', compact('lokasi'));
+        $riwayat = Barcode::where('id_lokasi', $id)
+            ->with(['perbaikanSparepart', 'perbaikanLaporanKustom'])
+            ->get();
+
+        $riwayatPerbaikan = Barcode::where('id_lokasi', $id)
+            ->where('status', 'Perlu Perbaikan')
+            ->with(['perbaikanSparepart', 'user']) // Ambil relasi sparepart dan user
+            ->get();
+
+        return view('client.lokasi.detaillokasi', compact('lokasi', 'riwayat', 'riwayatPerbaikan'));
+    }
+
+    public function showriwayat($id)
+    {
+        $barcode = Barcode::with(['perbaikanSparepart', 'perbaikanLaporanKustom'])
+            ->findOrFail($id);
+        return view('client.lokasi.riwayat.detailriwayat', compact('barcode'));
+    }
+
+    public function showriwayatperbaikan($id)
+    {
+        $barcode = Barcode::with(['perbaikanSparepart', 'perbaikanLaporanKustom', 'user'])
+            ->findOrFail($id);
+
+        return view('client.lokasi.riwayat.detailriwayat2', compact('barcode'));
+    }
+
+    public function notifications()
+    {
+        $notifications = Barcode::with(['user', 'apar', 'perbaikanLaporanKustom'])
+            ->orderBy('updated_at', 'desc')
+            ->get();
+
+        $notificationMessages = $notifications->map(function ($barcode) {
+            $message = "APAR di lokasi {$barcode->lokasi->alamat_gedung} dengan status {$barcode->status}";
+            switch ($barcode->status) {
+                case 'Baik':
+                    $message .= " - Tidak ada tindakan yang diperlukan.";
+                    break;
+                case 'Perlu Perbaikan':
+                    $message .= " - Perlu perbaikan segera.";
+                    break;
+                case 'Refilling':
+                    $message .= " - Perlu pengisian ulang.";
+                    break;
+                case 'Kustom':
+                    $tindakLanjut = $barcode->perbaikanLaporanKustom->first()->rencana_tindak_lanjut ?? 'Belum ada rencana';
+                    $message .= " - Rencana tindak lanjut: {$tindakLanjut}.";
+                    break;
+            }
+            return $message;
+        });
+        
+        return view('client.notifications', compact('notificationMessages'));
     }
 
     public function profile()

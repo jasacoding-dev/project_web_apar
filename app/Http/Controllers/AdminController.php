@@ -22,7 +22,7 @@ class AdminController extends Controller
     {
         $jumlahApar = Apar::count();
         $jumlahLokasi = Lokasi::count();
-        return view('admin.dashboard',compact('jumlahApar', 'jumlahLokasi'));
+        return view('admin.dashboard', compact('jumlahApar', 'jumlahLokasi'));
     }
 
     public function show()
@@ -262,5 +262,35 @@ class AdminController extends Controller
             ->get();
 
         return response()->json($barcodes);
+    }
+
+    //Notifications
+    public function notifications()
+    {
+        $notifications = Barcode::with(['user', 'apar', 'perbaikanLaporanKustom'])
+            ->orderBy('updated_at', 'desc')
+            ->get();
+
+        $notificationMessages = $notifications->map(function ($barcode) {
+            $message = "APAR di lokasi {$barcode->lokasi->alamat_gedung} dengan status {$barcode->status}";
+            switch ($barcode->status) {
+                case 'Baik':
+                    $message .= " - Tidak ada tindakan yang diperlukan.";
+                    break;
+                case 'Perlu Perbaikan':
+                    $message .= " - Perlu perbaikan segera.";
+                    break;
+                case 'Refilling':
+                    $message .= " - Perlu pengisian ulang.";
+                    break;
+                case 'Kustom':
+                    $tindakLanjut = $barcode->perbaikanLaporanKustom->first()->rencana_tindak_lanjut ?? 'Belum ada rencana';
+                    $message .= " - Rencana tindak lanjut: {$tindakLanjut}.";
+                    break;
+            }
+            return $message;
+        });
+        
+        return view('admin.notifications', compact('notificationMessages'));
     }
 }

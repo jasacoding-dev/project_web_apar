@@ -233,41 +233,41 @@
     <div class="bg-white shadow-md rounded-lg p-6 w-full mt-4">
         <h2 class="text-lg font-bold mb-4">Riwayat Pengecekan dan Perbaikan</h2>
 
-        <!-- Item 1 -->
+        <!-- Item 1: Riwayat Pengecekan -->
+        @foreach ($riwayat as $item)
         <div class="mb-4">
-            <button
-                class="w-full bg-[#F8FDFF] border border-gray-400 rounded-lg p-4 flex justify-between items-center hover:border-[#223E88] transition cursor-pointer"
-                type="button"
-                onclick="window.location.href='/admin/detailriwayat'">
+            <a href="{{ route('detail.riwayat.show', $item->id) }}"
+                class="w-full bg-[#F8FDFF] border border-gray-400 rounded-lg p-4 flex justify-between items-center hover:border-[#223E88] transition cursor-pointer">
                 <div class="text-left">
                     <p class="font-semibold">
-                        Pengecekan Agustus 2024 - Baik
+                        Pengecekan {{ $item->updated_at->format('F Y') }} - {{ $item->status }}
                     </p>
-                    <p class="text-sm text-gray-600">17 Agustus 2024</p>
+                    <p class="text-sm text-gray-600">{{ $item->updated_at->format('d F Y') }}</p>
                 </div>
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-gray-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M9 18l6-6-6-6" />
                 </svg>
-            </button>
+            </a>
         </div>
+        @endforeach
 
-
-        <!-- Item 2 -->
-        <div class="border border-gray-400 rounded-lg overflow-hidden hover:border-[#223E88] transition">
-            <button
-                class="w-full bg-[#F8FDFF] p-4 flex justify-between items-center cursor-pointer"
-                type="button"
-                onclick="window.location.href='/admin/detailriwayat2'">
+        <!-- Item 2: Riwayat Perbaikan -->
+        @foreach ($riwayatPerbaikan as $item)
+        <div class="border border-gray-400 rounded-lg overflow-hidden hover:border-[#223E88] transition mb-4">
+            <a href="{{ route('detail.perbaikan.show', $item->id) }}"
+                class="w-full bg-[#F8FDFF] p-4 flex justify-between items-center cursor-pointer">
                 <div class="text-left">
                     <p class="font-semibold">
-                        Perbaikan Agustus 2024 - Baik
+                        Perbaikan {{ $item->updated_at->format('F Y') }} - {{ $item->status }}
                     </p>
                     <p class="text-sm text-gray-600">Tidak Berfungsi</p>
                 </div>
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-gray-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M9 18l6-6-6-6" />
                 </svg>
-            </button>
+            </a>
         </div>
+        @endforeach
+    </div>
 
-        @endsection
+    @endsection

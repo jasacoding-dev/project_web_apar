@@ -11,12 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('perbaikan_laporan_kustom', function (Blueprint $table) {
+        Schema::create('otp_codes', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('id_barcode')->constrained('barcodes')->onDelete('cascade');
-            $table->text('temuan');
-            $table->integer('jumlah');
-            $table->enum('rencana_tindak_lanjut', ['Perlu Pengecekan', 'Perlu Pengadaan', 'Perlu Penggantian']);
+            $table->string('email');
+            $table->string('code', 5);
+            $table->timestamp('expires_at');
             $table->timestamps();
         });
     }
@@ -26,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('perbaikan_laporan_kustom');
+        Schema::dropIfExists('otp_codes');
     }
 };

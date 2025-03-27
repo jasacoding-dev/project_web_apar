@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Barcode;
 use App\Models\Lokasi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -74,7 +75,17 @@ class LokasiController extends Controller
     public function show($id)
     {
         $lokasi = Lokasi::findOrFail($id);
-        return view('admin.lokasi.detaillokasi', compact('lokasi'));
+
+        $riwayat = Barcode::where('id_lokasi', $id)
+            ->with(['perbaikanSparepart', 'perbaikanLaporanKustom'])
+            ->get();
+
+        $riwayatPerbaikan = Barcode::where('id_lokasi', $id)
+            ->where('status', 'Perlu Perbaikan')
+            ->with(['perbaikanSparepart', 'user']) // Ambil relasi sparepart dan user
+            ->get();
+
+        return view('admin.lokasi.detaillokasi', compact('lokasi', 'riwayat', 'riwayatPerbaikan'));
     }
 
     public function edit($id)
@@ -142,5 +153,20 @@ class LokasiController extends Controller
         $lokasi->delete();
 
         return response()->json(['message' => 'Data Lokasi berhasil dihapus'], 200);
+    }
+
+    public function showriwayat($id)
+    {
+        $barcode = Barcode::with(['perbaikanSparepart', 'perbaikanLaporanKustom'])
+            ->findOrFail($id);
+        return view('admin.lokasi.riwayat.detailriwayat', compact('barcode'));
+    }
+
+    public function showriwayatperbaikan($id)
+    {
+        $barcode = Barcode::with(['perbaikanSparepart', 'perbaikanLaporanKustom','user'])
+            ->findOrFail($id);
+
+        return view('admin.lokasi.riwayat.detailriwayat2', compact('barcode'));
     }
 }

@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('perbaikan_sparepart_barcodes', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->foreignId('id_barcode')->constrained('barcodes')->onDelete('cascade');
             $table->foreignId('id_sparepart')->constrained('spareparts')->onDelete('cascade');
             $table->timestamps();

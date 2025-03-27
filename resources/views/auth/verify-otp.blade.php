@@ -24,15 +24,15 @@
 <!-- Form OTP -->
 <form method="POST" action="{{ route('password.otp.verify') }}" class="w-full flex flex-col items-center">
     @csrf
-
+    
     <!-- Input Kode Verifikasi -->
     <div class="w-full flex flex-col items-center mb-4 mt-8">
         <div class="flex space-x-3">
             @for ($i = 0; $i < 5; $i++)
-                <input type="text" name="otp[]" maxlength="1"
-                class="w-12 h-12 text-center border rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-200 font-bold"
-                required>
-                @endfor
+                <input type="text" name="otp[]" maxlength="1" 
+                       class="w-12 h-12 text-center border rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-200 font-bold" 
+                       required>
+            @endfor
         </div>
 
         <!-- Timer -->
@@ -46,13 +46,13 @@
     </div>
 
     @error('otp')
-    <div class="text-red-500 mb-4">{{ $message }}</div>
+        <div class="text-red-500 mb-4">{{ $message }}</div>
     @enderror
 
     <!-- Kirim Ulang -->
     <div class="text-center mt-3">
         <p class="text-gray-600 font-semibold text-sm">
-            Tidak menerima kode verifikasi?
+            Tidak menerima kode verifikasi? 
             <a href="{{ route('password.otp.resend') }}" class="text-[#E6C900] font-medium hover:underline">Kirim ulang</a>
         </p>
     </div>
@@ -72,15 +72,15 @@
     // Countdown timer
     let timeLeft = 60;
     const countdown = document.getElementById('countdown');
-
+    
     const timer = setInterval(() => {
         timeLeft--;
-
+        
         const minutes = Math.floor(timeLeft / 60);
         const seconds = timeLeft % 60;
-
+        
         countdown.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-
+        
         if (timeLeft <= 0) {
             clearInterval(timer);
         }
@@ -88,7 +88,7 @@
 
     // Auto-focus dan auto-tab untuk input OTP
     const inputs = document.querySelectorAll('input[name="otp[]"]');
-
+    
     inputs.forEach((input, index) => {
         input.addEventListener('input', () => {
             if (input.value.length === 1) {
@@ -97,7 +97,7 @@
                 }
             }
         });
-
+        
         input.addEventListener('keydown', (e) => {
             if (e.key === 'Backspace' && input.value.length === 0 && index > 0) {
                 inputs[index - 1].focus();

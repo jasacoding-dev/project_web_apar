@@ -16,6 +16,7 @@
                 </svg>
                 <input
                     type="text"
+                    id="search"
                     placeholder="Cari..."
                     class="bg-transparent outline-none w-full ml-2 text-sm text-gray-600">
             </div>
@@ -31,7 +32,7 @@
                         <th class="border border-gray-300 px-4 py-2 text-left min-w-[200px]">Tanggal Kadluwarsa</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="lokasi-table-body">
                     @foreach ($lokasis as $lokasi)
                     <!-- Data pengguna -->
                     <tr class="bg-white">
@@ -45,4 +46,33 @@
                 </tbody>
             </table>
         </div>
-        @endsection
+    </div>
+
+    <script>
+        document.getElementById("search").addEventListener("input", function() {
+            let searchQuery = this.value;
+
+            // Kirim permintaan AJAX untuk pencarian
+            fetchData(searchQuery);
+        });
+
+        function fetchData(searchQuery) {
+            fetch(`/staff-search-lokasi?query=${searchQuery}`)
+                .then(response => response.json())
+                .then(data => {
+                    let tbody = document.getElementById("lokasi-table-body");
+                    tbody.innerHTML = '';
+                    data.forEach(lokasi => {
+                        let row = `<tr class="bg-white">
+                        <td class="border border-gray-300 px-4 py-2 font-bold">
+                            <a href="/lokasi/${lokasi.id}" class="text-blue-500 hover:underline">${lokasi.nama_gedung}</a>
+                        </td>
+                        <td class="border border-gray-300 px-4 py-2">${lokasi.nama_ruangan}</td>
+                        <td class="border border-gray-300 px-4 py-2">${lokasi.tanggal_kadaluwarsa}</td>
+                    </tr>`;
+                        tbody.innerHTML += row;
+                    });
+                });
+        }
+    </script>
+    @endsection

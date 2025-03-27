@@ -12,6 +12,7 @@ class PerbaikanBarcodeSparepart extends Model
     protected $table = 'perbaikan_sparepart_barcodes';
 
     protected $fillable = [
+        'user_id',
         'id_sparepart',
         'id_barcode',
     ];

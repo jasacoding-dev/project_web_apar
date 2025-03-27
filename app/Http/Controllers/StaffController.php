@@ -305,7 +305,17 @@ class StaffController extends Controller
     public function showlokasi($id)
     {
         $lokasi = Lokasi::findOrFail($id);
-        return view('staff.lokasi.detaillokasi', compact('lokasi'));
+
+        $riwayat = Barcode::where('id_lokasi', $id)
+            ->with(['perbaikanSparepart', 'perbaikanLaporanKustom'])
+            ->get();
+
+        $riwayatPerbaikan = Barcode::where('id_lokasi', $id)
+            ->where('status', 'Perlu Perbaikan')
+            ->with(['perbaikanSparepart', 'user']) // Ambil relasi sparepart dan user
+            ->get();
+
+        return view('staff.lokasi.detaillokasi', compact('lokasi', 'riwayat', 'riwayatPerbaikan'));
     }
 
     public function editlokasi($id)
@@ -433,6 +443,7 @@ class StaffController extends Controller
 
         // Update status
         $barcode->status = $request->status;
+        $barcode->user_id = Auth::id();
         $barcode->save();
 
         // Redirect berdasarkan status yang dipilih
@@ -464,6 +475,7 @@ class StaffController extends Controller
             'spareparts.*' => 'exists:spareparts,id',
         ]);
 
+        $user_id = Auth::id();
         $barcode = Barcode::whereHas('apar', function ($query) use ($nomor_apar) {
             $query->where('nomor_apar', $nomor_apar);
         })->first();
@@ -474,11 +486,12 @@ class StaffController extends Controller
 
         foreach ($request->spareparts as $sparepartId) {
             PerbaikanBarcodeSparepart::create([
+                'user_id' => $user_id,
                 'id_barcode' => $barcode->id,
                 'id_sparepart' => $sparepartId,
             ]);
         }
-    
+
         return redirect()->route('barcode.index')->with('success', 'Data sparepart berhasil disimpan.');
     }
     //End Perbaiki Sparepart
@@ -516,4 +529,19 @@ class StaffController extends Controller
         return redirect()->route('barcode.index')->with('success', 'Laporan kustom berhasil disimpan.');
     }
     //End Perbaikan Kustom
+
+    public function showriwayat($id)
+    {
+        $barcode = Barcode::with(['perbaikanSparepart', 'perbaikanLaporanKustom'])
+            ->findOrFail($id);
+        return view('staff.lokasi.riwayat.detailriwayat', compact('barcode'));
+    }
+
+    public function showriwayatperbaikan($id)
+    {
+        $barcode = Barcode::with(['perbaikanSparepart', 'perbaikanLaporanKustom', 'user'])
+            ->findOrFail($id);
+
+        return view("staff.lokasi.riwayat.detailriwayat2", compact('barcode'));
+    }
 }
