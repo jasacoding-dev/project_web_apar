@@ -57,7 +57,7 @@
     });
 
     function fetchData(searchQuery) {
-        fetch(`/search-lokasi?query=${searchQuery}`)
+        fetch(`/staff-search-lokasi?query=${searchQuery}`)
             .then(response => response.json())
             .then(data => {
                 let tbody = document.getElementById("lokasi-table-body");

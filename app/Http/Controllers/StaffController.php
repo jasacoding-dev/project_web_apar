@@ -508,7 +508,7 @@ class StaffController extends Controller
         $request->validate([
             'temuan' => 'required|string',
             'jumlah' => 'required|integer',
-            'rencana_tindak_lanjut' => 'required|in:perlu_pengecekan,perlu_pengadaan,perlu_penggantian',
+            'rencana_tindak_lanjut' => 'required|in:Perlu Pengecekan,Perlu Pengadaan,Perlu Penggantian',
         ]);
 
         $barcode = Barcode::whereHas('apar', function ($query) use ($nomor_apar) {

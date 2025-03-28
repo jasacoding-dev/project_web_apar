@@ -60,9 +60,9 @@
                         </svg>
                     </button>
                     <ul id="role-dropdown" class="relative w-full mt-2 bg-white border border-gray-300 rounded-lg shadow-lg hidden">
-                        <li class="px-4 py-2 cursor-pointer hover:bg-yellow-400" data-tindak-lanjut="perlu_pengecekan">Perlu Pengecekan</li>
-                        <li class="px-4 py-2 cursor-pointer hover:bg-yellow-400" data-tindak-lanjut="perlu_pengadaan">Perlu Pengadaan</li>
-                        <li class="px-4 py-2 cursor-pointer hover:bg-yellow-400" data-tindak-lanjut="perlu_penggantian">Perlu Penggantian</li>
+                        <li class="px-4 py-2 cursor-pointer hover:bg-yellow-400" data-tindak-lanjut="Perlu Pengecekan">Perlu Pengecekan</li>
+                        <li class="px-4 py-2 cursor-pointer hover:bg-yellow-400" data-tindak-lanjut="Perlu Pengadaan">Perlu Pengadaan</li>
+                        <li class="px-4 py-2 cursor-pointer hover:bg-yellow-400" data-tindak-lanjut="Perlu Penggantian">Perlu Penggantian</li>
                     </ul>
                     <input type="hidden" name="rencana_tindak_lanjut" id="rencana_tindak_lanjut" required>
                 </div>

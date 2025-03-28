@@ -188,7 +188,7 @@
                 document.getElementById('search').addEventListener('input', function() {
                     const searchQuery = this.value;
 
-                    fetch(`/search-barcode?query=${searchQuery}`)
+                    fetch(`/admin-search-barcode?query=${searchQuery}`)
                         .then(response => response.json())
                         .then(data => {
                             const tbody = document.getElementById('barcode-table-body');

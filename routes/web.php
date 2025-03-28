@@ -48,7 +48,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::post('/admin/lupasandi2', [AdminController::class, 'resetPassword'])->name('admin.resetPassword');
 
     Route::get('admin/barcode', [AdminController::class, 'indexbarcode'])->name('admin.barcode');
-    Route::get('/search-barcode', [AdminController::class, 'searchbarcode'])->name('search.barcode');
+    Route::get('/admin-search-barcode', [AdminController::class, 'searchbarcode'])->name('search.barcode');
 
     Route::get('/admin/pengguna', [PenggunaController::class, 'index'])->name('pengguna.index');
     Route::get('/search-users', [PenggunaController::class, 'search'])->name('search.users');
@@ -117,7 +117,7 @@ Route::middleware(['auth', 'role:client'])->group(function () {
 
 Route::middleware(['auth', 'role:staff'])->group(function () {
     Route::get('/staff/lokasi', [StaffController::class, 'index'])->name('staff.index');
-    Route::get('/search-lokasi', [StaffController::class, 'searchlokasi'])->name('search.lokasi');
+    Route::get('/staff-search-lokasi', [StaffController::class, 'searchlokasi'])->name('search.lokasi');
     Route::get('/staff/lokasi/create', [StaffController::class, 'createlokasi'])->name('staff.lokasi.create');
     Route::post('/staff/lokasi/store', [StaffController::class, 'storelokasi'])->name('staff.lokasi.store');
     Route::get('/staff/lokasi/{id}/show', [StaffController::class, 'showlokasi'])->name('staff.lokasi.show');
