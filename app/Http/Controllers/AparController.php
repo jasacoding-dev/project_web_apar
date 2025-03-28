@@ -94,6 +94,7 @@ class AparController extends Controller
             if ($lokasi) {
                 // Simpan relasi ke tabel barcodes
                 Barcode::create([
+                    'user_id' => null,
                     'id_lokasi' => $lokasi->id,
                     'id_apar' => $apar->id,
                 ]);
