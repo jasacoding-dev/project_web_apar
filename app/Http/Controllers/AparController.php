@@ -68,7 +68,6 @@ class AparController extends Controller
             $fotoPath = null;
             if ($request->hasFile('foto')) {
                 $fotoPath = $request->file('foto')->store('apars', 'public');
-                $fotoPath = basename($fotoPath);
             }
 
             // Simpan data APAR
@@ -159,9 +158,12 @@ class AparController extends Controller
             }
 
             // Simpan file baru
+            if ($apar->foto) {
+                Storage::delete('public/' . $apar->foto);
+            }
+            // Simpan foto baru
             $fotoPath = $request->file('foto')->store('apars', 'public');
-            $apar->foto = basename($fotoPath);
-            $apar->save();
+            $apar->foto = $fotoPath;
 
             // Debugging: Log path file baru
             Log::info('File foto disimpan di:', ['path' => $fotoPath]);
@@ -182,7 +184,7 @@ class AparController extends Controller
         // Debugging: Log data APAR setelah diupdate
         Log::info('Data APAR setelah diupdate:', $apar->toArray());
 
-        return redirect()->route('apar.index')->with('success', 'Data APAR berhasil diperbarui.');
+        return redirect()->route('apar.show')->with('success', 'Data APAR berhasil diperbarui.');
     }
 
     public function destroy($id)

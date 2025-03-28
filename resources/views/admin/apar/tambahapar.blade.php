@@ -45,7 +45,7 @@
                     <input
                         type="text" id="Nomor Apar" name="nomor_apar"
                         class="mt-1 block w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 text-sm focus:ring-[#6C757D] focus:border-[#6C757D] text-[#6C757D]"
-                        placeholder="Gedung A">
+                        placeholder="Masukkan Nomor Apar">
                 </div>
 
                 <!-- Pemilik (Warna Client) -->
