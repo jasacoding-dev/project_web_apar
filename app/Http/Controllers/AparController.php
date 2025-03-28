@@ -142,8 +142,6 @@ class AparController extends Controller
 
         $apar = Apar::findOrFail($id);
 
-        $apar->update($request->except('foto'));
-
         // Handle file upload
         if ($request->hasFile('foto')) {
             // Debugging: Log informasi file
@@ -160,6 +158,7 @@ class AparController extends Controller
             // Simpan foto baru
             $fotoPath = $request->file('foto')->store('apars', 'public');
             $apar->foto = $fotoPath;
+            $apar->save();
 
             // Debugging: Log path file baru
             Log::info('File foto disimpan di:', ['path' => $fotoPath]);
