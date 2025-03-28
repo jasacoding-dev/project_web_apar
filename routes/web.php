@@ -78,7 +78,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::delete('/admin/sparepart/{id}', [SparepartController::class, 'destroy'])->name('sparepart.destroy');
 
     Route::get('admin/lokasi', [LokasiController::class, 'index'])->name('lokasi.index');
-    Route::get('/search-lokasi', [LokasiController::class, 'search'])->name('search.lokasi');
+    Route::get('/admin-search-lokasi', [LokasiController::class, 'search'])->name('search.lokasi');
     Route::get('admin/lokasi/create', [LokasiController::class, 'create'])->name('lokasi.create');
     Route::post('admin/lokasi/store', [LokasiController::class, 'store'])->name('lokasi.store');
     Route::get('admin/lokasi/{id}/show', [LokasiController::class, 'show'])->name('lokasi.show');
