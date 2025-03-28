@@ -156,7 +156,7 @@ class AparController extends Controller
             if ($apar->foto) {
                 Storage::delete('public/' . $apar->foto);
             }
-            
+
             // Simpan foto baru
             $fotoPath = $request->file('foto')->store('apars', 'public');
             $apar->foto = $fotoPath;
@@ -180,7 +180,7 @@ class AparController extends Controller
         // Debugging: Log data APAR setelah diupdate
         Log::info('Data APAR setelah diupdate:', $apar->toArray());
 
-        return redirect()->route('apar.show')->with('success', 'Data APAR berhasil diperbarui.');
+        return redirect()->route('apar.show', ['id' => $apar->id])->with('success', 'Data APAR berhasil diperbarui.');
     }
 
     public function destroy($id)
