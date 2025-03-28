@@ -153,14 +153,10 @@ class AparController extends Controller
             ]);
 
             // Hapus file lama jika ada
-            if ($apar->foto && Storage::exists('public/apars/' . $apar->foto)) {
-                Storage::delete('public/apars/' . $apar->foto);
-            }
-
-            // Simpan file baru
             if ($apar->foto) {
                 Storage::delete('public/' . $apar->foto);
             }
+            
             // Simpan foto baru
             $fotoPath = $request->file('foto')->store('apars', 'public');
             $apar->foto = $fotoPath;
