@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('barcodes', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade')->nullable();
+            $table->foreignId('user_id')->nullable()->constrained('users')->onDelete('cascade');
             $table->foreignId('id_lokasi')->constrained('lokasis')->onDelete('cascade');
             $table->foreignId('id_apar')->constrained('apars')->onDelete('cascade');
             $table->enum('status', ['Baik', 'Perlu Perbaikan', 'Refilling', 'Kustom'])->default('Baik');
